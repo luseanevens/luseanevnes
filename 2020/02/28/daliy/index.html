@@ -6,25 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="//cherium.fun">
-  <title>anaconda Install and Setting | Cherium&#39;s blogs</title>
+  <title>tags archive 测试 | Cherium&#39;s blogs</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="anaconda 安装配置过程原理&amp;emsp;&amp;emsp;不同版本的库需要不同的编译器版本，anaconda可以通过conda创建不同的环境，每个环境都有不同的python版本，可以在激活环境后安装对应的库，从而形成多个封装好的并对应不同应用需求的环境。其关系如下图所示：">
+  <meta name="description" content="hello hexo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="anaconda Install and Setting">
-<meta property="og:url" content="2020/02/28/anacondaInstallSetting/index.html">
+<meta property="og:title" content="tags archive 测试">
+<meta property="og:url" content="2020/02/28/daliy/index.html">
 <meta property="og:site_name" content="Cherium&#39;s blogs">
-<meta property="og:description" content="anaconda 安装配置过程原理&amp;emsp;&amp;emsp;不同版本的库需要不同的编译器版本，anaconda可以通过conda创建不同的环境，每个环境都有不同的python版本，可以在激活环境后安装对应的库，从而形成多个封装好的并对应不同应用需求的环境。其关系如下图所示：">
-<meta property="og:image" content="http://q6cszymrf.bkt.clouddn.com/img/20200227175719.png">
-<meta property="article:published_time" content="2020-02-27T19:53:10.407Z">
-<meta property="article:modified_time" content="2020-02-27T20:33:21.954Z">
+<meta property="og:description" content="hello hexo">
+<meta property="article:published_time" content="2020-02-28T05:01:23.000Z">
+<meta property="article:modified_time" content="2020-02-28T05:02:04.453Z">
 <meta property="article:author" content="Cherium">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="DIP">
-<meta property="article:tag" content="随笔">
+<meta property="article:tag" content="日记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://q6cszymrf.bkt.clouddn.com/img/20200227175719.png">
   
     <link rel="alternative" href="/atom.xml" title="Cherium&#39;s blogs" type="application/atom+xml">
   
@@ -185,14 +181,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-anacondaInstallSetting" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-daliy" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      anaconda Install and Setting
+      tags archive 测试
     </h1>
   
 
@@ -204,8 +200,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="2020/02/28/anacondaInstallSetting/" class="archive-article-date">
-        <time datetime="2020-02-27T19:53:10.407Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
+<a href="2020/02/28/daliy/" class="archive-article-date">
+        <time datetime="2020-02-28T05:01:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
 </a>
 
   
@@ -218,7 +214,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">344字</span>
+      <span class="post-count">2字</span>
     </span>
   </span>
 
@@ -238,30 +234,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h1 id="anaconda-安装配置过程"><a href="#anaconda-安装配置过程" class="headerlink" title="anaconda 安装配置过程"></a>anaconda 安装配置过程</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>&emsp;&emsp;不同版本的库需要不同的编译器版本，anaconda可以通过conda创建不同的环境，每个环境都有不同的python版本，可以在激活环境后安装对应的库，从而形成多个封装好的并对应不同应用需求的环境。其关系如下图所示：</p>
-<p><img src="http://q6cszymrf.bkt.clouddn.com/img/20200227175719.png" alt=""></p>
-<a id="more"></a>           
-
-<ul>
-<li><p>在<code>conda activate env</code>后，选取的环境被抽取出来作为当下的环境变量。</p>
-</li>
-<li><p>anconda自带一个版本的编译器作为自己运行环境的编译器，在安装中可以讲此编译器作为自己的环境变量，在此之前卸载已安装的Python发行版。</p>
-</li>
-<li><input checked="" disabled="" type="checkbox"> <p>在新的机器上，安装是推荐配置好Python和conda的环境变量。（打两个勾 ）</p>
-</li>
-<li><p>Opencv在3.4.2版本后有些算法因被申请专利而无法使用，配置环境使用Opencv ver 3.4.1.15 + Python ver 3.6.3。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">conda --version</span><br><span class="line">conda info --env       								<span class="comment">#列出所有环境</span></span><br><span class="line">conda create -n py3<span class="number">.6</span>cv3<span class="number">.4</span><span class="number">.1</span> python==<span class="number">3.6</span><span class="number">.3</span></span><br><span class="line">conda activate py3<span class="number">.6</span>cv3<span class="number">.4</span><span class="number">.1</span></span><br><span class="line">pip install opencv-python==<span class="number">3.4</span><span class="number">.1</span><span class="number">.15</span></span><br><span class="line">pip install opencv-contribe-python==<span class="number">3.4</span><span class="number">.1</span><span class="number">.15</span>		<span class="comment">#这个包拓展了一些当前opencv没有的算法</span></span><br><span class="line">conda deactivate</span><br><span class="line">conda remove --name py3<span class="number">.6</span>cv3<span class="number">.4</span><span class="number">.1</span>--all</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在网站上寻找一些版本较老的包</p>
-<ul>
-<li>[<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/">Unofficial Windows Binaries for Python Extension Packages</a>](<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/">Unofficial Windows Binaries for Python Extension Packages</a>)</li>
-<li><a href="https://pypi.tuna.tsinghua.edu.cn/simple/opencv-python/">pypi-tuna</a></li>
-</ul>
-</li>
-<li><p>下载到本地后<code>pip install %dirction%</code></p>
-</li>
-</ul>
-
+    <h1 id="hello-hexo"><a href="#hello-hexo" class="headerlink" title="hello hexo"></a>hello hexo</h1>
     
 
     
@@ -275,7 +248,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="/cherium.fun/2020/02/28/anacondaInstallSetting/" title="anaconda Install and Setting" target="_blank">/cherium.fun/2020/02/28/anacondaInstallSetting/</a>
+          <a href="/cherium.fun/2020/02/28/daliy/" title="tags archive 测试" target="_blank">/cherium.fun/2020/02/28/daliy/</a>
         </li>
         
         <li>
@@ -297,32 +270,13 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DIP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日记</a>
         		</li>
       		
 		</ul>
 	</div>
 
     
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/数字图像处理//" class="article-tag-list-link color2">数字图像处理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
     
 
@@ -372,7 +326,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http:2020/02/28/anacondaInstallSetting/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http:2020/02/28/daliy/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -387,15 +341,11 @@
 
 <nav id="article-nav">
   
-    <a href="2020/02/28/daliy/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          tags archive 测试
-        
-      </div>
-    </a>
   
+    <a href="2020/02/28/anacondaInstallSetting/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">anaconda Install and Setting</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
