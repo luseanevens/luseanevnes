@@ -186,6 +186,144 @@
             
 
   
+    <article id="post-UavContrallerDesign-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="2020/02/28/UavContrallerDesign-1/">UavContrallerDesign_1.1</a>
+	
+    </h1>
+  
+
+
+  
+  
+<a href="2020/02/28/UavContrallerDesign-1/" class="archive-article-date">
+        <time datetime="2020-02-28T14:18:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="无人机飞行控制技术"><a href="#无人机飞行控制技术" class="headerlink" title="无人机飞行控制技术"></a>无人机飞行控制技术</h1><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><blockquote>
+<p>Unfortunately,no one can be told what the Matrix is. You have to see it for yourself.</p>
+<p>​                                                                                                                                                    —— Morpheus</p>
+</blockquote>
+<h3 id="一、坐标变换（线性空间内的基变换）与线性变换"><a href="#一、坐标变换（线性空间内的基变换）与线性变换" class="headerlink" title="一、坐标变换（线性空间内的基变换）与线性变换"></a>一、坐标变换（线性空间内的基变换）与线性变换</h3><p><strong>变换</strong>&emsp; Transformations ：</p>
+<blockquote>
+<p>Transformation is essentially a fancy word for “function”, it’s something that takes in inputs and spits out an output for each one. Specifically, in the context of liner algebra, we like to think about transformations that take in some vector and spit out another vector. The word “transformation” suggests that using movement to understand “function of vectors”. If the transformation takes some input vector to some output vector,  we image that input vector moving over the output vector, and all vector in this dimensions do the same things.</p>
+</blockquote>
+<p>下图，是对二维空间进行的一种简单的线性变换:</p>
+<p><img src="http://q6cszymrf.bkt.clouddn.com/img/20200229225734.png" alt=""></p>
+<p>假设在原来的二维空间中存在等距、正交的网格线，其经过线性变换后，会转变为图像中交错的斜线。<br></p>
+<hr>
+<p><strong>线性变换</strong>&emsp;Liner Transformations：</p>
+<p>是一种最为简单的变换。与之相对，在复平面上的$f(z)= \frac{z^2}{2}$变换，会使得图像的网格线扭曲变形，也就不在是“线性”的变化了。我们认为线性变换有以下条件：</p>
+<blockquote>
+<p>All lines must remain lines without getting curved.         </p>
+<p>The origin must remain fixed in place，if it did, it’ll be an Affine Transformation.</p>
+</blockquote>
+<p>由此可知，线性变化是保持网格线<strong>平行且等距</strong>的变换，同时原点必须保持固定。一般线性变化表现为两个动作：==旋转==与==错切==，而具体表达这种转换的“函数”，就是<strong>矩阵</strong>。<br></p>
+<p>假设平面中存在一组标准正交基，处于一组标准的正交系上，向量$\vec a$ 为$(x,y)$。之后基底经过了一次线性变化。此时，变化后的基底在原来的坐标系上表示为$(a,b)$、$(c,d)$ ,则$\vec a_1$ 的坐标计算如下：<br>$$<br>\begin{equation}    \left[    \begin{array}{c}    x_1\y_1    \end{array}    \right]    =x    \left[    \begin{array}{c}    a\    b    \end{array}    \right]+y    \left[    \begin{array}{c}    c\d    \end{array}    \right    ]\end{equation}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad-1.1<br>$$<br>这是网格线保持平行且等距分布的重要推论：<br></p>
+<p>如果认为$\vec a$ 是由原来的正交基经过扩大$x$ 倍和$y$ 倍后相加得到的，他就是由这组标准正交基的一个特定的线性组合，即使空间经过了线性变换，依然不会影响参数 。这就代表这，一个二维的线性变化仅由四个数字来完全确定， 也就是经过线性转换得到的基底的坐标。将他们组合起来，就形成了一个$2*2$的矩阵。<br>$$<br>\begin{equation}    \left[    \begin{array}{c}    x_1\y_1    \end{array}    \right]    =        \left[    \begin{array}{c}    a&amp;&amp;c\    b&amp;&amp;d    \end{array}    \right    ]    \left[    \begin{array}{c}    x\    y    \end{array}    \right]\end{equation}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad-1.2<br>$$</p>
+<p>可以认为矩阵线性的”变换”了整个空间，也就线性的变换了空间中的所有向量。将$(a,b)$、$(c,d)$看作变换后的基向量，也就很容易理解式1.1中其实依旧是基底扩大$x$ 倍和$y$ 倍后相加的过程，在变化前后，<strong>参数保持不变</strong>。而矩阵就是“转换”的函数。矩阵先将基底$(1,0)$转换到了$(a,b)$，再将$(0,1)$转换到了$(c,d)$，其余的网格与之保持平行等距，最后达到了变换整个空间的目的。</p>
+<p><code>式-1.2</code>是极为特殊的，原因在于它是由平行且等距得出的结论，是最底层的运算法则，任何其他高纬度的同阶矩阵乘法都可以视为在标准正交基下的n组n阶向量，用n个系数与n个新基底求内积再复合的过程。这样理解可以极大的加快高阶矩阵乘法的运算速度。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>;<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>;<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>];</span><br><span class="line">&gt;&gt; A*A</span><br><span class="line"></span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line"></span><br><span class="line">    <span class="number">30</span>    <span class="number">36</span>    <span class="number">42</span></span><br><span class="line">    <span class="number">66</span>    <span class="number">81</span>    <span class="number">96</span></span><br><span class="line">   <span class="number">102</span>   <span class="number">126</span>   <span class="number">150</span></span><br></pre></td></tr></table></figure>
+
+<p>从这方面看来，矩阵乘法所要求的$j_A=i_B$也是为了要求矩阵乘法运算可以进行，若$i_A&lt;j_A=i_B$则会因错切导致B中的$j$维向量降维到$i$维(因为A只有$i$维)，B中向量的个数不变（$i$不变）。此时无法用上述方法理解，但是计算已经被简化了。若$i_A&gt;j_A=i_B$则A中多余的向量可由其余任意三个线性表示，并不影响计算。</p>
+<p>这样就可以得到一个结论：==线性变换矩阵A的行影响错切，列影响放缩==（把第二个矩阵的列向量上的元素都依次乘A的列向量的原因）。</p>
+<p>降维的效果：</p>
+<p><img src="http://q6cszymrf.bkt.clouddn.com/img/20200301003519.png" alt=""></p>
+<p>由此，就可以更加简单的理解矩阵的乘法。如果说一个矩阵代表了一次<code>function</code>, 那么矩阵==<strong>左乘</strong>==就代表了函数复合的过程，$f(g(x))$的映射符号$f$是在左侧嵌套的，这是一种约定的习惯，也就意味着矩阵乘积时我们需要从右往左的进行变换。这也方便了我们规定变换的次序。而我们最终要求出的结果矩阵，其实就是经过两次变换之后的基底，也是我们所要求出的结果和求解的导向。当两个$n$阶矩阵相乘时，右侧矩阵中的列向量代表了当前空间中的基底$\vec i、\vec j…$，而左侧的矩阵代表了变换，我们需要提出右侧矩阵中的每一列基底向量，与左侧矩阵做乘积（ <code>式-1.2</code> ），得出新的基底向量，组合成新的复合矩阵。</p>
+<p><img src="http://q6cszymrf.bkt.clouddn.com/img/20200301010223.png" alt=""></p>
+<p>侧面的证明了：$AB \not= BA$ ，这是一个复合（变化）的先后问题,以函数的角度讲，复合的内外颠倒了。<br></p>
+<p>同样侧面的证明了： $A(BC) = (AB)C$ ，从变化的顺序来看，对于整体并没有影响，（AB）C虽然先是B向A变化，但是之后C又向AB变换，变换的次序从整体来看是向左的，就好像三级复合函数一样$f(g(z(x)))$，可以先以$g(z(x))$为自变量复合，得到$q(z(x))$再次复合，得到的结果是一致的。令$C=E$，也会便于理解。<br><br>理解什么是基，什么是基的变换，变换的顺序，会保证矩阵的顺序不会出错，避免一些低级的问题。<br></p>
+<p><strong>总结</strong>：==线性空间转换处理的问题是空间中的所有向量经过矩阵线性变化之后，再用标准正交基表示的问题，在线性转化的过程中，向量本身发生了<strong>变化</strong>。==</p>
+<hr>
+<h4 id="基变换"><a href="#基变换" class="headerlink" title="基变换"></a>基变换</h4><p>==与线性空间转换相同==的是,基变换同样规定变换前后有<strong>相同的原点</strong>，认为是$0<em>\vec v$的值。但是基变换研究的向量本身相对于标准正交基$E$看来，并==*</em>没有发生改变**==。也就是说，基被某个矩阵转换了，如$\begin{bmatrix}a&amp;c\b&amp;d\end{bmatrix}$,但是这个待表示的向量没有变换。此时该向量在这两组基的表示下，参数是不相同的，如果已知一组参数，那么我们应该可以通过矩阵的变换，求出另一组参数。<br></p>
+<p>==与线性空间转换相同==的是,基变换同样有<strong>相同的原点</strong>，认为是$0*\vec v$的值。</p>
+<p>变换后的基底组成的复合矩阵，可以看作是变换，在变换后的基底看来是$(x,y)$，但在原来的正交基看来是:<br>$$<br>\left[\begin{array}{c}m\q\end{array}\right]=\begin{bmatrix}a&amp;c\b&amp;d\end{bmatrix}\left[\begin{array}{c}x\y\end{array}\right]\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad-1.3<br>$$<br>这是标准正交基来解释这组变换后的基底的结果。如果想要用这组基底来解释标准正交基表示的向量$(m,q)$，那么就变为了<br>$$<br>\left[\begin{array}{c}x\y\end{array}\right]=\begin{equation}\left[\begin{array}{c}a&amp;c\b&amp;d\end{array}\right]^{-1}\left[\begin{array}{c}m\q\end{array}\right]\end{equation}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad-1.4<br>$$</p>
+<p>这样就解决了==如何在坐标系之间对单个向量的描述进行相互转换==。但是如果要对这个向量$\left[\begin{array}{c}m\q\end{array}\right]$进行<strong>矩阵$M$的线性变换</strong>，用已经被变化了的基$\begin{bmatrix}a&amp;c\b&amp;d\end{bmatrix}$描述该向量的方法即$\left[\begin{array}{c}x\y\end{array}\right]$表示，该如何表示呢？</p>
+<blockquote>
+<p>An express like A^-1MA suggests a mathematical sort of empathy</p>
+</blockquote>
+<p>经过$M$变化,由<code>式-1.3</code>可知：<br>$$<br>Z=M\begin{bmatrix}a&amp;c\b&amp;d\end{bmatrix}\left[\begin{array}{c}x\y\end{array}\right]\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad-1.5<br>$$<br>这实际上是$M\left[\begin{array}{c}m\q\end{array}\right]$的结果，在由<code>式-1.4</code>转化到$\begin{bmatrix}a&amp;c\b&amp;d\end{bmatrix}$这组基底，则为:<br>$$<br>Z=\begin{equation}\left[\begin{array}{c}a&amp;c\b&amp;d\end{array}\right]^{-1}\end{equation}M\begin{bmatrix}a&amp;c\b&amp;d\end{bmatrix}\left[\begin{array}{c}x\y\end{array}\right]\qquad\qquad\qquad\qquad\qquad\qquad-1.6<br>$$<br>这样就表示了在基底$\begin{bmatrix}a&amp;c\b&amp;d\end{bmatrix}$看来$\left[\begin{array}{c}x\y\end{array}\right]$的$M$变换，其变换矩阵为：<br>$$<br>\begin{equation}\left[\begin{array}{c}a&amp;c\b&amp;d\end{array}\right]^{-1}\end{equation}M\begin{bmatrix}a&amp;c\b&amp;d\end{bmatrix}\qquad\qquad\qquad\qquad\qquad\qquad-1.7<br>$$<br>这样只要知道在标准正交基下的转换矩阵$M$就可以用基底$\begin{bmatrix}a&amp;c\b&amp;d\end{bmatrix}$表示在平面中的任意线性变换。</p>
+<p>总结：==基变换描述了向量恒定，基经过线性变换后表示该向量及控制该向量的办法。==</p>
+<h3 id="坐标变化"><a href="#坐标变化" class="headerlink" title="坐标变化"></a>坐标变化</h3><p>坐标变化是三维基变换的特殊形式，$i、j、k$轴为标准正交系，且在变换过程中之发生了旋转。</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">UavContrallerDesign</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Matlab</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">liner Transform</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="2020/02/28/UavContrallerDesign-1/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hexocreatconig" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -512,6 +650,18 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">日记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">UavContrallerDesign</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Matlab</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">liner Transform</a>
               </li>
             
             <div class="clearfix"></div>
