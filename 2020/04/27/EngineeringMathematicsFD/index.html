@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"cherium.fun","root":"/","scheme":"Muse","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false};
+  </script>
+
+  <meta name="description" content="工程数学基础这篇博文主要记录在学习过程中被老师一笔带过但却让我想了很久的问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EngineeringMathematicsFD">
+<meta property="og:url" content="cherium.fun/2020/04/27/EngineeringMathematicsFD/index.html">
+<meta property="og:site_name" content="Cherium&#39;s blogs">
+<meta property="og:description" content="工程数学基础这篇博文主要记录在学习过程中被老师一笔带过但却让我想了很久的问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1geo93lmnsvj30v20u0n2e.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghdscc7nzsj30ec05i0sp.jpg">
+<meta property="article:published_time" content="2020-04-27T02:48:32.000Z">
+<meta property="article:modified_time" content="2020-08-03T12:03:09.722Z">
+<meta property="article:author" content="cherium">
+<meta property="article:tag" content="DIP,Pattern Recognition,Dynamic And Contral,Pentest">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1geo93lmnsvj30v20u0n2e.jpg">
+
+<link rel="canonical" href="cherium.fun/2020/04/27/EngineeringMathematicsFD/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>EngineeringMathematicsFD | Cherium's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Cherium's blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东向而望，不见西墙</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">工程数学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9C%8B%E6%87%82%E7%9F%A9%E9%98%B5%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">看懂矩阵表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E3%80%81%E5%90%91%E9%87%8F%E7%9A%84%E6%B1%82%E5%AF%BC"><span class="nav-number">1.2.</span> <span class="nav-text">矩阵、向量的求导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">最小二乘法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E6%AC%A1%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%88%86%E8%A7%A3"><span class="nav-number">1.4.</span> <span class="nav-text">高次多项式分解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Rational-Zeros-Theorem"><span class="nav-number">1.4.1.</span> <span class="nav-text">The Rational Zeros Theorem</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%A0%E5%BC%8F%E5%AE%9A%E7%90%86"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">因式定理</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="cherium"
+      src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+  <p class="site-author-name" itemprop="name">cherium</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/luseanevens" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luseanevens" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cherium@icloud.com" title="E-Mail → mailto:cherium@icloud.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
+        <div class="back-to-top animated">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="cherium.fun/2020/04/27/EngineeringMathematicsFD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+      <meta itemprop="name" content="cherium">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cherium's blogs">
+    </span>
+
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          EngineeringMathematicsFD
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-27 10:48:32" itemprop="dateCreated datePublished" datetime="2020-04-27T10:48:32+08:00">2020-04-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-03 20:03:09" itemprop="dateModified" datetime="2020-08-03T20:03:09+08:00">2020-08-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/math/" itemprop="url" rel="index"><span itemprop="name">math</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="工程数学基础"><a href="#工程数学基础" class="headerlink" title="工程数学基础"></a>工程数学基础</h1><p>这篇博文主要记录在学习过程中被老师一笔带过但却让我想了很久的问题。</p>
+<a id="more"></a>
+
+<h2 id="看懂矩阵表达式"><a href="#看懂矩阵表达式" class="headerlink" title="看懂矩阵表达式"></a>看懂矩阵表达式</h2><ul>
+<li>一般规定$\boldsymbol A$ （粗体大些字母）为矩阵，$\boldsymbol x$ （粗体小写字母）为向量。</li>
+<li></li>
+</ul>
+<p>高中时我们认识的大多为一维的公式，形式如下：<br>$$<br>G(x)=ax+by+c<br>$$<br>其表示在二维空间中的一条线，将平面划分成了两部分，以线性代数的角度思考，其由特征向量：<br>$$<br>\boldsymbol x=[x\quad y]<br>$$<br>和特征向量权重：<br>$$<br>\boldsymbol \omega =[a\quad b]<br>$$<br>与参数<code>c</code>组成。在飞行力学等学科涉及很多高维方程，此时将这样的一阶方程表示为：<br>$$<br>G(x)=\boldsymbol w^T\boldsymbol x+\omega_0<br>$$<br>其中特征向量拓展到n个变量：<br>$$<br>\boldsymbol x=[x_1,x_2,….,x_n]<br>$$<br>对应的也就有n个参数（变量的系数）:<br>$$<br>\boldsymbol\omega=[\omega_1,\omega_2,….\omega_n]<br>$$<br>一般约定，粗体小写字母为列向量，转置之后为行向量，转变为对应相乘再相加的形式，也就是在$n$维空间中的一条线。</p>
+<h2 id="矩阵、向量的求导"><a href="#矩阵、向量的求导" class="headerlink" title="矩阵、向量的求导"></a>矩阵、向量的求导</h2><ul>
+<li><font color=red>对向量求导的公式</font>，$\frac{\partial J}{\partial \alpha}$,$A$为矩阵，$y、x$为列向量。</li>
+</ul>
+<p>$$<br>\bigtriangledown_x(x^TAx)=(A+A^T)x\\<br>\bigtriangledown_x(y^Tx)=\bigtriangledown_x(x^Ty)=y<br>$$</p>
+<h2 id="最小二乘法"><a href="#最小二乘法" class="headerlink" title="最小二乘法"></a>最小二乘法</h2><p>最小二乘法是用于求解超定方程的解法，对于$\boldsymbol A\boldsymbol x=\boldsymbol b$的线性方程组，若$\boldsymbol A$是满秩的（即各行各列不线性相关），且方程个数大于未知数个数（样本数大于维度），方程由于限制太过严格而导致解不存在。此时一般使用最小二乘法求取一个最接近的解。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1geo93lmnsvj30v20u0n2e.jpg" alt="image-20200511092515693"></p>
+<p>有一系列离散的点，来拟合一条直线。</p>
+<ul>
+<li><p>$||||_2$表示l-2范数的平方，代表欧式距离的平方。</p>
+</li>
+<li><p>$||||_1$是l-1范数，即向量内元素的绝对值相加。</p>
+</li>
+<li><p>标量的转置还是他本身</p>
+</li>
+<li><p>$Y\alpha=b$</p>
+</li>
+<li><p>求$\min_{\alpha}J=||Y\alpha-b||^2$时，先求$\frac{\partial J}{\partial \alpha}=0$带入以求得极小值。</p>
+</li>
+</ul>
+<p>LMSE算法中：$Y\alpha =b$,$N&gt;d$时是一个超定方程（方程的个数大于为未知量的个数），使用最小二乘法求$min||Y\alpha -b||_2^2$。<br>$$<br>||Y\alpha-b||^2=(Y\alpha-b)^T(Y\alpha-b)\\<br>(\alpha^TY^T-b^T)(Y\alpha-b)=\alpha^TY^TY\alpha-\alpha^TY^Tb-(b^TY\alpha)^T+b^Tb\\<br>b^TY\alpha为标量\\<br>=\alpha^TY^TY\alpha-2\alpha^TY^Tb+b^Tb\\<br>令 \frac{\partial J}{\partial \alpha}=2Y^TY\alpha-2Y^Tb=0\\<br>Y^T(Y\alpha-b)=0\\<br>\alpha=(Y^TY)^{-1}Y^Tb<br>$$<br>所以，$Y\alpha=b$的最小二乘解为$\to$$\alpha=(Y^TY)^{-1}Y^Tb=Y^+b$</p>
+<h2 id="高次多项式分解"><a href="#高次多项式分解" class="headerlink" title="高次多项式分解"></a>高次多项式分解</h2><p>分解一元高次方程对于考研来讲是常考的一种化简问题，但是从工程的角度讲其实很难看到这样优雅的方程。比如：$2x^5-10x+5=0$无法得出带数解，意味着这个方程无法用初等方法的表示因式分解。但是使用**<a target="_blank" rel="noopener" href="https://www.sparknotes.com/math/algebra2/polynomials/section4/">The Rational Zeros Theorem</a><strong>和</strong><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=VLDGD05vFEQ">综合除法</a>**可以解决考研数学中的大部分问题。</p>
+<h3 id="The-Rational-Zeros-Theorem"><a href="#The-Rational-Zeros-Theorem" class="headerlink" title="The Rational Zeros Theorem"></a>The Rational Zeros Theorem</h3><h4 id="因式定理"><a href="#因式定理" class="headerlink" title="因式定理"></a>因式定理</h4><p>若$(x-a)$是$f(x)$的一个因式，则$f(a)=0$.</p>
+<p>对于一般的方程而言，可分解为：$f(x)=(x-a)g(x)+R$，而$R=0$时就是上述的情况。那么问题就转换为了如何确定$a$。</p>
+<p><strong>The Rational Zeros Theorem</strong>证明，对于一个各项系数均为非0整数的一元高次方程：</p>
+<p>令P为常数项系数的因式，Q为最高次项系数的因式；</p>
+<p>则认为a的<font color=red>可能值</font>存在于$\frac{P}{Q}$中：<br>$$<br>f(x)=2x^4+x^3-19x^2-9x+9\\<br>\frac{P}{Q}=\pm\frac{1}{1},\pm\frac{3}{1},\pm\frac{9}{1}….\\<br>if \sum coefficients = 0,a=1; can; be ; used.\\<br>if \sum Odd; coefficient=\sum<br>Even; coefficient,a=-1; can; be ; used.\\<br>so,a=-1\\<br>f(x)=(x+1)g(x)\\<br>$$<br>由综合除法可知：</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghdscc7nzsj30ec05i0sp.jpg" alt="image-20200803181040382"><br>$$<br>f(x)=(x+1)(2x^3-x^2-18x+9)<br>$$<br>同理继续分解：<br>$$<br>f(x)=(x+1)(x+3)(x-3)(2x-1)<br>$$<br>关于综合除法，参考以下视频：</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VLDGD05vFEQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p><strong>The Rational Zeros Theorem</strong>其实就是十字相乘的一种拓展，形如$(x+a)(x+b)$，则常数项就是$ab$。而对于多项式而言，常数项无非就是$abcdef$，而拆出它的因式自然也就可能是$x+a$中的a了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/22/DeepLearningIntroduction/" rel="prev" title="DeepLearningIntroduction">
+      <i class="fa fa-chevron-left"></i> DeepLearningIntroduction
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/29/machinelearningFD/" rel="next" title="DeeplearningAL">
+      DeeplearningAL <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cherium</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">81k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:14</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      const script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

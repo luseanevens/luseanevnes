@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"cherium.fun","root":"/","scheme":"Muse","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false};
+  </script>
+
+  <meta name="description" content="Differential equation “Differential Equation arise when it’s easier to describe change then absolute amount.” ​    ——Steven Strogatz">
+<meta property="og:type" content="article">
+<meta property="og:title" content="differential equation">
+<meta property="og:url" content="cherium.fun/2020/03/07/differentia%20equation/index.html">
+<meta property="og:site_name" content="Cherium&#39;s blogs">
+<meta property="og:description" content="Differential equation “Differential Equation arise when it’s easier to describe change then absolute amount.” ​    ——Steven Strogatz">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/%E5%8D%95%E6%91%86.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/image-20200318142253239.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/300px-Focal_stability.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/image-20200308200731670.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/image-20200307173703221.png">
+<meta property="article:published_time" content="2020-03-07T02:30:23.000Z">
+<meta property="article:modified_time" content="2020-08-02T13:42:36.178Z">
+<meta property="article:author" content="cherium">
+<meta property="article:tag" content="DIP,Pattern Recognition,Dynamic And Contral,Pentest">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/%E5%8D%95%E6%91%86.png">
+
+<link rel="canonical" href="cherium.fun/2020/03/07/differentia%20equation/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>differential equation | Cherium's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Cherium's blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东向而望，不见西墙</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Differential-equation"><span class="nav-number">1.</span> <span class="nav-text">Differential equation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ordinary-differential-equation"><span class="nav-number">1.1.</span> <span class="nav-text">Ordinary differential equation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Partial-differential-equations"><span class="nav-number">1.2.</span> <span class="nav-text">Partial differential equations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Partial-differential-equations-1"><span class="nav-number">1.3.</span> <span class="nav-text">Partial differential equations</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="cherium"
+      src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+  <p class="site-author-name" itemprop="name">cherium</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/luseanevens" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luseanevens" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cherium@icloud.com" title="E-Mail → mailto:cherium@icloud.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
+        <div class="back-to-top animated">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="cherium.fun/2020/03/07/differentia%20equation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+      <meta itemprop="name" content="cherium">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cherium's blogs">
+    </span>
+
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          differential equation
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 10:30:23" itemprop="dateCreated datePublished" datetime="2020-03-07T10:30:23+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-02 21:42:36" itemprop="dateModified" datetime="2020-08-02T21:42:36+08:00">2020-08-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Matlab/" itemprop="url" rel="index"><span itemprop="name">Matlab</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dynamic-and-Contral/" itemprop="url" rel="index"><span itemprop="name">Dynamic and Contral</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Differential-equation"><a href="#Differential-equation" class="headerlink" title="Differential equation"></a>Differential equation</h1><blockquote>
+<p>“Differential Equation arise when it’s easier to describe change then absolute amount.”</p>
+<p>​    ——Steven Strogatz</p>
+</blockquote>
+<a id="more"></a>
+
+<p>当描述某一瞬时的变化比描述全局的状态容易的多，就好像我们无法监视一个系统中的各种状态量的实时变化时，微分方程就承担了用瞬时的变化来描述整个系统的责任。</p>
+<ul>
+<li>[Ordinary differential equation](#Ordinary differential equation)</li>
+<li>[Partial differential equations](#Partial differential equations)</li>
+</ul>
+<h2 id="Ordinary-differential-equation"><a href="#Ordinary-differential-equation" class="headerlink" title="Ordinary differential equation"></a>Ordinary differential equation</h2><p><strong><font color=blue>Ordinary differential equation</font></strong> (ODE): functions with a single input, often thought of as time.<br>$$<br>OneInput\quad t : \ddot \theta(t)= -\eta\dot \theta(t)-\frac{g}{l}\sin(\theta(t))<br>$$</p>
+<hr>
+<p>在学习<strong>常微分方程</strong>时，一般用力学来引入这个方程是长什么样的，这是一种天然的巧合，因为 $\vec v $ 是 $\vec x$ 的一阶导数 “$derivative$” ,表示为：$\dot{\mathbf{x}}$ 。同理，$\vec a$可以表示为： $\ddot {\mathbf{x}}$。记得在研究汽车是怎么运动的时候，高中物理老师会给你一种直接引入<font color=green>速度</font>“$velocity$”、<font color=green>加速度</font>  “$acceleration$” 的直觉；当研究刚体的运动时，大学的物理老师会教会<font color=green>力</font>“”$force$”是如何影响刚体的平动和转动的。\</p>
+<p>经过力学规则的复合，就可以用速度、加速度（瞬时的变化量）来描述位移（希望检测的直观的状态量）。比如一个适用于任何初始角度、假设空气阻力$\eta$正比于角速度的单摆系统，可以描述为：\</p>
+<p><img src="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/%E5%8D%95%E6%91%86.png" alt="单摆"><br>$$<br>\begin{equation}<br>\ddot \theta=-\eta \dot \theta - \frac{g}{l}\sin\theta<br>\end{equation}<br>$$<br>毋庸置疑的是这里的角速度、角加速度都是以时间为自变量的，微分方程的解也是$\theta(t)$这个<strong>函数</strong>，如果将问题变得更加具体，我们会假定一个初始的时间$t_0$,经过步长$T$之后，小球与竖直方向的向量的夹角，小球的角速度、角加速度。那么微分方程的形式可以表示为：<br>$$<br>\left{\begin{aligned}\ddot{\theta}=f(\theta,\dot{\theta},t)\ \theta(t_0)=\theta_0\t\in[t_0,t_0+T]<br>\end{aligned}<br>\right.<br>$$<br>这类型的方程，称为<strong>初值问题</strong>，这个方程本质上描述的是一个物体在给定导数（速度、加速度）后，随着时间的变化趋势，也就是说它主要是与时间变量有关。当这个系统开始运作，就会按照这个微分方程所指定的规则所运行下去，而符合这个方程的$\theta(t)$就是这个微分方程的解。由于很多的微分方程无法求得解析解，所以需要用到微分方程的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/65179097">数值解法（误差分析）</a>。\</p>
+<blockquote>
+<p>所谓数值解法，本质上就是一种<strong>离散</strong>。通过对时间步长作分割，通过一种特殊的数列迭代的公式，使得在我给定数列的前几项之后，通过数列的迭代公式求得每一个分点上的<strong>数值解</strong>。</p>
+</blockquote>
+<p>最为典型的就是向前Euler法：</p>
+<p>Euler法也称为单步法。它取到了一个时间区间$[0,T]$的离散化$\Delta t$,并得到了一系列离散化的点$k\Delta t,k=0,1,2 …$,很显然$t_N=N\Delta t=T$，如果假定每一次求解$x_{k+1}$时的上一次的解$x_k$都是精确的，那么如果这个步长$\Delta t$取到的足够小的话，那么就能够得到一个足够精确的解。\T</p>
+<p>其数学形式如下：<br>$$<br>\dot x=f(\mathbf x,t)<br>$$</p>
+<p>$$<br>\dot x(t)=\lim_{\Delta t\to0}\frac{x(t+\Delta t)-x(t)}{\Delta t}<br>$$</p>
+<p>当$\Delta t$很小时，可以近似认为：<br>$$<br>f(\mathbf x,f)=\dot x(t)\thickapprox\frac{x(t+\Delta t)-x(t)}{\Delta t}<br>$$<br>这样就可以得到一个递推形式：<br>$$<br>x_1=x_0+\Delta tf(\mathbf x_0,t0)\\<br>x_2=x_1+\Delta tf(\mathbf x_1,t1)\\<br>\vdots\\<br>x_{N+1}=x_N+\Delta tf(\mathbf x_N,t_N)<br>$$<br>在运算过程中，由于取到的步长往往不够小，而且用”$=$“ 代替了 “$\thickapprox$”,误差相对还是很大。为了进一步减少误差，而引入了Runge-Kutta法,以四阶Runge-Kutta法为例：<br>$$<br>x_{k+1}=x_k + \frac{1}{6}(K_1+K_2+K_3+K_4)\\<br>K_1 = \Delta t f(t_k,x_k)\\<br>K_2 = \Delta t f(t_k+\frac{\Delta t}{2},x_k+\frac{1}{2}K_1)\\<br>K_3 = \Delta t f(t_k+\frac{\Delta t}{2},x_k+\frac{1}{2}K_2)\\<br>K_4 = \Delta t f(t_k+\Delta t,x_k+K_3)<br>$$<br>四阶Runge-Kutta法中每个积分步长计算四次右端函数值，并将其线性组合求出被积函数的增量。\</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/matlab/math/choose-an-ode-solver.html">MATLAB官方文档</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/matlab/math/differential-equations.html#responsive_offcanvas">用MATLAB表示微分方程</a></p>
+</li>
+</ul>
+<p>MATLAB ODE 求解器仅可解算一阶方程。必须使用常规代换法，将高阶 ODE 重写为<a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/matlab/math/choose-an-ode-solver.html">等效的一阶方程组</a>。以 van der pol方程为例：</p>
+<p><img src="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/image-20200318142253239.png" alt="image-20200318142253239"></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dydt</span> = <span class="title">vanderpoldemo</span><span class="params">(t,y,Mu)</span></span></span><br><span class="line"><span class="comment">%VANDERPOLDEMO Defines the van der Pol equation for ODEDEMO.</span></span><br><span class="line"><span class="comment">% Copyright 1984-2014 The MathWorks, Inc.</span></span><br><span class="line"></span><br><span class="line">dydt = [y(<span class="number">2</span>); Mu*(<span class="number">1</span>-y(<span class="number">1</span>)^<span class="number">2</span>)*y(<span class="number">2</span>)-y(<span class="number">1</span>)];</span><br></pre></td></tr></table></figure>
+
+<p>其表示的一阶方程组是：\</p>
+<p>由下列方程代换：<br>$$<br>y(1)=y\<br>y(2)=\dot{y}<br>$$</p>
+<p>得：<br>$$<br>y(2)=\dot{y}=dydt(1)\<br>y(3)=\ddot{y}=dydt(2)=\mu(1-y^2)\frac{dy}{dt}+y<br>$$<br>因此代码表示为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dydt &#x3D; [y(2); Mu*(1-y(1)^2)*y(2)-y(1)];</span><br></pre></td></tr></table></figure>
+
+<p>n阶微分方程应拆成n个1阶方程。</p>
+<p>但如果我们<font color=red>不再</font>研究以时间为自变量的方程，而是单纯的考虑角度、角速度、角加速度是如何被微分方程控制的，来研究整个系统最终会在<strong>不同的输入</strong>下趋于怎样的状态，就需要换一个角度思考。<strong>因为角度与角速度在初始的条件下是互不相关的量</strong>，我们就需要以$\theta$ 和 $\dot \theta$ 构建坐标系。\</p>
+<p>不妨去想象一个由$\theta$ 和 $\dot \theta$ 构成的平面，当输入一个速度和角度之后，这个单摆的速度和角度就会一直不停的变化，最终稳定在$(0,0)$（由于有阻尼存在)，而这个变化的规律和趋势，是由这个微分方程所唯一确定的。这种样式难免更让人想起线性变换中，矩阵所代表的特定的线性变换，只不过矩阵代表时间恒定中空间的变化，而微分方程，则是一种随时间变化的规则。为了描述这种变化的规则，我们引入了相空间 “$Phase Space$”。</p>
+<p><img src="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/300px-Focal_stability.png" alt="300px-Focal_stability"></p>
+<blockquote>
+<p>在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%95%B8%E5%AD%B8">数学</a>与<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%89%A9%E7%90%86%E5%AD%B8">物理学</a>中，<strong>相空间</strong>是一个用以表示出一系统所有可能状态的空间；系统每个可能的状态都有一相对应的相空间的点。</p>
+</blockquote>
+<p>当相空间中存在了一个标定的初始状态时，他按照着微分方程确定的规则在运动，而运动可以用向量的堆叠来表示，那就不妨认为微分方程在空间中布满了向量，这些向量影响着在这个相空间中所有的点，让他们依照微分方程的规则运动。</p>
+<p>这就是我们一直以来研究“控制”的直观表现，我们设计系统，得出系统的微分方程，再判定它的的稳定性，其本质就是在设计相空间中的这些向量，并让这些向量指引着我们给出的初始状态，落到我们希望的位置。</p>
+<p><img src="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/image-20200308200731670.png" alt="image-20200308200731670"></p>
+<p>拓展到更高的维度，也是同一个道理。\</p>
+<p>​    </p>
+<p>但是归结到底，对于数值解的计算是有很多限度的，例如单摆模型，当真正的去研究物理单摆时，即使是十分微小的初始条件的不同，比如无法避免的测量误差，也会导致变化的趋向大相径庭，无论是否存在精确解，这是混沌理论”$chaos\quad theoty$ “所揭示的。更细致的对单摆混沌原理的讲解，可以看这篇<a target="_blank" rel="noopener" href="https://www.zybuluo.com/double-C/note/414709">博文</a>。\</p>
+<h2 id="Partial-differential-equations"><a href="#Partial-differential-equations" class="headerlink" title="Partial differential equations"></a>Partial differential equations</h2><h2 id="Partial-differential-equations-1"><a href="#Partial-differential-equations-1" class="headerlink" title="Partial differential equations"></a>Partial differential equations</h2><p><strong><font color=blue>Partial differential equations</font>&gt;</strong>(PDE): functions have multiple inputs.</p>
+<p><img src="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/image-20200307173703221.png" alt="image-20200307173703221"></p>
+<p>在研究飞行器姿态及控制飞行器时，所用到的质心平动方程和质心转动方程，其各有三个自由度，设计到多组初始状态的输入。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/06/Essense%20of%20Linear%20Algebra/" rel="prev" title="Essence of calculus">
+      <i class="fa fa-chevron-left"></i> Essence of calculus
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/11/PRpractice/" rel="next" title="PR CIFAR10">
+      PR CIFAR10 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cherium</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">81k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:14</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      const script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

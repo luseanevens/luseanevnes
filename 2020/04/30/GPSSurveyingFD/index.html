@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"cherium.fun","root":"/","scheme":"Muse","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false};
+  </script>
+
+  <meta name="description" content="卫星导航原理2020年卫导课程笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GPSSurveyingFD">
+<meta property="og:url" content="cherium.fun/2020/04/30/GPSSurveyingFD/index.html">
+<meta property="og:site_name" content="Cherium&#39;s blogs">
+<meta property="og:description" content="卫星导航原理2020年卫导课程笔记。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gequ39b43tj30ww0jend2.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gerofxlegyj30cc09cdib.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gerqxoiu7mj30g80bg40k.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ges9nx3prxj30bs08ewgm.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ges9y8ncp2j30g009wmz0.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ges9ylmknkj30hg08s0xk.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gesy91f0dmj30f80amt93.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gesyjs5mryj30ic0dg0vo.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1lhu3lzj31340hu411.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1geu20cjsgxj30du0domyd.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1pqgdzbj30bq03cjri.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1ru9usuj30zs0tmwjn.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1d5dqtnj30rw0eatfi.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1h55obrj30e2048my3.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1hgd24gj30ni05ijuc.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1geu4r1hmnmj308u09ejrp.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1geu4wj1vfij30aq0ckmxo.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1geu4ksrv5aj317i0cs0v6.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1geszb5ccayj30kg0ayace.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1geszmpi7ooj30dm092q3m.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1getcursyslj307g064wfn.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1getdlxw3znj30o60eo42f.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1getgg9sul9j30gk0c2dhx.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1geu5hzdy3yj308806o3yo.jpg">
+<meta property="article:published_time" content="2020-04-30T09:43:39.000Z">
+<meta property="article:modified_time" content="2020-08-02T13:43:39.201Z">
+<meta property="article:author" content="cherium">
+<meta property="article:tag" content="DIP,Pattern Recognition,Dynamic And Contral,Pentest">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gequ39b43tj30ww0jend2.jpg">
+
+<link rel="canonical" href="cherium.fun/2020/04/30/GPSSurveyingFD/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GPSSurveyingFD | Cherium's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Cherium's blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东向而望，不见西墙</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%AB%E6%98%9F%E5%AF%BC%E8%88%AA%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">卫星导航原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%AA%E8%AE%BA"><span class="nav-number">1.2.</span> <span class="nav-text">绪论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%91-%E7%8E%B0%E4%BB%A3%E5%AE%9A%E4%BD%8D%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">近&#x2F;现代定位方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%AA%E5%99%A8%E8%AE%BE%E5%A4%87"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">仪器设备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%82%E6%B5%8B%E5%80%BC"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">观测值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">局限性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E5%8D%88%E5%8D%AB%E6%98%9F%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.2.</span> <span class="nav-text">子午卫星系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%86%B5"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">系统概况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E7%BC%BA%E9%99%B7"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">系统缺陷</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%99%AE%E5%8B%92%E6%B5%8B%E9%87%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">多普勒测量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%99%AE%E5%8B%92%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.2.4.</span> <span class="nav-text">多普勒定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPS"><span class="nav-number">1.2.5.</span> <span class="nav-text">GPS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GPS%E4%BD%93%E5%88%B6"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">GPS体制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96GPS%E7%B3%BB-%E7%BB%9F"><span class="nav-number">1.2.6.</span> <span class="nav-text">其他GPS系    统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E4%B8%8E%E5%9D%90%E6%A0%87%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.</span> <span class="nav-text">时间与坐标系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.1.</span> <span class="nav-text">时间概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%B6%E9%97%B4"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%9F%BA%E5%87%86"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">时间基准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%88%E6%97%B6%E7%B3%BB%E7%BB%9F%EF%BC%88%E6%97%B6%E9%92%9F%EF%BC%89"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">守时系统（时钟）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%88%E6%97%B6%E5%92%8C%E6%97%B6%E9%97%B4%E6%AF%94%E5%AF%B9"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">授时和时间比对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%B6%E9%92%9F%E7%9A%84%E4%B8%BB%E8%A6%81%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">时钟的主要技术指标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%81%92%E6%98%9F%E6%97%B6"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">恒星时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9C%9F%E5%A4%AA%E9%98%B3%E6%97%B6%E5%92%8C%E5%B9%B3%E5%A4%AA%E9%98%B3%E6%97%B6"><span class="nav-number">1.3.1.7.</span> <span class="nav-text">真太阳时和平太阳时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%81%92%E6%98%9F%E6%97%B6-1"><span class="nav-number">1.3.1.8.</span> <span class="nav-text">恒星时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%96%E7%95%8C%E6%97%B6%E4%B8%8E%E5%8C%BA%E6%97%B6"><span class="nav-number">1.3.1.9.</span> <span class="nav-text">世界时与区时</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%96%E7%95%8C%E6%97%B6%E7%9A%84%E4%BF%AE%E6%AD%A3"><span class="nav-number">1.3.1.9.1.</span> <span class="nav-text">世界时的修正</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%97%B6"><span class="nav-number">1.3.1.10.</span> <span class="nav-text">原子时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BD%E9%99%85%E5%8E%9F%E5%AD%90%E6%97%B6-TAI"><span class="nav-number">1.3.1.11.</span> <span class="nav-text">国际原子时(TAI)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%8F%E8%B0%83%E4%B8%96%E7%95%8C%E6%97%B6"><span class="nav-number">1.3.1.12.</span> <span class="nav-text">协调世界时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GPS%E6%97%B6"><span class="nav-number">1.3.1.13.</span> <span class="nav-text">GPS时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E8%AE%BA%E4%B8%8B%E7%9A%84%E6%97%B6%E9%97%B4%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.1.14.</span> <span class="nav-text">相对论下的时间系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E6%97%B6%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.15.</span> <span class="nav-text">计时方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="nav-number">1.3.2.</span> <span class="nav-text">坐标系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%A9%E7%90%83%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">天球坐标系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E7%90%83%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">地球坐标系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E5%9C%B0%E7%90%83%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">协议地球坐标系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%96%E7%95%8C%E5%A4%A7%E5%9C%B0%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">世界大地坐标系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPS%E7%BB%84%E6%88%90%E5%8F%8A%E5%85%B6%E4%BF%A1%E5%8F%B7%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.</span> <span class="nav-text">GPS组成及其信号结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E9%83%A8%E5%88%86"><span class="nav-number">1.4.1.</span> <span class="nav-text">空间部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%B0%E9%9D%A2%E7%9B%91%E6%8E%A7%E9%83%A8%E5%88%86"><span class="nav-number">1.4.2.</span> <span class="nav-text">地面监控部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E9%83%A8%E5%88%86"><span class="nav-number">1.4.3.</span> <span class="nav-text">用户部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GPS%E4%BF%A1%E5%8F%B7%E6%8E%A5%E6%94%B6%E6%9C%BA"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">GPS信号接收机</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPS%E7%9A%84%E4%BF%A1%E5%8F%B7%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.</span> <span class="nav-text">GPS的信号结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%AB%E6%98%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E8%B0%83%E5%88%B6"><span class="nav-number">1.5.1.</span> <span class="nav-text">卫星信号的调制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%AB%E6%98%9F%E4%BD%8D%E7%BD%AE%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="nav-number">1.5.2.</span> <span class="nav-text">卫星位置的计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90"><span class="nav-number">1.6.</span> <span class="nav-text">误差分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AF%E5%B7%AE%E6%9D%A5%E6%BA%90"><span class="nav-number">1.6.1.</span> <span class="nav-text">误差来源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%AD%A3%E8%AF%AF%E5%B7%AE%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.7.</span> <span class="nav-text">修正误差的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E5%91%A8%E6%A8%A1%E7%B3%8A%E5%BA%A6"><span class="nav-number">1.8.</span> <span class="nav-text">整周模糊度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%9D%E7%A6%BB%E6%B5%8B%E9%87%8F%E4%B8%8EGPS%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.9.</span> <span class="nav-text">距离测量与GPS定位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E7%82%B9%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.9.1.</span> <span class="nav-text">单点定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.9.2.</span> <span class="nav-text">相对定位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.9.2.1.</span> <span class="nav-text">静态相对定位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.9.2.2.</span> <span class="nav-text">动态相对定位</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%AE%E5%88%86GPS"><span class="nav-number">1.10.</span> <span class="nav-text">差分GPS</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="cherium"
+      src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+  <p class="site-author-name" itemprop="name">cherium</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/luseanevens" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luseanevens" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cherium@icloud.com" title="E-Mail → mailto:cherium@icloud.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
+        <div class="back-to-top animated">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="cherium.fun/2020/04/30/GPSSurveyingFD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+      <meta itemprop="name" content="cherium">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cherium's blogs">
+    </span>
+
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GPSSurveyingFD
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-30 17:43:39" itemprop="dateCreated datePublished" datetime="2020-04-30T17:43:39+08:00">2020-04-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-02 21:43:39" itemprop="dateModified" datetime="2020-08-02T21:43:39+08:00">2020-08-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8D%AB%E6%98%9F%E5%AF%BC%E8%88%AA%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">卫星导航原理</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="卫星导航原理"><a href="#卫星导航原理" class="headerlink" title="卫星导航原理"></a>卫星导航原理</h1><p>2020年卫导课程笔记。</p>
+<a id="more"></a>
+
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p>[TOC]</p>
+<h2 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h2><p>全球定位系统（GPS）是第二代卫星导航定位系统，第一代是美国开发的子午卫星系统。</p>
+<h3 id="近-现代定位方法"><a href="#近-现代定位方法" class="headerlink" title="近/现代定位方法"></a>近/现代定位方法</h3><h4 id="仪器设备"><a href="#仪器设备" class="headerlink" title="仪器设备"></a>仪器设备</h4><ul>
+<li>尺：铟钢尺</li>
+<li>光学仪器：经纬仪，水准仪</li>
+<li>电磁波或激光仪器：测距仪</li>
+<li>综合多种技术的仪器：全站仪</li>
+</ul>
+<h4 id="观测值"><a href="#观测值" class="headerlink" title="观测值"></a>观测值</h4><ul>
+<li>角度或方向观测</li>
+<li>距离观测</li>
+<li>距离差观测</li>
+<li>天文观测方法</li>
+</ul>
+<h4 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h4><ul>
+<li>需要事先布设大量的地面控制点或地面站</li>
+<li>无法同时精确确定点的三维坐标</li>
+<li>观测受气候、环境条件限制</li>
+<li>观测点之间需要保证通视<ul>
+<li>需要修建觇标或架设高大的天线</li>
+<li>边长受到限制</li>
+<li>观测难度大</li>
+<li>效率低：无用的中间过渡点</li>
+</ul>
+</li>
+<li>受系统误差影响大，如地球旁折光</li>
+<li>难以确定地心坐标</li>
+</ul>
+<h3 id="子午卫星系统"><a href="#子午卫星系统" class="headerlink" title="子午卫星系统"></a>子午卫星系统</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>子午卫星系统是第一代卫星导航系统。</p>
+<p>1957年10月苏联第一颗人造卫星<strong>Sputnik 1</strong>上天，在观测卫星的过程中，美国霍普斯金应用物理实验室(JHU/APL)科学家William Guier博士 和George Weiffenbach博士发现卫星运动引起的多普勒频移效应，断言可以用来实现卫星导航。其利用Sputnik 1信号多普勒测量资料对其进行精确定轨道。</p>
+<p>多普勒频移（效应）：卫星发射的信号频率在地球上被接收到时会变化。</p>
+<p>经过研究：如果在地面已知观测站上对经过的卫星进行多普勒测量，就可以获知卫星的轨道。</p>
+<p>由此Frank McClure和William Guier提出了一个相反的概念：如果卫星的轨道已知且确定，那么用户在一个待定点上对卫星进行多普勒测量，那么就可以确定自已的位置。</p>
+<p>美国海军开始研究后投入使用，命名为海军导航系统（NNSS-Navy Navigation Satellite System)，由于卫星采用极轨道，所以也称为子午卫星导航系统（Transit）。</p>
+<h4 id="系统概况"><a href="#系统概况" class="headerlink" title="系统概况"></a>系统概况</h4><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gequ39b43tj30ww0jend2.jpg" alt="image-20200513150237496"></p>
+<ul>
+<li>是一种极轨道的卫星，卫星轨道经过极点，轨道与赤道夹角为$90^\circ$，这也是其被称为子午卫星的由来。</li>
+<li>卫星围绕地球旋转一周需要107min。</li>
+<li>卫星本身有一个石英钟，其基准频率是$4.9996MHZ$,倍频之后就是卫星的两种频率，两种频率信号的目的是为了消除延迟。</li>
+<li>星历是向用户传输自己信息的数据，向大众公开的叫广播星历。</li>
+<li>子午卫星系统的用户部分是多普勒接受机</li>
+</ul>
+<h4 id="系统缺陷"><a href="#系统缺陷" class="headerlink" title="系统缺陷"></a>系统缺陷</h4><ul>
+<li>卫星少，观测时间间隔长，无法提供实时的导航定位服务</li>
+<li>导航精度低</li>
+<li>卫星信号频率低，不利于补偿电离层折射效应的影响</li>
+<li>卫星轨道低，难以进精密定轨</li>
+</ul>
+<h3 id="多普勒测量"><a href="#多普勒测量" class="headerlink" title="多普勒测量"></a>多普勒测量</h3><p>$$<br>f_R=\frac{V}{V+\dot D}f_s=\frac{1}{1+\frac{\dot D}{V}}f_s<br>\\<br>f :发射、接受信号的频率\\<br>V :信号传播的速度\\<br>\dot D :卫星到观测站的距离的变化率<br>$$</p>
+<ul>
+<li><p>卫星到观测站的距离在不断的改变，当卫星距离观测站最近时，$\dot D=0$，受卫星速度的限制，$\dot D \le 7.5km$。</p>
+</li>
+<li><p>在真空中不考虑大气层、对流层对电磁波速度的影响时，认为$V=c$。</p>
+</li>
+<li><p>$\frac{\dot D}{c}$是一个微小量，所以用泰勒级数展开，原式为$(1-\frac{\dot D}{c})f_s=f_s-\frac{\dot D}{c}f_s$</p>
+</li>
+<li><p><strong>多普勒接收机</strong>可以计算获得$N=\int_{t_1}^{t_2}(f_0-f_R)dt$，$f_0$为接收机发出的固定频率。得到的结果称为多普勒计数。由上式知：</p>
+<ul>
+<li>$N=\int_{t_1}^{t_2}(f_0-f_s)dt+\int_{t_1}^{t_2}(f_s-f_R)dt=(t_2-t_1)(f_0-f_s)+\frac{D_2-D_1}{c}f_s$</li>
+</ul>
+</li>
+<li><p>由上式可知，只要进行两次多普勒测量，就可以求得卫星在两次测量时距地面观测站距离的差数。</p>
+<ul>
+<li>$D_2-D_1=\frac{c}{f_s}[N-(t_2-t_1)(f_0-f_s)]$</li>
+</ul>
+</li>
+</ul>
+<h3 id="多普勒定位"><a href="#多普勒定位" class="headerlink" title="多普勒定位"></a>多普勒定位</h3><p>多普勒定位本质上是双曲定位，其通过观测得到了一个一颗星在不同时间到观测点的距离差（需要积分），因此观测时间较长，典型时间在$8～12$分钟，无法满足民用需求。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gerofxlegyj30cc09cdib.jpg" alt="image-20200514083249071"></p>
+<h3 id="GPS"><a href="#GPS" class="headerlink" title="GPS"></a>GPS</h3><p>GPS(Navigation Satellite Timing And Ranging Global Position System)意为导航星测时与测距全球定位系统，简称全球定位系统。</p>
+<h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><ul>
+<li><p>系统构成</p>
+<ul>
+<li>空间部分</li>
+<li>地面控制部分</li>
+<li>用户部分</li>
+</ul>
+</li>
+<li><p>服务方式：多颗卫星组成卫星星座导航定位服务</p>
+</li>
+<li><p>原理：距离教会</p>
+</li>
+<li><p>测距原理：被动式电磁波测距</p>
+</li>
+<li><p>全球覆盖、全天候、不间断、精度高</p>
+</li>
+</ul>
+<h4 id="GPS体制"><a href="#GPS体制" class="headerlink" title="GPS体制"></a>GPS体制</h4><ul>
+<li><p>SPS：标准定位服务</p>
+<ul>
+<li>应用于民用，使用$C/A$码</li>
+<li>2DRMS水平为100m</li>
+<li>2DRMS垂直为150-170m</li>
+<li>2DRMS时间340ns</li>
+</ul>
+</li>
+<li><p>PPS：精确定位服务</p>
+<ul>
+<li>使用P码，军用</li>
+<li>2DRMS水平为22m</li>
+<li>2DRMS垂直为22.7m</li>
+<li>2DRMS时间200ns</li>
+</ul>
+</li>
+<li><p>SA：人为的降低测量精度的办法，已停用</p>
+</li>
+<li><p>AS技术：反电子欺骗，P码加密</p>
+</li>
+</ul>
+<h3 id="其他GPS系-统"><a href="#其他GPS系-统" class="headerlink" title="其他GPS系    统"></a>其他GPS系    统</h3><p>常见系统有GPS、BDS、GLONASS和GALILEO四大卫星导航系统。</p>
+<h2 id="时间与坐标系统"><a href="#时间与坐标系统" class="headerlink" title="时间与坐标系统"></a>时间与坐标系统</h2><h3 id="时间概念"><a href="#时间概念" class="headerlink" title="时间概念"></a>时间概念</h3><p>课本P17内容。</p>
+<h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h4><ul>
+<li>时间间隔：事物运动处于两个（瞬间）状态之间所经历的时间过程，它描述了事物运动在时间上的持续状况</li>
+<li>时刻：发生某一现象的时间</li>
+</ul>
+<h4 id="时间基准"><a href="#时间基准" class="headerlink" title="时间基准"></a>时间基准</h4><ul>
+<li>能做连续的周期性运动，且运动周期十分稳定</li>
+<li>运动周期具有很好的复现性</li>
+<li>主要时间基准有：地球自转、行星公转、原子钟和脉冲星等</li>
+</ul>
+<h4 id="守时系统（时钟）"><a href="#守时系统（时钟）" class="headerlink" title="守时系统（时钟）"></a>守时系统（时钟）</h4><p>用来建立和维持时间频率基准，来确定任一时刻的时间。</p>
+<h4 id="授时和时间比对"><a href="#授时和时间比对" class="headerlink" title="授时和时间比对"></a>授时和时间比对</h4><h4 id="时钟的主要技术指标"><a href="#时钟的主要技术指标" class="headerlink" title="时钟的主要技术指标"></a>时钟的主要技术指标</h4><ul>
+<li>频率准确度</li>
+<li>频率漂移率</li>
+<li>频率稳定度</li>
+</ul>
+<h4 id="恒星时"><a href="#恒星时" class="headerlink" title="恒星时"></a>恒星时</h4><p>恒星时是以春分点作为参考点的。由于地球自转使春分点连续两次经过地方上子午圈的时间间隔为一恒星日。以恒星日为基础均匀分割从而获得恒星系统中的“小时”、“分”和“秒”。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gerqxoiu7mj30g80bg40k.jpg" alt="image-20200514095904194"></p>
+<h4 id="真太阳时和平太阳时"><a href="#真太阳时和平太阳时" class="headerlink" title="真太阳时和平太阳时"></a>真太阳时和平太阳时</h4><ul>
+<li><p><strong>真太阳时</strong>以太阳中心为参考点，太阳中心连续两次通过某地的子午圈的时间间隔称为一个真太阳日。</p>
+</li>
+<li><p><strong>平太阳时</strong> 为了弥补太阳时不均匀的欠缺，而设想出了一个假太阳，其运动轨迹位于赤道平面而非黄道品面且在赤道平面上的运动速度是恒定的。</p>
+</li>
+</ul>
+<h4 id="恒星时-1"><a href="#恒星时-1" class="headerlink" title="恒星时"></a>恒星时</h4><p>以春分点为参考的，由于地球自转使得春分点两次连续经过地方上子午圈的时间间隔为一恒星日。</p>
+<h4 id="世界时与区时"><a href="#世界时与区时" class="headerlink" title="世界时与区时"></a>世界时与区时</h4><ul>
+<li>在同一时区统一采用该时区中央子午线上的平太阳时，称为<strong>区时</strong>。</li>
+<li>格林尼治起始子午线处的平太阳时称为<strong>世界时</strong>。</li>
+</ul>
+<h5 id="世界时的修正"><a href="#世界时的修正" class="headerlink" title="世界时的修正"></a>世界时的修正</h5><ul>
+<li>地球自转的速度是不均匀的</li>
+<li>地极在地球上的位置在不断的移动。</li>
+</ul>
+<p>极移改正$\Delta\lambda$，地球自转素的的季节性改正$\Delta T$,根据天文观测所确定的世界时$UT0$，极移修正后的$UT1$,自转素滴修正之后$UT2$。<br>$$<br>UT1=UT0+\Delta \lambda\\<br>UT2=UT1+\Delta T=UT0+\Delta\lambda +\Delta T\\<br>$$</p>
+<h4 id="原子时"><a href="#原子时" class="headerlink" title="原子时"></a>原子时</h4><p>当原子中的电子从某一能级跃迁至另一能级时，会发出或吸收电磁波。这种电磁波的频率非常稳定，而且上述现象又很容易复现，所以是一种很好的时间基准。</p>
+<p>位于海平面上的铯133(Cs133)原子基态两个超精细能级间在零磁场中跃迁辐射振荡9192631770周所持续的时间定义为原子时的1秒。<br>$$<br>(AT-UT)_{1958.0}=-0.0039<br>$$</p>
+<h4 id="国际原子时-TAI"><a href="#国际原子时-TAI" class="headerlink" title="国际原子时(TAI)"></a>国际原子时(TAI)</h4><p>BIPM依据全球约60个时间实验室中的大约240台自由运转的原子钟所给出的数据，经数据统一处理后来给出国际原子时。</p>
+<h4 id="协调世界时"><a href="#协调世界时" class="headerlink" title="协调世界时"></a>协调世界时</h4><p>国际无 线电 科学协会于20世纪60年代建立了协调世界时UTC。协调世界时的秒长严格等于原子时的秒长，而协调世界时与世界时UT时间的时差规定需要保持在0.9秒以内，否则将采取闰秒的方式进行调整。</p>
+<p>![image-20200514191028787](/Users/cherium/Library/Application Support/typora-user-images/image-20200514191028787.png)</p>
+<h4 id="GPS时"><a href="#GPS时" class="headerlink" title="GPS时"></a>GPS时</h4><p>是由GPS的地面监控系统和GPS卫星中的原子钟建立和维持的一种原子时间。</p>
+<h4 id="相对论下的时间系统"><a href="#相对论下的时间系统" class="headerlink" title="相对论下的时间系统"></a>相对论下的时间系统</h4><ul>
+<li>地球动力学时(TDT)</li>
+<li>太阳系质心动力学时(TDB)</li>
+<li>地心坐标时(TCG)和太阳系质心坐标时(TCB)</li>
+</ul>
+<h4 id="计时方法"><a href="#计时方法" class="headerlink" title="计时方法"></a>计时方法</h4><ul>
+<li><p>阳历</p>
+</li>
+<li><p>阴历</p>
+</li>
+<li><p>阴阳历</p>
+</li>
+<li><p>儒略日/简化儒略日</p>
+</li>
+<li><p>年积日</p>
+</li>
+</ul>
+<h3 id="坐标系"><a href="#坐标系" class="headerlink" title="坐标系"></a>坐标系</h3><h4 id="天球坐标系"><a href="#天球坐标系" class="headerlink" title="天球坐标系"></a>天球坐标系</h4><p>天球坐标系是用以描述自然天体和人造天体在空间的位置或方向的一种坐标系。依据所选用的坐标原点的不同可分为站心天球坐标系、地心天球坐标系和太阳系质心天球坐标系等。</p>
+<ul>
+<li><strong>真地心天球赤道坐标系</strong></li>
+</ul>
+<p>我们把坐标原点位于地心， X 轴指向真春分点， Z 轴 指向真北天极， Y 轴垂直于 X 轴和 Z 轴组成的右手坐标系称为真地心天球赤道坐标系或瞬时地心天球赤道坐标系。</p>
+<ul>
+<li><strong>平地心天球赤道坐标系</strong></li>
+</ul>
+<p>我们把坐标原点位于地心， X 轴指向平春分点， Z 轴 指向平北天极， Y 轴垂直于 X 轴和 Z 轴组成的右手坐标系称为平地心天球赤道坐标系。</p>
+<ul>
+<li><strong>协议地心天球赤道坐标系</strong> </li>
+</ul>
+<p>国际天球坐标系的 X 轴指向 J2000.0 （ JD=2451545.0 ）时的平春分点， Z 轴指向 J2000.0 时的平北天极， Y 轴垂直于 X 轴和 Z 轴组成右手坐标系。 </p>
+<h4 id="地球坐标系"><a href="#地球坐标系" class="headerlink" title="地球坐标系"></a>地球坐标系</h4><p>地球坐标系也称大地坐标系。由于该坐标系将随着地球一起自转，也被称为地固坐标系。地球坐标系的主要任 务是用于描述物体在地球上的位置或在近地空间的位置。</p>
+<p>根据坐标原点所处的位置的不同，地球坐标系可分为<strong>参心坐标系</strong>和<strong>地心坐标系</strong>。</p>
+<h4 id="协议地球坐标系"><a href="#协议地球坐标系" class="headerlink" title="协议地球坐标系"></a>协议地球坐标系</h4><ul>
+<li>ITRS</li>
+<li>ITRF</li>
+</ul>
+<h4 id="世界大地坐标系"><a href="#世界大地坐标系" class="headerlink" title="世界大地坐标系"></a>世界大地坐标系</h4><p>世界大地坐标系是美国建立的全球地心坐标系，曾先后 推出过 WGS60 、 WGS66 、 WGS72 和 WGS84 等不同版本。其中 WGS 84 于 1987 年取代 WGS 72 而成为全球定位系统广播星历所使用的坐标系，并随着 GPS 导航定位技术的普及推广而被世界各国所广泛使用。</p>
+<h2 id="GPS组成及其信号结构"><a href="#GPS组成及其信号结构" class="headerlink" title="GPS组成及其信号结构"></a>GPS组成及其信号结构</h2><ul>
+<li>空间部分</li>
+<li>地面控制部分</li>
+<li>用户设备部分</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ges9nx3prxj30bs08ewgm.jpg" alt="image-20200514204658465"></p>
+<h3 id="空间部分"><a href="#空间部分" class="headerlink" title="空间部分"></a>空间部分</h3><ul>
+<li>六个轨道面</li>
+<li>平均轨道高度20200km</li>
+<li>轨道倾角$55^\circ$</li>
+<li>周期$11h58min$</li>
+<li>设计星座：  21颗正式的工作卫星和3 颗活动的备用卫星当前有28颗卫星</li>
+<li>保证在每天24小时的任何时刻，在高度角 $15^\circ$以上，能够同时观测到4颗以上卫星</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ges9y8ncp2j30g009wmz0.jpg" alt="image-20200514205657949"></p>
+<ul>
+<li>卫星轨道</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ges9ylmknkj30hg08s0xk.jpg" alt="image-20200514205719266"></p>
+<ul>
+<li>GPS卫星的作用<ul>
+<li>接收、存储导航电文</li>
+<li>生成用于导航定位的信号（顾及地球自转测距码、载波）</li>
+<li>发送用于导航定位的信号（顾及地球自转采用双相调制法调制在载波上的测距码和导航电文）</li>
+<li>接受地面指令，进行相应操作</li>
+<li>其他特殊用途，如通讯、监测核暴等</li>
+</ul>
+</li>
+</ul>
+<h3 id="地面监控部分"><a href="#地面监控部分" class="headerlink" title="地面监控部分"></a>地面监控部分</h3><ul>
+<li><p>分布</p>
+<p>![image-20200514210246833](/Users/cherium/Library/Application Support/typora-user-images/image-20200514210246833.png)</p>
+</li>
+<li><p>五个监控站：用于接受卫星数据，采集气象信息并将所收集到的数据传给主控站。</p>
+</li>
+<li><p>一个主控站</p>
+<ul>
+<li>管理、协调地面监控系统各部分的工作</li>
+<li>收集各监测站的数据，编制导航电文，送往注入站将卫星星历注入卫星</li>
+<li>监控卫星状态，向卫星发送控制指令</li>
+<li>卫星维护与异常情况的处理</li>
+</ul>
+</li>
+<li><p>三个注入站</p>
+<ul>
+<li>将导航电文注入GPS卫星。</li>
+</ul>
+</li>
+</ul>
+<h3 id="用户部分"><a href="#用户部分" class="headerlink" title="用户部分"></a>用户部分</h3><h4 id="GPS信号接收机"><a href="#GPS信号接收机" class="headerlink" title="GPS信号接收机"></a>GPS信号接收机</h4><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gesy91f0dmj30f80amt93.jpg" alt="image-20200515105740606"></p>
+<ul>
+<li><p>组成</p>
+<ul>
+<li>天线单元<ul>
+<li>带前置放大器</li>
+<li>接收天线</li>
+</ul>
+</li>
+<li>接收单元<ul>
+<li>信号通道</li>
+<li>存储器</li>
+<li>微处理器</li>
+<li>输入输出设备</li>
+<li>电源</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>天线单元</p>
+<ul>
+<li>类型<ul>
+<li>单极天线：单频或双频（顾及地球自转双极结构）、需要较大的底板、相位中心稳定、结构简单</li>
+<li>微带天线：结构简单、单频或双频、侧视角低（顾及地球自转适合于机载应用）、低增益、应用最为广泛</li>
+<li>锥形天线：四丝螺旋天线 – 单频、难以调整相位和极化方式、非方位对称、增益特性好、不需要底板 </li>
+<li>背腔平面盘旋天线：双频、增益特性好、侧视角高、非方位对称</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>接收单元</p>
+<ul>
+<li><p>接收（信号）通道</p>
+<ul>
+<li>定义：接收机中用来跟踪、处理、量测卫星信号的部件，由无线电元器件、数字电路等硬件和专用软件所组成。</li>
+<li>类型：根据信号跟踪方式：序惯通道、多路复用通道和多通道；根据工作原理：码相关通道、平方通道等。</li>
+</ul>
+</li>
+<li><p>存储器</p>
+</li>
+<li><p>微处理器：数据处理、控制</p>
+</li>
+<li><p>输入输出设备</p>
+</li>
+<li><p>电源</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="GPS的信号结构"><a href="#GPS的信号结构" class="headerlink" title="GPS的信号结构"></a>GPS的信号结构</h2><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gesyjs5mryj30ic0dg0vo.jpg" alt="image-20200515110800147"></p>
+<p>伪随机噪声码（测距码）和载波是GPS的两种核心测距工具，测距码需要搭载在载波上才能被发射出去。而GPS卫星信号的所有成分均是GPS基准频率($f_0$)的的倍频或分频。</p>
+<ul>
+<li><p>载波(Carrier)</p>
+<ul>
+<li><p>作用</p>
+<ul>
+<li>搭载其他的调制信号</li>
+<li>测距</li>
+<li>测定多普勒频移</li>
+</ul>
+</li>
+<li><p>分类</p>
+<ul>
+<li>L1: $154*f_0=1575.43MHz$，波长：$19.03cm$</li>
+<li>L2: $120*f_0=1227.60MHz$，波长：$24.42cm$</li>
+</ul>
+</li>
+<li><p>特点</p>
+<ul>
+<li>选择的频率有利于测定多普勒频移</li>
+<li>所选择的频率有利于减弱信号所受的电离层折射影响</li>
+<li>选择两个频率可以较好地消除信号的电离层折射延迟（电离层折射延迟于信号的频率有关）</li>
+</ul>
+</li>
+<li><p>载波相位测量</p>
+</li>
+<li><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1lhu3lzj31340hu411.jpg" alt="image-20200515125327737"></p>
+</li>
+<li><p>载波相位观测：</p>
+</li>
+<li><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1geu20cjsgxj30du0domyd.jpg" alt="image-20200516095317372"><br>$$<br>首次观测：\varphi_0=Fr(\varphi)_0\\<br>以后的观测：\varphi_i=lnt(\varphi)_i+Fr(\varphi)\\<br>通常表示为：\varphi^*=N_0+Lnt(\varphi)+Fr(\varphi)<br>$$</p>
+</li>
+<li><p>载波相位测量具有很高的精度，可达到0.1mm，但是却有整周未知数和整周跳变的问题。</p>
+</li>
+<li><p>载波相位测量的关键是重建载波，载波调制了电文之后变成了非连续的波，将非连续的载波信号恢复成连续的载波信号。</p>
+<ul>
+<li>码相关法：<ul>
+<li>方法：将所接收到的调制信号（卫星信号）与接收机产生的复制码相乘。</li>
+<li>技术要点：卫星信号（弱）与接收机信号（强）相乘。</li>
+<li>特点：限制，需要了解码的结构；有点，可以获得导航电文，可以获得全波长的载波，信号质量好（信噪比高）。</li>
+</ul>
+</li>
+<li>平方法：<ul>
+<li>方法：将所接受到的调制信号（卫星信号）自乘</li>
+<li>技术要点：卫星信号（弱）自乘</li>
+<li>特点：优点，无需了解码的结构；无法获得导航电文，所获载波波长变为原来的一半，信号质量较差（信噪比低，降低了30db）</li>
+</ul>
+</li>
+<li>互相关法（交叉相关）<ul>
+<li>方法:在不同频率的调制信号（卫星信号）进行相关处理，获取两个频率间的伪距差和相位差</li>
+<li><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1pqgdzbj30bq03cjri.jpg" alt="image-20200515125731714"></li>
+<li>技术要点:不同频率的卫星信号（弱）进行相关</li>
+<li>特点:优点，无需了解Y解码的结构，可获得导航电文，可获得全波波长的载波，信号质量较平方法好（信噪比低了27dB）</li>
+</ul>
+</li>
+<li>Z跟踪法<ul>
+<li>方法：将卫星信号在一个W码码元内与接收机复制出来的P码尽心给相关处理。在一个W码马院内进行卫星信号（弱）与复制信号（强）进行相关。</li>
+<li>特点：无需了解Y码结构，可测定双频伪距观测值，可获得导航电文，可获得全波波长的载波，信号质量较平方法好（信噪比降低了14dB）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>载波测量相位的基本原理：</p>
+</li>
+<li><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1ru9usuj30zs0tmwjn.jpg" alt="image-20200515125931191"></p>
+</li>
+</ul>
+</li>
+<li><p>测距码(Ranging Code)</p>
+<ul>
+<li><p>分类</p>
+<ul>
+<li>C/A码（目前只被调制在L1上）</li>
+<li>P(Y)码（被调制在L1和L2上）</li>
+<li><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1d5dqtnj30rw0eatfi.jpg" alt="image-20200515124523228"></li>
+</ul>
+</li>
+<li><p>性质</p>
+<ul>
+<li>伪随机噪声码（PRN——  Pseudo Random Noise ）</li>
+<li>不同的码（包括未对齐的同一组码）间的相关系数为0或1/n （n为码元数）</li>
+<li>对齐的同一组码间的相关系数为 1</li>
+</ul>
+</li>
+<li><p>测距码测距</p>
+<ul>
+<li><p>测距码解决了确定卫星位置与测量出站星位置两个问题，GPS使用单程测距</p>
+</li>
+<li><p>测距码是一系列的二进制组合，其拥有很强的相关性和自相关性。当信号的幅值在同一时刻想同时，其相关性被定为1，如果接收机和卫星使用同一组码，信号被接收机接收后就可以不断的调整直到对齐，并通过周期差来计算距离。</p>
+</li>
+<li><p>$$<br>基本思路：\rho=\Delta tc\\<br>传播时间测定： R=\frac{1}{\Delta T}\int_{\Delta T}u(T-\Delta t)u(T-\mu)dt<br>$$</p>
+</li>
+<li><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1h55obrj30e2048my3.jpg" alt="image-20200515124916148"></p>
+</li>
+<li><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1get1hgd24gj30ni05ijuc.jpg" alt="image-20200515124934574"></p>
+</li>
+<li><p>当相关系数为1时，就认为卫星的位置已经被锁定，，但是由于畸变的原因，相关系数往往无法达到1，因此取最小值。</p>
+</li>
+<li><p>测距码测距具有以下优点</p>
+<ul>
+<li>易于提取微弱的卫星信号</li>
+<li>可提高测距精度</li>
+<li>便于用码分多址技术（CDMA）对卫星信号进行识别和处理</li>
+<li>便于对系统进行控制和管理</li>
+</ul>
+</li>
+<li><p>误差部分在之后讨论</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>观测值的线性组合</p>
+<ul>
+<li>同类型同频率同相位观测值的线性组合使用差分观测值<ul>
+<li>将相同频率的 GPS载波相位观测值依据某种方式求差所获得的新的组合观测值（虚拟观测值）</li>
+<li>可以消去某些不重要的参数（多余参数），或将某些对确定待定参数有较大负面影响的因素消去或消弱其影响</li>
+<li>求差方式<ul>
+<li>战间求差$\varphi_{A.B}^I(t)=\varphi_B^I(t)-\varphi_A^T(t)$<ul>
+<li><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1geu4r1hmnmj308u09ejrp.jpg" alt="image-20200516112807495"></li>
+<li>消除了卫星钟差影响</li>
+<li>削弱了电离层折射影响</li>
+<li>削弱了对流层折射影响</li>
+<li>削弱了卫星轨道误差的影响</li>
+</ul>
+</li>
+<li>卫星间求差$\varphi_A^{I.J}=\varphi_A^J(t)-\varphi_A^I(t)$<ul>
+<li>![image-20200516113150063](/Users/cherium/Library/Application Support/typora-user-images/image-20200516113150063.png)</li>
+<li>消除了接收机钟差的影响</li>
+</ul>
+</li>
+<li>历元间求差$\varphi_A^{I}(t_i,t_{i+1})=\varphi_A^I(t_{i+1})-\varphi_A^I(t_i)$<ul>
+<li><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1geu4wj1vfij30aq0ckmxo.jpg" alt="image-20200516113324419"></li>
+<li>消除了整周未知数参数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>单差：站间一次差分</li>
+<li>双差：站间、星间各求一次差分</li>
+<li>三差：站间、星间、历元间各求一次差分</li>
+<li>差分观测值的缺点<ul>
+<li>数据利用率低下</li>
+<li>引入基线矢量替代了位置矢量</li>
+<li>差分观测值间具有了相关性，使处理问题复杂化</li>
+<li>某些参数无法求出</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>不同类型观测值间的线性组合<ul>
+<li>不同频率实际上就是L1、L2载波，其线性组合具有一般形式：$\phi_{n,m}=n\phi_1+n\phi_2$</li>
+<li>常使用宽巷观测值$\phi_{\Delta}=\phi_1-\phi_2$</li>
+</ul>
+</li>
+<li>其他类型的线性组合<ul>
+<li>其他的类型，区别主要在不同的伪距测量和载波相位测量。但是他们的思路都是一样的。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>卫星（导航）电文(Message)</p>
+<ul>
+<li>作用：向用户提供卫星轨道参数、卫星钟参数、卫星状态信息及其它信息</li>
+<li>结构：</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1geu4ksrv5aj317i0cs0v6.jpg" alt="image-20200516112207991"></p>
+<ul>
+<li>基本内容</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1geszb5ccayj30kg0ayace.jpg" alt="image-20200515113417514"></p>
+<ul>
+<li>遥测字（TLM）<ul>
+<li>每一子帧的第一个字</li>
+<li>用作捕获导航电文的前导</li>
+</ul>
+</li>
+<li>交接字（HOW）<ul>
+<li>每一子帧的第二个字</li>
+<li>主要内容：Z计数</li>
+</ul>
+</li>
+<li>第一数据块<ul>
+<li>第1子帧的第3~10个字</li>
+<li>内容：包含WN-GPS周、L2所调制测距标示符、传输参数N-URA、信号在卫星内部时延TGD，星钟内部时延TGD、星钟数据龄期AODC、星钟参数。</li>
+</ul>
+</li>
+<li>第二数据块<ul>
+<li>第2、3子帧的第3~10个字</li>
+<li>内容：包含发送卫星的星历（广播星历）</li>
+</ul>
+</li>
+<li>卫星（导航）电文<ul>
+<li>第4、5子帧的第3~10 个字</li>
+<li>内容：所有卫星历书（略星历）</li>
+<li>第三数据块的内容每12.5分钟重复一次</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="卫星信号的调制"><a href="#卫星信号的调制" class="headerlink" title="卫星信号的调制"></a>卫星信号的调制</h3><ul>
+<li>二进制信号的相位调制</li>
+</ul>
+<p>$$<br>s(t) =B(t)\cos (\omega t+\phi)<br>$$</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1geszmpi7ooj30dm092q3m.jpg" alt="image-20200515114524519"></p>
+<ul>
+<li>卫星信号的调制</li>
+</ul>
+<p>$$<br>S_{L1}=A_pP(t)D(t)cos(\omega_{L1}t+\varphi_{L1})+A_cC_i(t)D_i(t)\sin(\omega_{L1}t+\varphi_{L1})\\<br>S_{L2}(t)=B_pP_i(t)D_i(t)\cos(\omega_{L2}t+\varphi_{L2})<br>$$</p>
+<h3 id="卫星位置的计算"><a href="#卫星位置的计算" class="headerlink" title="卫星位置的计算"></a>卫星位置的计算</h3><ul>
+<li>计算卫星在轨道平面坐标系下的坐标</li>
+<li>根据坐标转换矩阵得到地固坐标系下的坐标</li>
+</ul>
+<h2 id="误差分析"><a href="#误差分析" class="headerlink" title="误差分析"></a>误差分析</h2><p>在多普勒测量中认为$V=c$，但是在信号穿过电离层、大气层时，显然是不正确的，除此之外，还有许多其他形式的误差，从此处开始讨论误差的来源与修正。</p>
+<h3 id="误差来源"><a href="#误差来源" class="headerlink" title="误差来源"></a>误差来源</h3><ul>
+<li><p>与卫星有关的误差</p>
+<ul>
+<li>卫星轨道误差<ul>
+<li>由卫星星历给出的卫星在空间的位置与卫星的实际位置之差称为卫星星历误差。</li>
+<li>广播星历(无SA) $20~30m$</li>
+<li>广播星历(有SA) 100m</li>
+<li>精密星历 1cm</li>
+<li>解决方法<ul>
+<li>精密定轨（后处理）</li>
+<li>相对定位差分定位</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>卫星钟差：时刻钟差、频偏、卫星钟老化导致的频漂<ul>
+<li><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1getcursyslj307g064wfn.jpg" alt="image-20200515192253576"></li>
+<li>$修正：\Delta t=a_0+a_1(t-t_0)+a_2(t-t_0)^2+\int_{t_0}^{t_1}y(t)dt$</li>
+<li>$a_0$为$t_s$时刻的时钟偏差，$a_1$为钟的飘逸，$a_2$为老化率</li>
+</ul>
+</li>
+<li>相对论效应<ul>
+<li>原理：<ul>
+<li>狭义相对论：<strong>时间膨胀，钟的频率与其运动速度有关。</strong></li>
+<li>广义相对论：<strong>钟的频率与其所处的重力位有关</strong></li>
+</ul>
+</li>
+<li>结论<ul>
+<li><strong>在狭义相对论效应作用下，卫星上钟的频率将变慢</strong> </li>
+<li>在广义相对论效应作用下，卫星上钟的频率将变快</li>
+<li>在狭义相对论效应和广义相对论效应的共同作用下，卫星上钟频率相对于其在地面上时总的变化量$\Delta f=Delta f_1+\Delta f_2=4.449*10^{-10}f$</li>
+</ul>
+</li>
+<li>解决办法<ul>
+<li>在地面上调低将要搭载到卫星上去的钟的频率，调低后的频率为$10.23MHz*(1-4.449*10^{-10})=10.22999999545MHz$</li>
+<li>在时刻$t$时，在卫星钟读书上加上改正数$\Delta t_p$,$\Delta_p(t)=Fe\sqrt A \sin E(t)\\F=\frac{-2 \mu^\frac{1}{2}}{c^2}=-4.442807633*10^{-10}s/m^2\\\Delta t_{L1}(t)=a_0+a_1(t-t_{ac}+a_2(t-t_{ac})^2+\Delta t_p -T_{GD}$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>与传播途径相关的误差</p>
+<ul>
+<li>电离层延迟</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1getdlxw3znj30o60eo42f.jpg" alt="image-20200515194835963"></p>
+<ul>
+<li><p>相关概念</p>
+<ul>
+<li>电子密度：单位体积中所包含的电子数。</li>
+<li>总电子含量（TEC）：底面积为一个单位面积时沿信号传播路径贯穿整个电离层的一个柱体内所含的电子总数。可以认为是这个柱体电子密度的积分$TEC=\int_sNEds$</li>
+</ul>
+</li>
+<li><p>电离层延迟主要由电子密度(NE)影响，所以主要讨论电子密度的变化，以及电离层延迟岁电子密度变化的关系。其关系主要由以下方法建模。</p>
+<ul>
+<li>经验模型改正:由一望观测到的数据进行改正，但是各类因素实时改变，改变效果差。<ul>
+<li>Bent模型</li>
+<li>国际参考电离层模型</li>
+<li>Klobuchar模型</li>
+</ul>
+</li>
+<li>双频改正：卫星同时发射两种频率不同的信号（$L_1$,$L_2$载波），其沿着同一路径到达接收机，利用双频观测值直接计算出延迟改正或组成无电离层延迟的组合观测量。</li>
+<li>实测模型改正：利用实际观测所得到的离散的电离层延迟（或电子含量），建立模型（如内插），其本身是由双频改正的基础上进行修正，因此效果最佳。</li>
+</ul>
+</li>
+<li><p>对流层延迟</p>
+<p>GPS使用的微波段，波长相对光波很长，在对流层基本不存在色散效应，无法使用双频改正法来修正，需要测量气体的干温度、湿度、温度、气压等等相关参数来构建模型。</p>
+<ul>
+<li>Hopfield改正模型</li>
+<li>Saastamoinen改正模型</li>
+<li>Black改正模型</li>
+</ul>
+</li>
+<li><p>多路径效应</p>
+</li>
+<li><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1getgg9sul9j30gk0c2dhx.jpg" alt="image-20200515212723035"></p>
+<ul>
+<li>在GPS测量中，被测站附近的物体所反射的卫星信号（反射波）被接收机天线所接收，与直接来自卫星的信号（直接波）产生干涉，从而使观测值偏离真值产生所谓的“多路径误差”。<ul>
+<li>与观测站环境有关</li>
+<li>与反射体性质有关</li>
+<li>与接收机结构、性能有关</li>
+</ul>
+</li>
+<li>多路径误差的产生来源于附近的物体，所以尽量保证测量环境的开阔就可以有效的避免多路径误差 </li>
+<li>采用抗多路径误差的仪器设备</li>
+<li>在数据处理上使用加权、参数法、滤波法、信号分析法。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>与接收机设备相关的误差</p>
+<ul>
+<li>接收机天线相位中心的偏移和变化</li>
+<li>接收机钟差：GPS接收机一般采用石英钟，接收机钟与理想的GPS时之间存在的偏差和漂移。<ul>
+<li>作为未知数处理</li>
+<li>相对定位或差分定位</li>
+</ul>
+</li>
+<li>接收机内部噪声</li>
+</ul>
+</li>
+<li><p>偶然误差</p>
+<ul>
+<li>卫星幸好发生部分随机噪声</li>
+<li>接收机信号处理部分的随机噪声</li>
+<li>从其他外部随机特征具有随机特征的影响</li>
+<li><strong>特点</strong>：随机、量小（毫米级）</li>
+</ul>
+</li>
+<li><p>系统误差</p>
+<ul>
+<li>由于系统的设计等因素所造成的具有某种系统特性的误差</li>
+<li><strong>特性</strong>：具有系统特性、量大（最大可达数百米）</li>
+</ul>
+</li>
+</ul>
+<h2 id="修正误差的方法"><a href="#修正误差的方法" class="headerlink" title="修正误差的方法"></a>修正误差的方法</h2><p>修正误差的方法可以从测量环境上直接尽量的避免误差，也可通过一些方法修正误差。</p>
+<ul>
+<li><p>求差法</p>
+<ul>
+<li><p>原理：通过观测值间一定方式的相互求差，消去或消弱求差观测值中所包含的相同或相似的误差影响。</p>
+</li>
+<li><p>适用情况：误差具有较强的空间、时间或其它类型的相关性</p>
+</li>
+<li><p>所针对的误差源</p>
+<ul>
+<li>电离层延迟</li>
+<li>对流层延迟</li>
+<li>卫星轨道误差</li>
+<li>…</li>
+</ul>
+</li>
+<li><p>限制：空间相关性将随着测站间距离的增加而减弱</p>
+</li>
+</ul>
+</li>
+<li><p>参数法</p>
+<ul>
+<li>原理：采用参数估计的方法，将系统性偏差求定出来</li>
+<li>适用情况：几乎适用于任何的情况</li>
+<li>限制：不能同时将所有影响均作为参数来估计</li>
+</ul>
+</li>
+<li><p>回避法</p>
+<ul>
+<li><p>原理：选择合适的观测地点，避开易产生误差的环境；采用特殊的观测方法；采用特殊的硬件设备，消除或减弱误差的影响</p>
+</li>
+<li><p>适用情况：对误差产生的条件及原因有所了解；具有特殊的设备</p>
+</li>
+<li><p>所针对的误差源</p>
+<ul>
+<li>电磁波干扰</li>
+<li>多路径效应</li>
+</ul>
+</li>
+<li><p>限制：无法完全避免误差的影响，具有一定的盲目性</p>
+</li>
+</ul>
+</li>
+<li><p>周跳的探测与修复</p>
+<ul>
+<li>如果在观测过程接收机保持对卫星信号的连续跟踪，则整周模糊度$N_0$将保持不变，整周计数$Int(\varphi(t))$也将保持连续，但当由于某种原因使接收机无法保持对卫星信号的连续跟踪时，在卫星信号重新被锁定后，$N_0$将发生变化，而$Int(\varphi(t))$也不会与前面的值保持连续，这一现象称为整周跳变。</li>
+<li>在某一特定时刻的载波相位观测值是：</li>
+</ul>
+<p>$$<br>\varphi^*(t)=N_0+Int(\varphi(t))+Fr(\varphi(t))\\<br>其中：\varphi(t)=\Phi(\tau_b)+\Phi(\tau_a)\\<br>t=\tau_a+\upsilon_{\tau_a}\\<br>t=\tau_b+\upsilon_{\tau_b}<br>$$</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1geu5hzdy3yj308806o3yo.jpg" alt="image-20200516115401237"></p>
+<ul>
+<li><p>产生跳变的原因</p>
+<ul>
+<li>信号被遮挡，导致卫星信号无法被跟踪</li>
+<li>仪器故障，导致差频信号无法产生</li>
+<li>卫星信号信噪比过低，导致整周计数错误</li>
+<li>接收机在高速动态的环境下进行观测，导致接收机无法正确跟踪卫星信号</li>
+<li>卫星瞬时故障，无法产生信号</li>
+</ul>
+</li>
+<li><p>修复周跳的方法</p>
+<ul>
+<li><strong>探测与修复</strong>：设法找出周跳发生的时间和大小<ul>
+<li>屏幕扫描法：人工观测，费时费力</li>
+<li>高次差法</li>
+</ul>
+</li>
+<li><strong>参数法</strong>：将周跳标记出来，引入周跳参数，进行解算<ul>
+<li>多项式拟合法</li>
+<li>NW观测值法</li>
+<li>残差法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="整周模糊度"><a href="#整周模糊度" class="headerlink" title="整周模糊度"></a>整周模糊度</h2><ul>
+<li><p><strong>相对定位</strong>：确定同步跟踪相同的GPS卫星信号的若干台接收机之间的相对位置，即坐标差。相对位置用一条基线向量表示，故相对定位有时也称测定基线向量或者基线测量。</p>
+</li>
+<li><p><strong>静态定位</strong>：待定点在地固坐标系中的位置没有可察觉到的变化，或虽有可察觉到的变化，但是这种变化缓慢，以至在一个时段内（数个小时至数天）可概略不计，只有间隔数月或者数年才能显示出来，因而在进行数据处理时，整个时段内的待定坐标都可以认为是常数固定不变的。</p>
+</li>
+<li><p><strong>动态定位</strong>：如果在一个时段内，待定淀的坐标位置发生显著变化，每个历元的待定点坐标均需作为一组未知参数，确定这些载体在不同时刻的瞬时未知。</p>
+</li>
+<li><p>静态相对定位</p>
+<p>相对定位是利用两台GPS接收机，分别安置在基线的两端，同步观测相同的GPS卫星，以确定基线在协议地球坐标系中的相对位置和基线向量。相对定位方法一般可推广到多台接收机安置在若干条基线的端点，通过同步观测GPS卫星，以确定多条基线向量。</p>
+<ul>
+<li><p>取整法</p>
+</li>
+<li><p>置信区间法</p>
+</li>
+<li><p>模糊函数法</p>
+<ul>
+<li>整数解：<ul>
+<li>求初始解：确定基线向量的实数解和整周未知数的实数解</li>
+<li>将整周模糊度固定为整数</li>
+<li>求固定解</li>
+</ul>
+</li>
+<li>实数解：基线较长，误差相关性减弱，初始解的误差将随之增大，从而使模糊度参数很难固定，整数化的意义不大。</li>
+</ul>
+</li>
+<li><p>快速定位</p>
+<ul>
+<li><p>走走停停法（Stop and Go）</p>
+<p>是准动态定位的一种，本质上是快速静态定位，可以解出整周模糊度传递到下一个待定点。</p>
+<ul>
+<li>已知基线法：将已修复周跳、剔除粗差后的双差载波相位观测值组成法方程式，然后将已知的基线向量代入法方程式并求解模糊度参数，最后再 用取整法或置信区间法将求得的实数模糊度固定为整数。</li>
+<li>交换天线法</li>
+</ul>
+<p>![image-20200516172054232](/Users/cherium/Library/Application Support/typora-user-images/image-20200516172054232.png)</p>
+<p>在观测之前，先在基准站附近5-10m处选择一个天线交换点，将两台接收机天线分别安置在该基线两端，同步观测2-8个历元后，相互交换天线，并继续观测若干历元；最后将两天线恢复到原来位置。此时固定站与天线交换点之间的基线向量视为起始基线向量，利用天线交换前后的同步观测量，求解基线向量，进而确定整周未知数。</p>
+<ul>
+<li>快速模糊度解算法（FARA）<ul>
+<li>由瑞士的E.Frei和G.Beutler提出</li>
+<li>其核心是使用置信区间，但是由于测量时间短，置信区间内有很多的解，需要使用最小二乘等辅助算法来找到最优解</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>​    </p>
+<ul>
+<li>动态定位<ul>
+<li>初始化法：运动载体处于静止状态时与地面基准站一起通过“初始化”来确定整周模糊度，然后运动载体开始运动，进行定位。</li>
+<li>实时结算模糊度<ul>
+<li>确定搜索区域<ul>
+<li>坐标搜索法</li>
+<li>模糊度搜索法</li>
+</ul>
+</li>
+<li>可采铜的方法<ul>
+<li>模糊度函数法</li>
+<li>最小二乘模糊度搜索法</li>
+<li>FARA法</li>
+<li>快速模糊度搜索滤波法</li>
+<li>LAMBDA法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="距离测量与GPS定位"><a href="#距离测量与GPS定位" class="headerlink" title="距离测量与GPS定位"></a>距离测量与GPS定位</h2><p><strong>定位方法分类</strong>：</p>
+<ul>
+<li>定位模式<ul>
+<li>绝对定位（单点定位）</li>
+<li>相对定位</li>
+<li>差分定位</li>
+</ul>
+</li>
+<li>定位时接收机天线的运动状态<ul>
+<li>静态定位：天线相对于地固坐标系静止</li>
+<li>动态定位：天线相对于地固坐标系运动</li>
+</ul>
+</li>
+<li>获得定位结果的时效<ul>
+<li>事后定位</li>
+<li>实时定位</li>
+</ul>
+</li>
+<li>观测值类型<ul>
+<li>伪距载波</li>
+<li>载波相位测量</li>
+</ul>
+</li>
+</ul>
+<h3 id="单点定位"><a href="#单点定位" class="headerlink" title="单点定位"></a>单点定位</h3><ul>
+<li><p>定义：单独利用一台接收机确定待定点在地固坐标系中绝对位置的方法</p>
+</li>
+<li><p>定位结果：与所用星历同属一坐标系的绝对坐标</p>
+<ul>
+<li>采用广播星历时属WGS-84</li>
+<li>采用IGS–International GPS Service精密星历时为ITRF–International Terrestrial Reference Frames</li>
+</ul>
+</li>
+<li><p>特点</p>
+<ul>
+<li>优点：一台接收机单独定位，观测简单，可瞬时定位</li>
+<li>缺点：精度主要受系统性偏差的影响，定位精度低</li>
+</ul>
+</li>
+<li><p>测量</p>
+<ul>
+<li>测距码伪距单点定位</li>
+</ul>
+<p>$$<br>\rho_i=\sqrt{(X_i-X)^2+(Y_i-Y)^2+(Z_i-Z)^2}-cV_{tR}+cV_{t_is}-(V_ion)_i-(V_trop)_i<br>$$</p>
+<p>一般用DOP（精度因子）来反映精度。</p>
+<ul>
+<li>载波相位观测定位</li>
+</ul>
+<p>是利用接收机测定载波相位观测值或其差分观测值，经基线向量解算以获得两个同步观测站之间的基线向量坐标差的技术和方法。<br>$$<br>\lambda\Phi_i=-l_iV_x-n_iV_z+cV_{t_is}+\rho_i^0-(V_{ion})<em>i-(V</em>{trop})_i+\sum\delta_i<br>$$<br>$\phi_i$是对应卫星的载波观测值，由整周计数和不足一周的部分组成，$\lambda$是载波的波长，$N_i$为$\phi$对应的整周模糊度，$\sum\delta_i$是必须估计的改正数。</p>
+</li>
+</ul>
+<h3 id="相对定位"><a href="#相对定位" class="headerlink" title="相对定位"></a>相对定位</h3><ul>
+<li>定义：确定进行同步观测的接收机之间相对位置的定位方法，称为相对定位。</li>
+<li>定位结果<ul>
+<li>与所用星历同属一坐标系的基线向量（坐标差）及其精度信息<ul>
+<li>采用广播星历时属WGS-84</li>
+<li>采用IGS – International GPS Service精密星历时为ITRF – International Terrestrial Reference Frame</li>
+</ul>
+</li>
+<li>基线向量中含有： 2 个方位基准（一个水平方法，一个垂直方位）和1个尺度基准，不含有位置基准</li>
+<li>特点<ul>
+<li>优点：定位精度高</li>
+<li>缺点：<ul>
+<li>多台接收共同作业，作业复杂</li>
+<li>数据处理复杂</li>
+<li>不能直接获取绝对坐标</li>
+</ul>
+</li>
+<li>应用：高精度测量定位及导航</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="静态相对定位"><a href="#静态相对定位" class="headerlink" title="静态相对定位"></a>静态相对定位</h4><ul>
+<li>测量过程：<ul>
+<li>探测修复周跳，构建法方程式</li>
+<li>确定整周模糊度</li>
+<li>将整周模糊度带回已知方程，以便更简单的求解基线向量</li>
+</ul>
+</li>
+</ul>
+<h4 id="动态相对定位"><a href="#动态相对定位" class="headerlink" title="动态相对定位"></a>动态相对定位</h4><ul>
+<li><p>动态定位中整周未知数的确定：</p>
+<ul>
+<li>动态初始化</li>
+<li>静态初始话（OTF）</li>
+</ul>
+</li>
+<li><p>实时动态定位（RTF）</p>
+<ul>
+<li>单基准站RTF</li>
+<li>多基准站</li>
+</ul>
+</li>
+</ul>
+<h2 id="差分GPS"><a href="#差分GPS" class="headerlink" title="差分GPS"></a>差分GPS</h2><p>差分GPS（differential GPS-DGPS，DGPS）是首先利用已知精确三维坐标的差分GPS基准台，求得伪距修正量或位置修正量，再将这个修正量实时或事后发送给用户，对用户的测量数据进行修正，以提高GPS定位精度。</p>
+<p>影响GPS精度的主要来源在<a href="#%E8%AF%AF%E5%B7%AE%E6%9D%A5%E6%BA%90">误差来源</a>处已经分析过，对于接收机而言，相同的误差在一定范围内对其影响具有一定的空间相关性，差分GPS利用基准站上测出的误差影响，供给流动站修正其定位结果。</p>
+<ul>
+<li>分类<ul>
+<li>时效性分类<ul>
+<li>实时差分</li>
+<li>事后差分</li>
+</ul>
+</li>
+<li>根据观测值类型<ul>
+<li>伪距差分</li>
+<li>载波相位差分</li>
+</ul>
+</li>
+<li>根据差分改正数<ul>
+<li>位置（坐标）差分：基准站上的接受机对GPS卫星进行观测，确定出测站的观测坐标，观测站的已知坐标与观测坐标之差即为距离的改正数，也称为位置差分。</li>
+<li>距离差分：利用基准站坐标和卫星星历可以计算出星间的距离，计算距离渐趋观测距离即距离改正数。也被称为距离差分。</li>
+</ul>
+</li>
+<li>根据工作原理/差分模型<ul>
+<li>局域差分</li>
+<li>广域差分：在一个相当大的区域中，较为均匀的的分布少量的基准站，形成一个稀疏的差分GPS网，每个基准站独立的观测数据，并送往数据处理中心集中处理，提高精度。其本质在于在数据处理时分离出来，用户可以自行改正。这样工作量庞大，建设费用也很高。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/29/machinelearningFD/" rel="prev" title="DeeplearningAL">
+      <i class="fa fa-chevron-left"></i> DeeplearningAL
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/27/pythonos/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cherium</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">81k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:14</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      const script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"cherium.fun","root":"/","scheme":"Muse","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false};
+  </script>
+
+  <meta name="description" content="配置工作环境  It’s beneath me">
+<meta property="og:type" content="article">
+<meta property="og:title" content="配置工作环境">
+<meta property="og:url" content="cherium.fun/2020/04/20/configEnvirment/index.html">
+<meta property="og:site_name" content="Cherium&#39;s blogs">
+<meta property="og:description" content="配置工作环境  It’s beneath me">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge1cwla6jkj30p005qdgn.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gg93hti52tj30ty0ie17x.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/image-20200304010120636.png">
+<meta property="article:published_time" content="2020-04-20T14:29:41.000Z">
+<meta property="article:modified_time" content="2020-08-05T05:22:28.102Z">
+<meta property="article:author" content="cherium">
+<meta property="article:tag" content="DIP,Pattern Recognition,Dynamic And Contral,Pentest">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge1cwla6jkj30p005qdgn.jpg">
+
+<link rel="canonical" href="cherium.fun/2020/04/20/configEnvirment/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>配置工作环境 | Cherium's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Cherium's blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东向而望，不见西墙</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">配置工作环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#macos"><span class="nav-number">1.1.</span> <span class="nav-text">macos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">重装系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Host"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">Host</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#V2rayU"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">V2rayU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Homebrew"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">Homebrew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">同步</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.1.1.4.1.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%98%E5%9B%BE"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">绘图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">论文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Terminal"><span class="nav-number">1.1.1.7.</span> <span class="nav-text">Terminal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proxy"><span class="nav-number">1.1.1.8.</span> <span class="nav-text">Proxy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sublime-text"><span class="nav-number">1.1.1.9.</span> <span class="nav-text">Sublime text</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">1.1.2.</span> <span class="nav-text">其他快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E6%A1%8C%E9%9D%A2%E4%B8%8EDashboard"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">多桌面与Dashboard</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows"><span class="nav-number">1.2.</span> <span class="nav-text">Windows</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Markdown"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">Markdown</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8B%B1%E6%96%87%E5%88%92%E8%AF%8D%E6%90%9C%E7%B4%A2"><span class="nav-number">1.2.1.</span> <span class="nav-text">英文划词搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Onedrive%E5%8D%B8%E8%BD%BD%E5%90%8E%E7%9A%84%E6%AE%8B%E7%95%99%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.2.</span> <span class="nav-text">Onedrive卸载后的残留问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Terminal-1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">Terminal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-1"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%EF%BC%9A%E5%88%B6%E4%BD%9CEpub%E7%94%B5%E5%AD%90%E4%B9%A6"><span class="nav-number">2.</span> <span class="nav-text">方法：制作Epub电子书</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="cherium"
+      src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+  <p class="site-author-name" itemprop="name">cherium</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/luseanevens" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luseanevens" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cherium@icloud.com" title="E-Mail → mailto:cherium@icloud.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
+        <div class="back-to-top animated">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="cherium.fun/2020/04/20/configEnvirment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+      <meta itemprop="name" content="cherium">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cherium's blogs">
+    </span>
+
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          配置工作环境
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-20 22:29:41" itemprop="dateCreated datePublished" datetime="2020-04-20T22:29:41+08:00">2020-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-05 13:22:28" itemprop="dateModified" datetime="2020-08-05T13:22:28+08:00">2020-08-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">日记</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">环境配置</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="配置工作环境"><a href="#配置工作环境" class="headerlink" title="配置工作环境"></a>配置工作环境</h1><blockquote class="blockquote-center">
+<p> It’s beneath me</p>
+
+</blockquote>
+
+<a id="more"></a>
+
+<p>[TOC]</p>
+<h2 id="macos"><a href="#macos" class="headerlink" title="macos"></a>macos</h2><h3 id="重装系统"><a href="#重装系统" class="headerlink" title="重装系统"></a>重装系统</h3><p>有相当一段时间没有使用过mac了，由于数据同步，Matlab等等很多东西使用的不便，最近几个月都是在win上办事,但是LOL, Seven Days To Die, Fullout 76, CS:GO …诱惑实在是太大了,学习学着学着就快乐去了，在考研之前决定不再用Windows了，正好学习完全的使用mac办公。但是迁移博客时惊讶的发现windows上无法使用<code>git</code>，刚开始以为是自己新配置的代理的问题，更改了npm和git的代理后无果，后来发现mac也一样无法<code>git clone</code>,感觉是自己搞砸了，brew的配置当时也没有记录，很多软件都是瞎装，很心烦就重装了系统。重装之后问题依然无法解决，找资料后发现2020.2左右Github被墙了。<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge1cwla6jkj30p005qdgn.jpg" alt="截屏2020-04-21 下午2.08.50"></p>
+<p>但是在3月左右的时候上传代码依然是可行的，所以应该是之前配置过的东西发生更改了，就想到了<a target="_blank" rel="noopener" href="https://github.com/googlehosts/hosts">GoogleHost</a>，项目在一个月前更新过，替换原有的host文件后解决了问题。再记录一下重装系统后配置环境的过程。</p>
+<h4 id="Host"><a href="#Host" class="headerlink" title="Host"></a>Host</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;hosts</span><br><span class="line">open hosts</span><br></pre></td></tr></table></figure>
+
+<h4 id="V2rayU"><a href="#V2rayU" class="headerlink" title="V2rayU"></a><a target="_blank" rel="noopener" href="https://github.com/yanue/V2rayU">V2rayU</a></h4><h4 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/111014448">homebrew国内自动脚本</a></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置 git</span></span><br><span class="line"><span class="comment"># 使用 SSH</span></span><br><span class="line"><span class="comment"># 检查本机SSH key</span></span><br><span class="line"><span class="built_in">cd</span> ~/.ssh</span><br><span class="line"><span class="comment"># 生成SSH key</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;cherium@icloud.com&quot;</span></span><br><span class="line"><span class="built_in">cd</span> ~/.ssh</span><br><span class="line">open .</span><br><span class="line"><span class="comment"># 复制id_rsa.pub 中的SSH key，在Github Setting中配置。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 完成后 **确认邮件** </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 中文安装homebrew</span></span><br><span class="line">/bin/zsh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)</span>&quot;</span></span><br><span class="line"><span class="comment"># 自检</span></span><br><span class="line">brew doctor</span><br><span class="line">brew search sublimetext</span><br><span class="line">brew search qq</span><br><span class="line">brew search anaconda</span><br><span class="line">brew search typora</span><br><span class="line">brew search iina</span><br><span class="line">brew cask install iina</span><br><span class="line"><span class="comment"># brew cask install ~</span></span><br><span class="line">brew install npm</span><br><span class="line">npm install hexo</span><br><span class="line"><span class="comment"># 无法连接到 git</span></span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line"><span class="comment"># hexo init</span></span><br><span class="line"><span class="comment"># WARN git clone failed. Copying data instead</span></span><br><span class="line"><span class="comment"># WARN Failed to install dependencies. Please run &#x27;npm install&#x27; manually!</span></span><br><span class="line">npm install -g hexo-cli</span><br><span class="line"><span class="comment"># 创建待初始的hexo文件夹</span></span><br><span class="line">hexo init</span><br><span class="line"><span class="comment"># 若git失败，则与git的网络配置、host文件的代理有关。</span></span><br><span class="line">hexo clean&amp;&amp;hexo g&amp;&amp;hexo s</span><br><span class="line">hexo d -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>博客转移文件及配置</li>
+</ul>
+<p>原目录下的：\</p>
+<p><code>_config.yml, scaffolds, source, themes；</code>直接覆盖替换相同的文件文件夹。</p>
+<ul>
+<li>Git 代理</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用代理</span></span><br><span class="line">git config --global http.proxy http://127.0.0.1:1080</span><br><span class="line"></span><br><span class="line">git config --global https.proxy http://127.0.0.1:1080</span><br><span class="line"><span class="comment"># 取消代理</span></span><br><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line"> </span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Fliqlo</li>
+</ul>
+<p>&emsp;&emsp;很棒的屏保。</p>
+<ul>
+<li>iPic</li>
+</ul>
+<p>&emsp;&emsp;只能在APP Store 下载。</p>
+<h4 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h4><p>在<code>Windows</code>与<code>macos</code>之间:</p>
+<ul>
+<li>电子书使用<code>neat reader</code>进行同步</li>
+<li>其余文件使用百度网盘</li>
+<li>Onedrive由于与<code>cleanmymac</code>的大文件搜索存在bug，暂时弃用。</li>
+</ul>
+<h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h5><ul>
+<li><code>CleanmyMac</code>中需要查看文件属性的功能，查看的是文件标记大小，而不是真实大小，如果在mac中配置了OneDrive文件夹，且文件并未同步到mac，其中识别到的容量超出电脑真实容量大小，将导致进程死锁，且开启OneDrive同步。</li>
+<li><a href="%5Bhttps://support.office.com/zh-cn/article/onedrive-%E5%9B%BE%E6%A0%87%E7%9A%84%E5%90%AB%E4%B9%89%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F-11143026-8000-44f8-aaa9-67c985aa49b3%5D(https://support.office.com/zh-cn/article/onedrive-%E5%9B%BE%E6%A0%87%E7%9A%84%E5%90%AB%E4%B9%89%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F-11143026-8000-44f8-aaa9-67c985aa49b3)">OneDrive文件的状态</a></li>
+<li>打开OneDrive文档中的文件时，因先打开Ondrive客户端进行同步，防止出现多次交叉编辑的现象。</li>
+</ul>
+<h4 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h4><p>找到的<code>draw.io</code>完全可以代替<code>viso</code>,5月更新中文之后更加友好了，在Extra打开mathtype就可以使用Latex编辑了，但是Latex只支持行间公式，排版还是有一定的问题。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># $$ $$    引入Latex</span></span><br><span class="line">$$\frac&#123;&#125;&#123;&#125;$$</span><br></pre></td></tr></table></figure>
+
+<h4 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h4><ul>
+<li><p>安装MacTex</p>
+</li>
+<li><p>很多人认为mac系统的存储非常珍贵，MacTex太过庞大了，会用<code>brew cask install basictex</code>但是如果需要像<code>beamer</code>这类有大量依赖包的模版，还是使用<code>mactex</code>轻松简单的，不需要看着<code>error</code>    不停的去找对应的包。</p>
+</li>
+<li><p>使用<code>TexPad</code>作为编辑器</p>
+<ul>
+<li>TexPad 就像是Latex版的Typora一样，支持时时预览（左右对照版本的，<code>cmd + t</code>查看）。</li>
+</ul>
+</li>
+<li><p>使用mac自带的==查询与数据检索器==流畅的阅读英文论文。</p>
+<ul>
+<li>在设置 - 触控板 - 光标与点按 的第一项设置查询与数据检索器设置可查看如何使用，三指轻点是我自己的习惯。真的超级棒，但是有的单词字典里没有，也可以直接在检索框里百度搜索。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gg93hti52tj30ty0ie17x.jpg" alt="image-20200629132848435"></p>
+<ul>
+<li>当然 <code>com+space</code>    的聚焦搜索也可以很快的查询单词，输入之后，<code>com+L</code>    就会快速的定位到单词搜索界面。</li>
+<li>不能读单词？在辅助功能的语音设置，按下<code>option+esc</code>就可以朗读文本啦，不过只会在聚焦里读一个词，别的地方会读一堆。。</li>
+<li>专业的字典<a target="_blank" rel="noopener" href="https://placeless.net/blog/macos-dictionaries">柯林斯双解、朗文5for macos</a>。</li>
+</ul>
+</li>
+<li><p>英文划句翻译代替方案：Bob</p>
+<ul>
+<li><code>option + D</code>之后就会获得和Qtranslate相同的效果。</li>
+</ul>
+</li>
+<li><p>使用<code>mathpix snipping</code>作为辅助公式工具：</p>
+<ul>
+<li>mathpix 是使用OCR将数学公式翻译成Latex或mathtype的工具。</li>
+<li>支持win和macOS </li>
+</ul>
+</li>
+<li><p>安装EndNote</p>
+</li>
+</ul>
+<h4 id="Terminal"><a href="#Terminal" class="headerlink" title="Terminal"></a>Terminal</h4><p>既定计划：</p>
+<p>Zsh + Oh my Zsh + Powerlevel10k</p>
+<h4 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h4><p>暂定升级 ：Torjan</p>
+<h4 id="Sublime-text"><a href="#Sublime-text" class="headerlink" title="Sublime text"></a>Sublime text</h4><ul>
+<li>支持中文：<ul>
+<li><code>Command+shift+p</code> 打开控制面板 <code>install package</code></li>
+<li>安装convertToUTF-8 、codesc33</li>
+<li>搜索 <code>Chinese</code>，汉化菜单栏。</li>
+</ul>
+</li>
+</ul>
+<h3 id="其他快捷键"><a href="#其他快捷键" class="headerlink" title="其他快捷键"></a>其他快捷键</h3><h4 id="多桌面与Dashboard"><a href="#多桌面与Dashboard" class="headerlink" title="多桌面与Dashboard"></a>多桌面与Dashboard</h4><p>调出Mission Contral功能：</p>
+<ul>
+<li>触摸板四指上划</li>
+<li><code>Contral + 上 </code></li>
+</ul>
+<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><h4 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h4><p><strong>Typora +  PicGo-Core</strong><br><code>Typora 0.9.85 for windows</code>无疑是最令人激动的更新了，自动图床不再是macos的专权，通过集成PicGo APP 、PicGo(command line),Typora 可以在你使用 <code>win+shift+s</code>和<code>Ctrl+v </code>的同时，将图片上传到设置好的图床并生成链接，不用再托到PicGo，复制<code>markdown</code>再黏黏了，也不用安装PicGo的客户端，界面实在太丑了。Command line版可以在需要用到它的时候启动，再自动关闭，节省了系统资源。至此可以彻底告别SublimeText3中的垃圾Markdow插件了。</p>
+<p><a target="_blank" rel="noopener" href="https://support.typora.io/Upload-Image/">Typora官方配置指南</a></p>
+<p><a target="_blank" rel="noopener" href="https://picgo.github.io/PicGo-Core-Doc/zh/guide/commands.html#config-set">PicGo Core 文档</a></p>
+<p>常用命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install picgo -g           # npm全局安装 也可从Typora中直接下载</span><br><span class="line">C:\Users\[your user name]\.picgo\config.json.         # 设置文件目录</span><br><span class="line">picgo use                                           # 选择 transformer uploader  plugins</span><br><span class="line">picgo set                                            # 配置 上述模块</span><br><span class="line">picgo u                                                # picgo upload </span><br></pre></td></tr></table></figure>
+
+<p>配置文件：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;picBed&quot;:</span> &#123;</span><br><span class="line">    <span class="attr">&quot;current&quot;:</span> <span class="string">&quot;github&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;uploader&quot;:</span> <span class="string">&quot;github&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;transformer&quot;:</span> <span class="string">&quot;path&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;github&quot;:</span> &#123;</span><br><span class="line">      <span class="attr">&quot;repo&quot;:</span> <span class="string">&quot;luseanevens/FigureBed&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;branch&quot;:</span> <span class="string">&quot;master&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;token&quot;:</span> <span class="string">&quot;************************&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;path&quot;:</span> <span class="string">&quot;img/&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;customUrl&quot;:</span> <span class="string">&quot;https://raw.githubusercontent.com/luseanevens/FigureBed/master&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;picgoPlugins&quot;:</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>配置完成后，终端测试正常：</p>
+<p><img src="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/image-20200304010120636.png"></p>
+<p>Typora Test 错误：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">upload test by using:</span><br><span class="line">picgo upload &quot;C:\\Users\\dell\\AppData\\Local\\Temp/typora-icon2.png&quot; &quot;C:\\Users\\dell\\AppData\\Local\\Temp/typora-icon.png&quot;</span><br><span class="line">[PicGo INFO]: Before transform</span><br><span class="line">[PicGo INFO]: Transforming...</span><br><span class="line">[PicGo INFO]: Before upload</span><br><span class="line">[PicGo INFO]: Uploading...</span><br><span class="line">[PicGo WARN]: failed</span><br><span class="line">[PicGo ERROR]: StatusCodeError: 422 - &#123;&quot;message&quot;:&quot;Invalid request.\n\n\&quot;sha\&quot; wasn&#x27;t supplied.&quot;,&quot;documentation_url&quot;:&quot;https://developer.github.com/v3/repos/contents/#create-or-update-a-file&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是在Typora中，将图片拖入后，右键上传，上传成功。</p>
+<p>已提交<a target="_blank" rel="noopener" href="https://github.com/typora/typora-issues/issues/3323">issue#3233</a>。</p>
+<p>已解决，原因在于Github仓库不能出现同名文件。这个Issue在PicGo的项目中有过提交，我忽略了自己曾经使用客户端版本的PicGo测试过上传图片，所以在命令行下再次上传测试图片时，就会报错。这个报错是属于Git的，应该耐心的去看说明文档才对。</p>
+<p>从<a target="_blank" rel="noopener" href="https://support.typora.io/Upload-Image/#upload-automatically-when-insert-images">文档</a>来看无论是设置了自动上传还是不设置都需要右键上传，全局自动上传会配置YAML，担心会和Hexo的配置出现冲突。所以只要配置优先使用相对路径，再上传就可以解决这些问题。</p>
+<h3 id="英文划词搜索"><a href="#英文划词搜索" class="headerlink" title="英文划词搜索"></a>英文划词搜索</h3><p>mac上有简单的聚焦搜索，但是在windows上却没有这么好用的词典了，因此找到了<strong>Qtranslation</strong>，这款不错的翻译软件，只要选中单词，<code>ctrl + q</code>    就能得到释义。</p>
+<p>但是无法配置字典，适合需要大量阅读文献的时候使用。</p>
+<h3 id="Onedrive卸载后的残留问题"><a href="#Onedrive卸载后的残留问题" class="headerlink" title="Onedrive卸载后的残留问题"></a>Onedrive卸载后的残留问题</h3><p>由于Onedrive的账号失效（组被封禁），需要重注册一个5TB的云盘，但是老账户无法登陆，所以无法获得本地的Onedrive文件夹权限（无法取消关联）。所以卸载了Onedrive，但是本地的文件夹并没有消失，也无法删除。在网上查了很多资料无果后，尝试在管理员模式下：</p>
+<blockquote>
+<p>rd/s/q “Onedrive - Lo”</p>
+<p>在重分析点缓存区标记无效</p>
+</blockquote>
+<p>在Microsoft Support上找到解决方法：</p>
+<p>在驱动器（Onedrive文件夹所在的磁盘）工具-&gt;修复驱动器，重启之后即可直接删去。</p>
+<h4 id="Terminal-1"><a href="#Terminal-1" class="headerlink" title="Terminal"></a>Terminal</h4><p>暂定计划：</p>
+<p><strong>Cmder：</strong></p>
+<blockquote>
+<p>预计参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/71706782">https://zhuanlan.zhihu.com/p/71706782</a></p>
+<p><a target="_blank" rel="noopener" href="https://cmder.net/">https://cmder.net/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Braveliu/p/12164402.html">https://www.cnblogs.com/Braveliu/p/12164402.html</a>                                        </p>
+</blockquote>
+<p>搜索：<code>inurl:2020 cmder      #url中含有2020 内容含有cmder</code>以过滤新版本更新前的垃圾信息。</p>
+<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><ul>
+<li><code>cmder</code> 在对应目录下，右键打开无法执行 <code>hexo</code> 命令,但是从切换至对应目录下可以执行。</li>
+<li></li>
+</ul>
+<h1 id="方法：制作Epub电子书"><a href="#方法：制作Epub电子书" class="headerlink" title="方法：制作Epub电子书"></a>方法：制作Epub电子书</h1><p>应用到的软件：</p>
+<ul>
+<li>ABBYY Finereader 14</li>
+<li>Vellum</li>
+<li>kindle Comic creator</li>
+<li>neat reader</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/11/Matlab/" rel="prev" title="Matlab">
+      <i class="fa fa-chevron-left"></i> Matlab
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/22/PatternRecogination-1/" rel="next" title="PatternRecognation Introduction">
+      PatternRecognation Introduction <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cherium</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">81k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:14</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

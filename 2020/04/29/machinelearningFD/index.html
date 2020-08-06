@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"cherium.fun","root":"/","scheme":"Muse","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false};
+  </script>
+
+  <meta name="description" content="机器学习机器学习是神经网络的基础，神经网络是目前DIP、PR的核心方法。 神经网络是深度学习的一部分，深度学习是机器学习的一部分。  这部分将会有很多基础算法和代码实现，希望可以圆满的完成。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeeplearningAL">
+<meta property="og:url" content="cherium.fun/2020/04/29/machinelearningFD/index.html">
+<meta property="og:site_name" content="Cherium&#39;s blogs">
+<meta property="og:description" content="机器学习机器学习是神经网络的基础，神经网络是目前DIP、PR的核心方法。 神经网络是深度学习的一部分，深度学习是机器学习的一部分。  这部分将会有很多基础算法和代码实现，希望可以圆满的完成。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gegiwbf42ej30t80fydvy.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1geg9im08q6j30ye0badl8.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1geglhm6dsbj30a3072glz.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1geglt72d1oj30ka0bijto.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gegm7dum26j30m20c60ve.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehdouav8wj30bc0gy40y.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehdz5ds2tj312o09qgp2.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehe544iorj312q0d2aeu.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehe6st64ej312a0bmtee.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfoh7uj00oj30qe0jon8x.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehewdb2d6j30ck096tb6.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehfnf35uhj30iw0gen4e.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfoeukww3ij30ia0dq750.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfohlqzjxej30oa0c478s.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfohutjn0jj30r40aiwjl.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfohwwl687j30hm0ac40l.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfoilvyar2j30bi07ewgc.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfpd19vnlpj30oa0muqg8.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfpdhv49joj30xm0dyk57.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfpre28ipkj30zi0don2f.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfprm0v3x5j310o0ccn2d.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfprndgo55j311k0buq7z.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfprpc745oj310y0e8wmo.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfprrklnxzj30z40h0gs1.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfps0vk5boj31180eadp7.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfps3v34obj30r207kgnu.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfps5sxf7hj31200foq8f.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfptf3i4huj30uo0bmadb.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfptgt0wcwj30te0ba0vx.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfptu2ql04j30ys0c27cs.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfrvs90droj30nq0c4n4p.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfrwp4p38pj30u80pyn28.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfrwrvj987j30ui0aewgn.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfs7609n3ij30xk0ds43q.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfs7f6rjqcj30tc06qgob.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfs7klr85wj30sk0dygt8.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfs8m41zl1j30fu0ckjwq.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gg5mzcf37zj30u00ugdl1.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv3828qfaj30i20m4jwj.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv3bmgoy8j30n40fu43n.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv3m38easj30n80d6go8.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv3rpfx6dj30xo0cgdk3.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv3sndi8bj313e0gyts9.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv4k03q7nj30vm03240r.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv5gt1we6j30a706pq35.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvj3a904dj30ys0hy45s.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvj6oyghoj30x00dy0x9.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvjmses66j311g0fgtfn.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvjnzp1l1j30x40guah7.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvjq421p9j313m0lg4bt.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvknqm9xwj30zu0gswmp.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvkp2x7mcj30ds0f8ae4.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvkxrphnsj30fw0k40vw.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvlei9ycdj30ly0lwdgy.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvleoteqlj30lu0dsjs0.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvldgx4q6j311a0dq798.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvlgcd828j31020eetdc.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvnlh1he0j30g40d40vn.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvog0obbjj30q2066abx.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvohjd2j4j30nm0hmahh.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvok4159qj30om0guqbs.jpg">
+<meta property="article:published_time" content="2020-04-29T01:11:35.000Z">
+<meta property="article:modified_time" content="2020-08-02T13:44:19.549Z">
+<meta property="article:author" content="cherium">
+<meta property="article:tag" content="DIP,Pattern Recognition,Dynamic And Contral,Pentest">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gegiwbf42ej30t80fydvy.jpg">
+
+<link rel="canonical" href="cherium.fun/2020/04/29/machinelearningFD/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>DeeplearningAL | Cherium's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Cherium's blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东向而望，不见西墙</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">机器学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%AA%E8%AE%BA"><span class="nav-number">1.1.</span> <span class="nav-text">绪论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是机器学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%BA%BF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%A6%BB%E7%BA%BF%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.1.2.</span> <span class="nav-text">在线学习与离线学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8%E5%8F%8A%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.3.</span> <span class="nav-text">典型应用及算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.4.</span> <span class="nav-text">深度学习简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E9%9B%86%E5%90%88"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">深度学习算法集合</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E5%85%83"><span class="nav-number">1.2.</span> <span class="nav-text">神经元</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E7%B1%BB%E9%80%BB%E8%BE%91%E6%96%AF%E8%92%82%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">二分类逻辑斯蒂回归模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E5%88%86%E7%B1%BB%E4%BE%9D%E6%8D%AE"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">概率分类依据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%88%86%E7%B1%BB%E7%9A%84%E9%80%BB%E8%BE%91%E6%96%AF%E8%92%82%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.2.</span> <span class="nav-text">多分类的逻辑斯蒂回归模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#softmax%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.2.2.0.1.</span> <span class="nav-text">softmax函数的两种形式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E7%A5%9E%E7%BB%8F%E5%85%83%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.2.2.0.2.</span> <span class="nav-text">多神经元举例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.3.</span> <span class="nav-text">目标函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.4.</span> <span class="nav-text">梯度下降算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">1.3.</span> <span class="nav-text">神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BC%98%E5%8C%96"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">神经网络的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8DMomentum"><span class="nav-number">1.3.0.1.1.</span> <span class="nav-text">动量梯度下降Momentum</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">1.3.1.</span> <span class="nav-text">卷积神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%BC%95%E5%85%A5"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">卷积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">激活函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%A0%E5%8C%96"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">池化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">全连接层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">卷积神经网络结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6"><span class="nav-number">1.3.2.</span> <span class="nav-text">卷积神经网络进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%87%BA%E7%8E%B0%E4%B8%8D%E5%90%8C%E7%9A%84%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">为什么会出现不同的网络结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%BF%9B%E5%8C%96"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">模型的进化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AlexNET"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">AlexNET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VGGnet"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">VGGnet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">结构分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deep-Residual-Learning-for-Image-Recognition"><span class="nav-number">1.3.3.</span> <span class="nav-text">Deep Residual Learning for Image Recognition</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#InceptionNet"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">InceptionNet</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#V1%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.3.1.1.</span> <span class="nav-text">V1结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#V2%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.3.1.2.</span> <span class="nav-text">V2结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#V3%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.3.1.3.</span> <span class="nav-text">V3结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#V4%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.3.1.4.</span> <span class="nav-text">V4结构</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MobileNet"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">MobileNet</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="cherium"
+      src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+  <p class="site-author-name" itemprop="name">cherium</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/luseanevens" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luseanevens" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cherium@icloud.com" title="E-Mail → mailto:cherium@icloud.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
+        <div class="back-to-top animated">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="cherium.fun/2020/04/29/machinelearningFD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+      <meta itemprop="name" content="cherium">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cherium's blogs">
+    </span>
+
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DeeplearningAL
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-29 09:11:35" itemprop="dateCreated datePublished" datetime="2020-04-29T09:11:35+08:00">2020-04-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-02 21:44:19" itemprop="dateModified" datetime="2020-08-02T21:44:19+08:00">2020-08-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">神经网络</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB/" itemprop="url" rel="index"><span itemprop="name">模式识别</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">数字图像处理</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h1><p>机器学习是神经网络的基础，神经网络是目前DIP、PR的核心方法。</p>
+<p>神经网络是深度学习的一部分，深度学习是机器学习的一部分。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gegiwbf42ej30t80fydvy.jpg" alt="image-20200504165950357"></p>
+<p>这部分将会有很多基础算法和代码实现，希望可以圆满的完成。</p>
+<a id="more"></a>
+
+<h2 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h2><h3 id="什么是机器学习"><a href="#什么是机器学习" class="headerlink" title="什么是机器学习"></a>什么是机器学习</h3><p>是将无序数据转化为价值的方法，利用计算机从历史数据中找出规律，并把这些规律用到对未来不确定场景的决策，如季度营业额预测等等。</p>
+<ul>
+<li>对象</li>
+</ul>
+<p>同样的事情，有时候是人来对历史的数据寻找规律，而不是计算机自己去寻找规律。前者就是数据分析，后者是机器学习。数据分析依靠数据分析师的经验和技术，机器学习则完全不依赖人。用数据替代expert。</p>
+<ul>
+<li>数据</li>
+</ul>
+<p>机器学习本身是一系列的算法，其结果依托于数据。机器学习是数据变现的解决办法。</p>
+<ul>
+<li>规律</li>
+</ul>
+<p>由计算机自动生成。</p>
+<ul>
+<li>公司实现流程</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1geg9im08q6j30ye0badl8.jpg" alt="image-20200504113522076"></p>
+<h3 id="在线学习与离线学习"><a href="#在线学习与离线学习" class="headerlink" title="在线学习与离线学习"></a>在线学习与离线学习</h3><p>离线学习在一天中的某一时间，对今天产生的数据进行集中学习，不适用于消费者消费行为发生突变的时候。如双11，此时就要使用在线学习，来及时的作出推荐。</p>
+<h3 id="典型应用及算法"><a href="#典型应用及算法" class="headerlink" title="典型应用及算法"></a>典型应用及算法</h3><ul>
+<li><p>关联分析</p>
+<ul>
+<li>购物篮分析</li>
+</ul>
+</li>
+<li><p>聚类</p>
+<ul>
+<li>用户细分精准销售</li>
+</ul>
+</li>
+<li><p>朴素贝叶斯</p>
+<ul>
+<li>垃圾邮件分类</li>
+</ul>
+</li>
+<li><p>决策树</p>
+<ul>
+<li>信用卡欺诈</li>
+</ul>
+</li>
+<li><p>ctr预估</p>
+<ul>
+<li>解决排序问题</li>
+</ul>
+</li>
+<li><p>协同过滤</p>
+<ul>
+<li>电商推荐系统</li>
+</ul>
+</li>
+<li><p>自然语言处理</p>
+<ul>
+<li>情感分析</li>
+<li>实体识别</li>
+</ul>
+</li>
+<li><p>深度学习</p>
+<ul>
+<li>图像识别 </li>
+</ul>
+</li>
+</ul>
+<h3 id="深度学习简介"><a href="#深度学习简介" class="headerlink" title="深度学习简介"></a>深度学习简介</h3><ul>
+<li>机器学习是实现人工智能的方法</li>
+<li>深度学习是实现机器学习算法的一种有效的技术 </li>
+</ul>
+<h4 id="深度学习算法集合"><a href="#深度学习算法集合" class="headerlink" title="深度学习算法集合"></a>深度学习算法集合</h4><ul>
+<li><p>卷积神经网络</p>
+</li>
+<li><p>循环神经网络</p>
+</li>
+<li><p>自动编码器</p>
+</li>
+<li><p>细数编码</p>
+</li>
+<li><p>深度信念网络</p>
+</li>
+<li><p>限制玻尔兹曼机</p>
+</li>
+<li><p>深度学习+强化学习=深度强化学习</p>
+</li>
+</ul>
+<h2 id="神经元"><a href="#神经元" class="headerlink" title="神经元"></a>神经元</h2><p>神经元是最小的神经网络。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1geglhm6dsbj30a3072glz.jpg"><br>$$<br>h_{w,b}(x)=f(\boldsymbol W_i \boldsymbol x_i)=f(\sum\nolimits_{i=1}^{3}\boldsymbol W_i \boldsymbol x_i +b)<br>$$<br>很惊讶的发现这就是模式识别中<a href="http://cherium.fun/2020/04/22/PatternRecogination-1/#more">决策函数</a>的形式，这张图也与感知器算法一致。值得注意的是感知器算法是对$\boldsymbol w_T \boldsymbol x$的值进行了一个阈值判断，大于阈值输出1，小于阈值输出0，这也就是感知器算法所对应的$f(x)$。</p>
+<ul>
+<li>$\boldsymbol w$ 代表权重</li>
+<li>$\boldsymbol x$ 是从具体问题中抽取出的特征，对于图像而言，一般是将图像展开成（像素3）</li>
+<li>$b$代表偏置,使得分类面上下平移</li>
+<li>$f$或$h$代表激活函数,其作用在于对求得的内积做一个非线性的变换，感知器算法的激活函数就是一个简单的分段函数</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1geglt72d1oj30ka0bijto.jpg" alt="image-20200504184043613"></p>
+<h3 id="二分类逻辑斯蒂回归模型"><a href="#二分类逻辑斯蒂回归模型" class="headerlink" title="二分类逻辑斯蒂回归模型"></a>二分类逻辑斯蒂回归模型</h3><p>若激活函数$f(x)=\frac{1}{1+e^{-x}}$,    称为激活函数sigmoid(s形的)，此时激活函数被确定，一个完整的神经元就被确定下来，也就可以被称之为是一个模型了。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gegm7dum26j30m20c60ve.jpg" alt="image-20200504185422002"></p>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
+<li><p>$0&lt;f(x)&lt;1$，着恰好和概率的范围一致，每一个值都对应一个==概率==</p>
+</li>
+<li><p>函数在$(-6,6)$之间的变化是陡峭的                                                                                                                                                                                                                                                                                                                                                                                                                                              </p>
+</li>
+<li><p>关于$(0,\frac{1}{2})$对称</p>
+</li>
+</ul>
+<h4 id="概率分类依据"><a href="#概率分类依据" class="headerlink" title="概率分类依据"></a>概率分类依据</h4><ul>
+<li>二分类</li>
+</ul>
+<p>$$<br>P(Y=0|x)=h_w(x)=\frac{1}{1+e^{-w^Tx}}=h(w^Tx)\\<br>P(Y=1|x)=1-P(Y=0|x)<br>$$</p>
+<p> $h(\boldsymbol w^T \boldsymbol x)$是此时带入的样本属于第0类的概率估计,而该样本属于1类的的概率为$1-h(\boldsymbol w^T \boldsymbol x)$。这样就确定了一个二分类的逻辑斯蒂回归模型。通过对概率决策，就可以得到分类的最终结果。如果说求得属于0的概率大于0.5，那属于1的概率自然小于0.5，所以在二分类时==只要判定是否小于0.5==就可以判定分类。</p>
+<ul>
+<li>多分类</li>
+</ul>
+<p>多分类时经常使用one-hot来表示分类结果，对于n个神经元，单样本求算出的结果是一个[1,n]的列表，其中概率最大的所对应的标签，就是判定出来的分类，确定分类正确的结果用1表示，其他全为0。</p>
+<h3 id="多分类的逻辑斯蒂回归模型"><a href="#多分类的逻辑斯蒂回归模型" class="headerlink" title="多分类的逻辑斯蒂回归模型"></a>多分类的逻辑斯蒂回归模型</h3><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehdouav8wj30bc0gy40y.jpg" alt="image-20200505104517136"></p>
+<p>当有一个神经元时，可以实现二分类的逻辑斯蒂回归模型，为实现多分类只需要加神经元就好了。如图，在两个神经元存在时，就会存在两个输出，这样就可以做三分类的逻辑斯蒂回归模型。一个神经元可以认为是一条线，在品面上，两条不相交的线就可以划分出三个区域</p>
+<ul>
+<li>多神经元$\to$多输出</li>
+<li>==$\boldsymbol w$从向量拓展成了矩阵==</li>
+<li>输出$\boldsymbol w^T \boldsymbol x$变为了向量</li>
+<li>两个神经元有两组权向量两组输出，可类推至$n$个神经元</li>
+</ul>
+<h5 id="softmax函数的两种形式"><a href="#softmax函数的两种形式" class="headerlink" title="softmax函数的两种形式"></a>softmax函数的两种形式</h5><ul>
+<li></li>
+<li></li>
+</ul>
+<h5 id="多神经元举例"><a href="#多神经元举例" class="headerlink" title="多神经元举例"></a>多神经元举例</h5><p>如上图：<br>$$<br>\bold w=\begin{bmatrix}0.4 &amp;0.6&amp;0.5\0.3&amp;0.2&amp;0.1 \end{bmatrix}\\<br>\bold x= \begin{bmatrix} 3&amp;2&amp;1\end{bmatrix}\\<br>Y_0 = \bold w_{[0]}\bold x=3<em>0.4+2</em>0.6+1<em>0.5\\<br>Y_1= \bold w_{[1]}\bold x= 3</em>0.3+2<em>0.2+1</em>0.1<br>$$<br>二分类的逻辑斯蒂回归模型从公式上看可以认为是一个归一化的过程，神经元的激活函数可以视作是$e^{-wx}$,原来的激活函数只是$+1$进行了归一化。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehdz5ds2tj312o09qgp2.jpg" alt="image-20200505105510878"></p>
+<p>由于多分类时，$\bold w$是一个矩阵，多分类的逻辑斯蒂回归模型可以将$e^{-wx}$拆分成了$e^{-w_1x}、e^{-w_2x}…$    ,之后再做归一化。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehe544iorj312q0d2aeu.jpg" alt="image-20200505110056251"></p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehe6st64ej312a0bmtee.jpg" alt="image-20200505110232960"></p>
+<p>当样本属于第k类的概率是$\frac{e^{-w_k^Tx}}{1+\sum _1^{k-1}e^{w_k^Tx}}$.注意：==下面求和，上面不求和。==由例子可知，概率要求三次==1也要加入计算。==</p>
+<h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>二分类和多分类的逻辑斯蒂回归模型已经可以被认为是一个神经网络了，多分类的逻辑斯蒂回归模型中用到了多个神经元。但是如何调节神经网络，使得神经网络可以学到数据中的规律呢？</p>
+<ul>
+<li><p>目标函数是<font color = red>衡量对数据拟合的程度</font>，因此也被称为损失函数</p>
+<ul>
+<li><p>平方差损失<br>$$<br>\frac{1}{n}\sum_{x,y}\frac{1}{2}(y-model(x))^2<br>$$</p>
+</li>
+<li><p>交叉熵损失</p>
+</li>
+</ul>
+<p>$$<br>\frac{1}{n}\sum_{x,y}yln(model(x))<br>$$</p>
+</li>
+</ul>
+<p>神经网络的训练就是调整参数，使得模型在训练集上的损失最小，越小，模型的预测结果越准。</p>
+<h3 id="梯度下降算法"><a href="#梯度下降算法" class="headerlink" title="梯度下降算法"></a>梯度下降算法</h3><p>如何调节神经网络参数使得损失函数最小呢？当函数在寻找自己的最低点时，就好像人在找下山的路一样，首先找到梯度最陡，也就是下山最快的地方，然后走一步，之后再判断哪个方向最陡，之后再走一步，直到到达最低点。</p>
+<ul>
+<li>梯度：对于多元函数$f(x_0,x_1,…)$,像$(\frac{\partial f}{\partial x_0},\frac{\partial f}{\partial x_1},…)$这样全部由偏导数构成的向量称为梯度。至于梯度到底是干啥的，不如看一下求梯度的方法<ul>
+<li>求偏导可以认为是输入$\bold x$中知改变一个数求导，其他未知量不参与求导。</li>
+<li>梯度求得的偏导是一个和输入量$\bold x$同型的向量，在空间中每一个点（输入的$\bold x$）都有一个对应的梯度，这点与一元函数是对应的。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">grad = []</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">function</span>(<span class="params">x</span>):</span></span><br><span class="line">  <span class="keyword">return</span> sum(x**<span class="number">2</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partial_matrix</span> (<span class="params">function,x</span>):</span></span><br><span class="line">  h = <span class="number">1e-4</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> range(x.size):</span><br><span class="line">    origin = x[i]</span><br><span class="line">    x[i] = x[i] + h</span><br><span class="line">    fc1 = function(x[i])</span><br><span class="line">    x[i]= x[i]<span class="number">-2</span>h</span><br><span class="line">    fc2 = function(x[i])</span><br><span class="line">    diff = fc1 - fc2/<span class="number">2</span>*h</span><br><span class="line">    grad.append(diff)</span><br><span class="line">    x[i] = origin</span><br><span class="line"> <span class="keyword">return</span> grad</span><br></pre></td></tr></table></figure>
+
+<p>列表<code>x</code>，每次只改变<code>x[i]</code>求对应偏导，其他不变，就得到了梯度向量。梯度是一个向量，在图中是这样表现的：</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfoh7uj00oj30qe0jon8x.jpg" alt="image-20200611172645906"></p>
+<p>在图像中每一个点，都有一个梯度，这个梯度向量指向函数的最低处，==梯度指向的方向是这个点函数值减小最多的方向。==正是由于这样我们可以初始化$\bold w$为任意的值，只要使用梯度下降算法，不断的反复修正梯度，总能找到某个极小值点。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehewdb2d6j30ck096tb6.jpg" alt="image-20200505112707520"></p>
+<p>梯度下降算法是一个调参的过程。$\theta$在逻辑斯蒂回归模型中指的就是$w、b$，求偏导就是找到w的方向，只要使得在这个方向上参数变小一点，损失函数就会变小一点。其中影响最大的是$\alpha$(学习率)或称为步长，如图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gehfnf35uhj30iw0gen4e.jpg" alt="image-20200505115306427"></p>
+<p>p130 实现梯度下降算法</p>
+<h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><ul>
+<li>多个神经元构成的网络就可以称之为==神经网络==。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfoeukww3ij30ia0dq750.jpg" alt="具有一个隐藏层的神经网络"><br>$$<br>a_1^{(2)}=f(W_{11^{(1)}}x_1+W_{12^{(1)}}x_2+W_{13^{(1)}}x_3+b_1^{(1)})\\<br>a_2^{(2)}=f(W_{21^{(1)}}x_1+W_{22^{(1)}}x_2+W_{23^{(1)}}x_3+b_2^{(1)})\\<br>a_3^{(2)}=f(W_{31^{(1)}}x_1+W_{32^{(1)}}x_2+W_{33^{(1)}}x_3+b_3^{(1)})\\<br>h_{w,b}(x)=a_1^{(3)}=f(w_{11}^{(2)}a_1^{(2)}+w_{12}^{(2)}a_2^{(2)}+w_{13}^{(2)}a_3^{(2)}+b_1^{(2)}<br>$$<br>n个输出的神经元权向量只需要使用一个<code>[tf.get_shape(x),n]</code>    的矩阵与样本<code>[None,tf.get_shape(x)]</code>相乘即可得到一个<code>[None,n]</code>的矩阵，再输入到下一个神经元中去，就可以得到$h_{W,b}(x)$。</p>
+<ul>
+<li><p>正向传播：给定数据以求得预测值</p>
+</li>
+<li><p>反向传播：梯度下降算法在神经网络中的计算</p>
+</li>
+</ul>
+<p>梯度下降算法的原理在神经元处已具体解释，针对单个神经元很容易实现，但是在含有隐藏层的神经网络中，如上图，$L_3$输入的$x$是$L_2$的输出，所以从最后一层神经元向前看，梯度的求法是==符合函数的求法：链式求导法则==。<br>$$<br>\frac{dy}{dx}=\frac{dy}{du}·\frac{du}{dx}<br>$$<br><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfohlqzjxej30oa0c478s.jpg" alt="image-20200611174006814"></p>
+<h4 id="神经网络的优化"><a href="#神经网络的优化" class="headerlink" title="神经网络的优化"></a>神经网络的优化</h4><ul>
+<li>缺陷<ul>
+<li>上图梯度下降算法会在整个数据集上计算Loss和Grad<ul>
+<li><font color= red>计算量大</font></li>
+<li><font color= red>内存无法调用如此大的数据量</font></li>
+</ul>
+</li>
+<li>梯度方向确定时，仍然是每次只走一个单位的步长<ul>
+<li><font color= red>计算太慢</font></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>优化<ul>
+<li>随机梯度下降<ul>
+<li>每次只使用一个样本</li>
+<li><font color= red>不能反映整个数据集梯度</font></li>
+</ul>
+</li>
+<li>mini-batch梯度下降<ul>
+<li>每次使用小部分数据进行计算</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>依然存在震荡问题，mini-batch的size越大，震荡越不明显</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfohutjn0jj30r40aiwjl.jpg" alt="image-20200611174851891"></p>
+<ul>
+<li>函数不一定是凸函数，可能存在多个最优解。</li>
+<li>鞍点</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfohwwl687j30hm0ac40l.jpg" alt="image-20200611175054116"></p>
+<h5 id="动量梯度下降Momentum"><a href="#动量梯度下降Momentum" class="headerlink" title="动量梯度下降Momentum"></a>动量梯度下降Momentum</h5><ul>
+<li>梯度下降SGD</li>
+</ul>
+<p>$$<br>x_{t+1}=x_{t}-\alpha\bigtriangledown f(x_t)<br>$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> ture:</span><br><span class="line">    dx= compute_grad(x)</span><br><span class="line">  x-=learning_rate *dx</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>动量梯度下降 SGD+Momentum</li>
+</ul>
+<p>$$<br>v_0 = 0\\<br>v_1 = 0 + \bigtriangledown f(x_0),…\\<br>v_t = \rho v_{t-1}+\bigtriangledown f(x_t-1)\\<br>v_{t+1}=\rho v_t+\bigtriangledown f(x_t)\\<br>x_{t+1}=x_t - \alpha v_{t+1}<br>$$</p>
+<p>由上式可以看出，$v_t$是对梯度的一种累加的同时还在不断的乘$\rho$的过程，而梯度的修正是由$v$对之前的梯度的积累来修正的。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfoilvyar2j30bi07ewgc.jpg" alt="image-20200611181452831"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vx=<span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> ture:</span><br><span class="line">  dx = compute_grad(x)</span><br><span class="line">  vx = rho*vx+dx</span><br><span class="line">  x -=learning_rate *vx</span><br></pre></td></tr></table></figure>
+
+<p>由上图有一个很有意思的现象，==当整个函数整体的梯度可以说变化不大时，$vx$与$dx$的夹角很小，修正的变化率很大，加快了下降的速度。如果变化很大（夹角很大），修正的变化率很小，防止步长过大，产生震荡。==</p>
+<ul>
+<li>开始训练时，积累动量，加速训练</li>
+<li>局部极值附近震荡时，梯度为0，由于动量存在，可以跳出陷阱</li>
+<li>梯度改变方向时，动量缓解动荡</li>
+</ul>
+<h3 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h3><p>卷积神经网络本质就是一种神经网络，只是为了解决普通的神经网络在处理图像时遇到的一些问题，而引入了一些方法。</p>
+<h4 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h4><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfpd19vnlpj30oa0muqg8.jpg" alt="image-20200612114737384"></p>
+<p>在处理图像时，一个1000*1000的图像，下一层神经元为$10^6$，则全连接参数有：$1000\times1000\times10^6=10^{12}$</p>
+<ul>
+<li>神经网络遇到的问题<ul>
+<li>参数过多（像素）<ul>
+<li>容易过拟合，即==模型对训练集的数据有很好的识别能力，但是对测试集的数据没有较好的分类能力。其原因在于模型的表达能力过强，模型的表达能力与模型的参数是成正比的，样本较少，参数过多时，会导致模型记住训练集中的每一个样本，而在测试集上表现很差（泛化能力差）==，需要更多的训练数据。</li>
+<li>收敛到较差的局部极值，==参数过多，数据量相对较少，只需要稍微调整一下参数，可能就会使损失函数变得相对较小==。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h4><ul>
+<li>局部连接</li>
+</ul>
+<p>对于图像而言，一个像素点与相邻的像素点的相似度大，与较远的像素点相似度小，所以可以不再使用全连接，而使用==局部连接==来减少参数量，如下图，每个神经元与图像中$10\times10$的区域做连接。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfpdhv49joj30xm0dyk57.jpg" alt="image-20200612120332915"></p>
+<p>全连接：<br>$$<br>图像大小：1000\times 1000\\<br>下一层神经元参数：10^6\<br>全连接：10^{12}<br>$$<br>局部连接：<br>$$<br>局部连接范围：10\times10\\<br>    全连接参数为：10\times10\times10^6=10^8<br>$$</p>
+<ul>
+<li>参数共享</li>
+</ul>
+<p>==图像的特征与其位置是无关的==，从不同的角度拍照，同一个特征可以在图像的任何一个位置，而一个神经元学习一个固定的位置，无法得知学到的到底是什么，所以使用==参数共享==。</p>
+<p>参数共享表示所有的神经元都使用同一组参数，这也就意味着参数只剩下了$10\times10$个。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfpre28ipkj30zi0don2f.jpg" alt="image-20200612200414075"></p>
+<p>卷积核就是所谓共享的参数，卷积操作形象的讲就是卷积核在图像上从左到右，从上到下的进行滑动，卷积核与其覆盖的位置进行内积（相当于对覆盖的部分图像做全连接），讲填到输出的格子中。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfprm0v3x5j310o0ccn2d.jpg" alt="image-20200612201155266"></p>
+<ul>
+<li>步长：控制滑动间隔的位置</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfprndgo55j311k0buq7z.jpg" alt="image-20200612201315570"></p>
+<ul>
+<li>padding使得输出size不变</li>
+</ul>
+<p>上述卷积操作中图像的size发生了变化，对之后的处理是十分不便的。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfprpc745oj310y0e8wmo.jpg" alt="image-20200612201509040"></p>
+<p> padding的大小与卷积核的大小相关，使得大小不变。</p>
+<ul>
+<li>卷积处理多通道</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfprrklnxzj30z40h0gs1.jpg" alt="image-20200612201717754"></p>
+<p>将卷积也变为多通道的（此时不共享参数），再将各个通道的值相加，最终得到一个输出。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfps0vk5boj31180eadp7.jpg" alt="image-20200612202612047"></p>
+<p>卷积的核在图像中划过，有的位置置1，有的为0，可以视作是在提取某种特征的，一个卷积核提取一个特征，特征所在的位置会被激活，那么多个卷积核就可以提取多种特征，叠加在一起输出一个多通道的图像。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfps3v34obj30r207kgnu.jpg" alt="image-20200612202907154"></p>
+<h4 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h4><p>计算完之后，得到的图像（每一个像素值都经过了一次求内积的计算），再经过激活函数，卷积运算才完成。</p>
+<p> <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfps5sxf7hj31200foq8f.jpg" alt="image-20200612203058325"></p>
+<p>卷积一般使用ReLU激活函数，大于0取自己，小于0的取0。这样计算十分的高效简洁。</p>
+<p>==很明显这些激活都是非线性的函数，使用非线性的激活函数的原因是，如果使用线性函数，无论有多少层神经元总能找到可以代替他的一个线性函数。==</p>
+<ul>
+<li>卷积的各种参数<ul>
+<li>$p$ : 边距（padding）</li>
+<li>$s$ : 步长（stride）</li>
+<li>输出尺寸 : $(输入大小 - 卷积核大小)/s+1$</li>
+<li>参数数目 : $kw \times kh \times Ci \times Co$<ul>
+<li>$Ci$ : 输入通道数</li>
+<li>$Co$ : 输出通道数</li>
+<li>$Kw,Kh$ : 卷积核长宽</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="池化"><a href="#池化" class="headerlink" title="池化"></a>池化</h4><ul>
+<li>最大值池化</li>
+</ul>
+<p>池化和卷积的行为是一样的，但是核里没有数据，只是取核覆盖区域的最大值。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfptf3i4huj30uo0bmadb.jpg" alt="image-20200612211428288"></p>
+<ul>
+<li>平均值池化</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfptgt0wcwj30te0ba0vx.jpg" alt="image-20200612211608940"></p>
+<ul>
+<li>池化的性质<ul>
+<li>池化不重叠（步长等于核大小）、不补零（不pudding）</li>
+<li>没有用于求导的参数</li>
+<li>池化层参数为步长和池化核的大小</li>
+<li>其用于减少图像尺寸，减少计算量</li>
+<li>一定程度的解决平移鲁棒性（即使图像发生平移，激活值仍可能保持不变）</li>
+<li>损失了空间位置精度（损失数据）</li>
+</ul>
+</li>
+</ul>
+<h4 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h4><ul>
+<li>将上一层输出展开并连接到每一个神经元上</li>
+<li>由于卷积神经网络的输入和输出都是二维多通道的，但是经过全连接层图像就变为1维的了，之后就不能再加卷积层和池化层了</li>
+<li>全连接层的参数相对于卷积层较大</li>
+<li>全连接层就是普通的神经网络层</li>
+<li>参数数目 ： $Ci \times Co$<ul>
+<li>$Ci,Co$    为输入输出通道数，输入决定单神经元参数，输出决定神经元数目。</li>
+</ul>
+</li>
+</ul>
+<h4 id="卷积神经网络结构"><a href="#卷积神经网络结构" class="headerlink" title="卷积神经网络结构"></a>卷积神经网络结构</h4><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfptu2ql04j30ys0c27cs.jpg" alt="image-20200612212852115"></p>
+<ul>
+<li>==全卷积神经网络为卷积层与池化层的组合==，去掉了全连接层，全连接层的输出是一维的，去掉全连接层可以得到以图像的形式表示的结果，可以应用在图像分割等问题上。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfrvs90droj30nq0c4n4p.jpg" alt="image-20200614160720431"></p>
+<h3 id="卷积神经网络进阶"><a href="#卷积神经网络进阶" class="headerlink" title="卷积神经网络进阶"></a>卷积神经网络进阶</h3><p>卷积神经网络在诞生之后为不同的应用发生了演变。</p>
+<ul>
+<li>模型演变<ul>
+<li>AlexNet、VGG、ResNet、Inception、MobileNet</li>
+</ul>
+</li>
+<li>模型对比</li>
+</ul>
+<h4 id="为什么会出现不同的网络结构"><a href="#为什么会出现不同的网络结构" class="headerlink" title="为什么会出现不同的网络结构"></a>为什么会出现不同的网络结构</h4><ul>
+<li>不同的网络结构解决的问题不同，我们不能直接得到一个最优的神经网络结构，而是最终会得到很多个优化的比较好的神经网络结构。</li>
+<li>不同的神经网络结构使用的技巧不同，同时这些技巧还可以相互借鉴，组合。</li>
+<li>不同的神经网络的应用场景不同，在手机端需要神经网络尽可能的小，运行效率高，而在服务器端则没有这样的要求。</li>
+</ul>
+<h4 id="模型的进化"><a href="#模型的进化" class="headerlink" title="模型的进化"></a>模型的进化</h4><ul>
+<li><p>从基本的神经网络到更宽更深的神经网络</p>
+<ul>
+<li>AlexNet到VGGNET</li>
+</ul>
+</li>
+<li><p>伸进网络层数的加深不能带来更高的精度之后，便转向到改变模型结构的方向。</p>
+<ul>
+<li>VGG到InceptionNet/ResNet</li>
+</ul>
+</li>
+<li><p>优势组合</p>
+<ul>
+<li>Inception $+$ ResNet = InceptionResNet</li>
+</ul>
+</li>
+<li><p>组合强化学习的内容，使神经网络可以自我优化</p>
+<ul>
+<li>NASNet</li>
+</ul>
+</li>
+<li><p>实用</p>
+<ul>
+<li>MobileNet</li>
+</ul>
+</li>
+</ul>
+<h4 id="AlexNET"><a href="#AlexNET" class="headerlink" title="AlexNET"></a>AlexNET</h4><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfrwp4p38pj30u80pyn28.jpg" alt="image-20200614163900459"></p>
+<p>在2012年的ImageNet分类大赛中，使用AlexNet达到了很高的精度。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfrwrvj987j30ui0aewgn.jpg" alt="AlexNet神经网络"></p>
+<p>AlexNet依然是卷积神经网络的套路，图像之后经过有限次卷积（池化）之后连接到全连接层上，最终输出。</p>
+<ul>
+<li>AlexNet具有上下两层，代表分别在两个GPU上进行计算，由上图可知，在第一层分别提取了两组48个特征分开运算。（由于当时GPU的计算能力有限）</li>
+<li>第三个卷积层时，数据发生了交叉，之后将一直保持独立</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfs7609n3ij30xk0ds43q.jpg" alt="image-20200614224113764"></p>
+<ul>
+<li><p>网络结构分析</p>
+<ul>
+<li>第一个卷积层</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfs7f6rjqcj30tc06qgob.jpg" alt="image-20200614225002280"></p>
+<p>这里的padding的原因是保证除步长可以整除，不加padding就代表舍弃掉不能整除的边界，这里padding取3。</p>
+<ul>
+<li><p>AlexNet首次使用了Relu激活函数</p>
+</li>
+<li><p>AlexNet为双GPU并行结构</p>
+</li>
+<li><p>1，2，5卷积层后跟随max-pooling层</p>
+</li>
+<li><p>在两个全连接层上使用了==Dropout技术==</p>
+<ul>
+<li>Dropout技术表示随机的将一些神经元的输出置为0，表示对下一层神经元没有贡献。如图：</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfs7klr85wj30sk0dygt8.jpg" alt="image-20200614225514408"></p>
+<ul>
+<li>被mask掉的神经元是随机的，比如在计算反向传播时每次迭代被mask掉的神经元都不一致。</li>
+<li>为什么在全连接层上使用Dropout：<ul>
+<li>全连接层参数占全部参数数目的大部分，容易过拟合</li>
+</ul>
+</li>
+<li>为什么Dropout有效：<ul>
+<li>组合解释<ul>
+<li>每次dropout都相当于训练了一个子网络</li>
+<li>最多的结果相当于很多的子网络组合</li>
+</ul>
+</li>
+<li>动机解释<ul>
+<li>相处了神经元之间的依赖，增强了泛化能力，破坏了神经元相互组合记忆的关系</li>
+</ul>
+</li>
+<li>数据解释<ul>
+<li>相对于dropout后的结果吗总能找到一个样本与之相应，加入了0，被认为数据增多</li>
+<li>相当于数据增强</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在图像输入时做了图像的随机采样，[256,256]采样[224,224]</p>
+</li>
+<li><p>dropout = 0.5</p>
+</li>
+<li><p>batch size = 128</p>
+</li>
+<li><p>SGD momentum = 0.9</p>
+</li>
+<li><p>Learning rate = 0.01,过一定次数之后降低为1/10</p>
+</li>
+<li><p>七个cnn模型做组合投票，可以使错误率从18.2% -&gt; 15.4%</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="VGGnet"><a href="#VGGnet" class="headerlink" title="VGGnet"></a>VGGnet</h4><ul>
+<li><p>地位</p>
+<ul>
+<li>ImageNet 2014<ul>
+<li>分类第二</li>
+<li>分割第一</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>网络结构</p>
+<ul>
+<li>更深</li>
+<li>多使用3$\times$3的卷积核<ul>
+<li>两个3$\times$3的卷积核可以看作是一层5$\times$5的卷积层</li>
+<li>三个3$\times$3的卷积核可以看作是一层7$\times$7的卷积层</li>
+</ul>
+</li>
+<li>1$\times$1的卷积层可以看作是非线性变换</li>
+<li>每经过一个pooling层之后，通道数目翻倍（防止信息丢失过多）</li>
+</ul>
+</li>
+</ul>
+<h4 id="结构分析"><a href="#结构分析" class="headerlink" title="结构分析"></a>结构分析</h4><ul>
+<li><p>多使用$3\times3$的卷积核（视野域的概念）</p>
+<ul>
+<li>两个3$\times$3的卷积核可以看作是一层5$\times$5的卷积层</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfs8m41zl1j30fu0ckjwq.jpg" alt="image-20200614233115361"></p>
+<p>如上图，一个$5\times5$的图像，经过一个$3\times3$的卷积核，步长为1，无padding之后会得到一个$3\times3$的图像，再经过一个$3\times3$的卷积核，就会得到$1\times1$的图像，两次卷积的过程，和直接经过一个$5\times5$的卷积核的效果是一样的，所以认为==两个3$\times$3的卷积核可以看作是一层5$\times$5的卷积层==。</p>
+<ul>
+<li><p>视野域的概念是从上往下看的，最顶层的数据是由一个卷积核和一个对应区域求内积得到的，若卷积核为$3\times3$的，则向下看就能看到一个$3\times3$的视野域，而从这个视野域再经过$3\times3$的卷积核，就可以看到一个$5\times5$的视野域，这和上面的效果一致的观点是统一的。</p>
+</li>
+<li><p>两层比一层多一次非线性的变换，一般是Relu,经过两次非线性变换会使得模型的拟合能力变得更好，可以学到更多的东西，所以两层$3\times3$优于一层$5\times5$。</p>
+</li>
+<li><p>参数会整体降低28%,这一层的参数为：$5\times5\times输入通道数\times输出通道数$，两个$3\times3$：$2<em>3</em>3<em>输入</em>输出$，$\frac{25-18}{25}=0.28$</p>
+</li>
+</ul>
+</li>
+<li><p>多使用$1\times1$的卷积核</p>
+<ul>
+<li>在处理多通道的图像时，如果使用$1\times 1$的卷积核，输出图像的大小和输入图像是相同的，而做卷积操作之后对应相加，就相当于把三个通道的值直接加起来，十分类似于全连接层的操作，只不过这里是在横向相加，可以看作是一个非线性的变换，因此==$1\times1$的卷积核可以进行一个减少通道的操作，且由于是相加的操作，并不损失信息==</li>
+</ul>
+</li>
+<li><p>网络结构加深</p>
+<ul>
+<li>从11层增加到19层</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gg5mzcf37zj30u00ugdl1.jpg" alt="image-20200616210952602"></p>
+<p>注：FC-4096 4096输出的全连接层</p>
+<ul>
+<li>LRN：局部归一化，把均值设成0，把方差设成1。</li>
+<li>在对应层加深卷积，B层直接加入了卷积核，C层引入了$1\times1$的卷积核，但是没有使用减少通道的特性（依据输出通道数，判定是否把通道值加到一起去）</li>
+<li>D、E在经过两次maxpooling，再加卷积层，是应为此时计算图已经变得比较小了，即使再加卷积层，损失也没有那么大。</li>
+<li>根据VGG的结构，可以得到各式各样的网络，由于一般只在两次maxpooling之后加卷积层等操作，参数变化对于后面全连接的参数变化很小，所以参数的量级基本是不改变的。</li>
+</ul>
+</li>
+<li><p>训练技巧</p>
+<ul>
+<li>由于网络结构过深，使用递进式的训练：先训练浅层网络A，再训练深层网络，如先训练A的模型，得到的数据可以直接用来初始化B的模型</li>
+<li>多尺寸输入：<ul>
+<li>不同的尺寸训练多个分类器，然后做ensemble</li>
+<li>随机使用不同的尺寸缩放后进入分类器训练</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Deep-Residual-Learning-for-Image-Recognition"><a href="#Deep-Residual-Learning-for-Image-Recognition" class="headerlink" title="Deep Residual Learning for Image Recognition"></a>Deep Residual Learning for Image Recognition</h3><p>2015年ILSVRC分类比赛的冠军。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv3828qfaj30i20m4jwj.jpg" alt="image-20200617104136727"></p>
+<p>Resnet解决了加深模型层数但是会导致训练集准确率下降的问题。如图，加深到56层之后，训练的结果错误率提升了。可以推知，==模型深度达到某个程度后继续加深会导致训练集准确率下降==</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv3bmgoy8j30n40fu43n.jpg" alt="image-20200617104502184"></p>
+<ul>
+<li><p>解决层次的问题</p>
+<ul>
+<li>假设：深层的网络更难优化而非深层的网络学不到东西<ul>
+<li>深层网络至少和浅层网络持平，即在浅层网络下增加新层的极端情况，是新层什么都不学习</li>
+<li>这样深度增加了，但是误差不会增加</li>
+</ul>
+</li>
+<li>Identity部分是恒等变换，$F(x)$是残差学习，即加入的weight layer（卷积层池化层）被认为是$F(x)$,$F(x)=0$就相当于什么都没学到，当学到东西了再和上一层学到的相加。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv3m38easj30n80d6go8.jpg" alt="残差学习单元"></p>
+<ul>
+<li>Resnet的变种：Resnet-34 、Resnet-101。。。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv3rpfx6dj30xo0cgdk3.jpg" alt="image-20200617110018660"></p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv3sndi8bj313e0gyts9.jpg" alt="image-20200617110107815"></p>
+<ul>
+<li>由于卷积层已经有了很多的参数，所以只是最后做了一下全连接，防止模型空间中存在过多的参数，导致过拟合<ul>
+<li>先用一个普通的卷积层，stride =2，224$\times$224，输出之后变为112$\times$112</li>
+<li>再经过3$\times$3的maxpooling层，图像大小变为56$\times$56</li>
+<li>经过残差结构</li>
+<li>没有中间的全连接层，直到输出</li>
+</ul>
+</li>
+<li>残差结构无需学习图像的全部信息，就好像图像远看和近看一样，上一会用高分辨率学习就好像近看，经过恒等传递保存下来，下一次低分辨率远看，获得了残差值。不像VGG和AlexNet每次学习都需要保证图像的整体信息是不丢失的，是的网络需要学习的知识变少，更加容易学习。</li>
+<li>残差结构使得每一层的数据分布更接近，容易学习，$F(x)$毕竟是小值，整体值向x靠拢，数据分布就会比较相近。</li>
+</ul>
+</li>
+</ul>
+<h4 id="InceptionNet"><a href="#InceptionNet" class="headerlink" title="InceptionNet"></a>InceptionNet</h4><p>工程优化——同样的参数下如何具有更高的计算效率。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv4k03q7nj30vm03240r.jpg" alt="image-20200617112741524"></p>
+<p>深层网络遇到的问题：</p>
+<ul>
+<li>更深的网络容易过拟合，甚至效率降低</li>
+<li>更深的网络有更大的计算量<ul>
+<li>稀疏网络（类似Dropout，利用密集矩阵计算）虽然减少了参数单没有减少计算量。</li>
+</ul>
+</li>
+</ul>
+<p>InceptionNet采用了一种叫==分组卷积==的形式，如图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfv5gt1we6j30a706pq35.jpg"></p>
+<p>这些卷积核分成了几个组，而且还可以继续拓展。（fc好像是全连接的意思）</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvj3a904dj30ys0hy45s.jpg" alt="image-20200617195036766"></p>
+<p>在各个层上的计算不相互交叉</p>
+<ul>
+<li>InceptionNet的优势<ul>
+<li>一层上同时使用多种卷积核，能看到多种feature</li>
+<li>不同组之间的feature不交叉计算，减少了计算量</li>
+</ul>
+</li>
+<li>计算计算量<br><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvj6oyghoj30x00dy0x9.jpg" alt="image-20200617195355933"></li>
+</ul>
+<h5 id="V1结构"><a href="#V1结构" class="headerlink" title="V1结构"></a>V1结构</h5><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvjmses66j311g0fgtfn.jpg" alt="image-20200617200923482"></p>
+<p>由于输出通道和大小相同，差别主要体现在卷积计算量上。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvjnzp1l1j30x40guah7.jpg" alt="image-20200617201032828"></p>
+<p>通过$1\times1$的卷积核来优化，降低通道数，以减少在计算量多参数处的通道，有意识的去优化。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvjq421p9j313m0lg4bt.jpg" alt="image-20200617201235097"></p>
+<p>注：reduce表示步长较大，图像大小缩减。</p>
+<h5 id="V2结构"><a href="#V2结构" class="headerlink" title="V2结构"></a>V2结构</h5><ul>
+<li>引入$3\times 3$视野域等同替换$5\times5$、$7\times7$的卷积核。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvknqm9xwj30zu0gswmp.jpg" alt="image-20200617204454514"></p>
+<h5 id="V3结构"><a href="#V3结构" class="headerlink" title="V3结构"></a>V3结构</h5><ul>
+<li><p>$3\times 3$并不是最小的卷积</p>
+<ul>
+<li>$3\times 3$=$1\times3$&amp;$3\times1$</li>
+<li>参数降低33%，$3\times3 $有9个参数，$1\times3$、$3\times1$有6个参数，所以节省了33%。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvkp2x7mcj30ds0f8ae4.jpg" alt="image-20200617204611795"></p>
+</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvkxrphnsj30fw0k40vw.jpg" alt="image-20200617205432942"></p>
+<p>以此为思路可以降低$n\times n$卷积层的参数，n越大，减少的参数越大。</p>
+<h5 id="V4结构"><a href="#V4结构" class="headerlink" title="V4结构"></a>V4结构</h5><ul>
+<li>引入skip connection和之前的残差连接类似，可以说残差连接就是skip connection。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvlei9ycdj30ly0lwdgy.jpg" alt="image-20200617211032945"></p>
+<h4 id="MobileNet"><a href="#MobileNet" class="headerlink" title="MobileNet"></a>MobileNet</h4><ul>
+<li>引入深度可分离卷积，在保证精度的同时大幅度的降低参数的数目并减少计算量。用深度可分离卷积替换掉普通的卷积。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvleoteqlj30lu0dsjs0.jpg" alt="image-20200617210020846"></p>
+<p>BN：p归一化</p>
+<ul>
+<li>在InceptionNet中引入了分组卷积，如下图，经过$1\times1$的函数做分组，分组之后通道数变为原来的$\frac{1}{3}$。<br><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvldgx4q6j311a0dq798.jpg" alt="image-20200617210938610"></li>
+<li>深度可分离卷积可以认为是一种分到极致的方法，即一个卷积只处理一个通道。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvlgcd828j31020eetdc.jpg"></p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvnlh1he0j30g40d40vn.jpg" alt="image-20200617222631989"></p>
+<p>深度可分离型输入是1，即$C_i=1$。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvog0obbjj30q2066abx.jpg" alt="image-20200617225552701"></p>
+<p>就可以带来大幅度的参数降低，但是带来的精度损失只在10%左右。</p>
+<p>总结：</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvohjd2j4j30nm0hmahh.jpg" alt="image-20200617225720311"></p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gfvok4159qj30om0guqbs.jpg" alt="image-20200617225948763"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/27/EngineeringMathematicsFD/" rel="prev" title="EngineeringMathematicsFD">
+      <i class="fa fa-chevron-left"></i> EngineeringMathematicsFD
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/30/GPSSurveyingFD/" rel="next" title="GPSSurveyingFD">
+      GPSSurveyingFD <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cherium</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">81k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:14</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      const script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

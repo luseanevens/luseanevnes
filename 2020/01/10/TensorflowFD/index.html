@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"cherium.fun","root":"/","scheme":"Muse","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false};
+  </script>
+
+  <meta name="description" content="Tensorflow 构架Tensorflow 1.x的基本结构。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorflowFD">
+<meta property="og:url" content="cherium.fun/2020/01/10/TensorflowFD/index.html">
+<meta property="og:site_name" content="Cherium&#39;s blogs">
+<meta property="og:description" content="Tensorflow 构架Tensorflow 1.x的基本结构。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/image-20200626191059476.png">
+<meta property="article:published_time" content="2020-01-10T11:21:41.000Z">
+<meta property="article:modified_time" content="2020-08-02T13:46:13.334Z">
+<meta property="article:author" content="cherium">
+<meta property="article:tag" content="DIP,Pattern Recognition,Dynamic And Contral,Pentest">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/image-20200626191059476.png">
+
+<link rel="canonical" href="cherium.fun/2020/01/10/TensorflowFD/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>TensorflowFD | Cherium's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Cherium's blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东向而望，不见西墙</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tensorflow-%E6%9E%84%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">Tensorflow 构架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensorflow-%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-number">1.1.</span> <span class="nav-text">Tensorflow 的本质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorflow-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.1.1.</span> <span class="nav-text">Tensorflow 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorflow%E7%9A%84%E8%BF%90%E7%AE%97%E5%AE%9E%E8%B4%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">Tensorflow的运算实质</span></a></li></ol></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="cherium"
+      src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+  <p class="site-author-name" itemprop="name">cherium</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/luseanevens" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luseanevens" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cherium@icloud.com" title="E-Mail → mailto:cherium@icloud.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
+        <div class="back-to-top animated">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="cherium.fun/2020/01/10/TensorflowFD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+      <meta itemprop="name" content="cherium">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cherium's blogs">
+    </span>
+
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TensorflowFD
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-10 19:21:41" itemprop="dateCreated datePublished" datetime="2020-01-10T19:21:41+08:00">2020-01-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-02 21:46:13" itemprop="dateModified" datetime="2020-08-02T21:46:13+08:00">2020-08-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">神经网络</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Tensorflow-构架"><a href="#Tensorflow-构架" class="headerlink" title="Tensorflow 构架"></a>Tensorflow 构架</h1><p>Tensorflow 1.x的基本结构。</p>
+<a id="more"></a>
+<h2 id="Tensorflow-的本质"><a href="#Tensorflow-的本质" class="headerlink" title="Tensorflow 的本质"></a>Tensorflow 的本质</h2><h3 id="Tensorflow-初始化"><a href="#Tensorflow-初始化" class="headerlink" title="Tensorflow 初始化"></a>Tensorflow 初始化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">data_1 = tf.constant(<span class="number">2.5</span>)</span><br><span class="line">data_2 = tf.Variable(<span class="number">10</span>,name = <span class="string">&#x27;var_1&#x27;</span>)</span><br><span class="line">data_3 = tf.constant(<span class="number">2</span>,dtype = tf.int32)  <span class="comment"># 指定数据类型 tf.&#123;&#125;</span></span><br><span class="line">print(data1)</span><br><span class="line">print(data2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">Tensor(&quot;Const:0&quot;,Shape=(),dtype=float32)</span></span><br><span class="line"><span class="string">&lt;tf.Variable &#x27;var:0&#x27; shape=() dtype=int32_ref&gt;</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>从这里可以看出，<code>Tensorflow</code>初始化的数据和变量是无法直接进行运算的，调用时返回的是如数据类型一类数据信息，只有<code>tf.sess.run()</code>中，数据才可以真正被调用运算。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">sess= tf.session()</span><br><span class="line">print(sess.run(data_1))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="number">2.5</span></span><br><span class="line"></span><br><span class="line">print(sess.run(data_2))</span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;FaildPreconditionError: Attempting to use an uninitialized value var_1.</span></span><br><span class="line"><span class="string">########################</span></span><br><span class="line"><span class="string">Tensorflow 中，所有的变量都需要经过初始化 才能被调用</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">正确用法：</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line">init = tf.global_variabls_initializer()</span><br><span class="line">sess.run(init)                    <span class="comment"># Init 也需要被 sess.run()</span></span><br><span class="line">print(sess.run(data_2))</span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 10 </span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Tensorflow的运算实质"><a href="#Tensorflow的运算实质" class="headerlink" title="Tensorflow的运算实质"></a>Tensorflow的运算实质</h3><ul>
+<li>Tensorflow 本身由： 张量Tensor 和 计算图 grahps 构成。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/luseanevens/FigureBed/master/img/image-20200626191059476.png" alt="image-20200626191059476"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Tensor == data</span></span><br><span class="line">data_1 = tf.constant(<span class="number">2</span>,dtype =int32)</span><br><span class="line">data_2 = tf.variable(<span class="number">10</span>, name =<span class="string">&#x27;w&#x27;</span>)</span><br><span class="line"><span class="comment"># op :opeartion + - * / ...</span></span><br><span class="line"><span class="comment"># graphs 操作数据</span></span><br><span class="line"><span class="comment"># 计算图在 session中运行 需要将所有的Tensor 和 graphs 放入 session中</span></span><br><span class="line"><span class="comment"># session 关闭： 手动</span></span><br><span class="line">sess.close()</span><br><span class="line"><span class="comment"># 自动关闭： with</span></span><br><span class="line">init = tf.global_variable_initializer()</span><br><span class="line">sess = tf.session()         <span class="comment"># 创建计算环境</span></span><br><span class="line"><span class="keyword">with</span> tf.session <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    print(sess.run(data_1))</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 这样不需要专门去关闭计算图</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>四则运算</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Constant</span></span><br><span class="line">data_1 = tf.constant(<span class="number">6</span>)</span><br><span class="line">data_2 = tf.constant(<span class="number">2</span>)</span><br><span class="line">dataAdd = tf.add(data_1,data_2)</span><br><span class="line">dataMul = tf.multiply(data_1,data_2)</span><br><span class="line">dataSub = tf.substract(data_1,data_2)</span><br><span class="line">dataDiv = tf.divide(data_1,data_2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    print(sess.run(dataAdd))</span><br><span class="line">print(<span class="string">&#x27;done&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># Variable Constant</span><br><span class="line">data_1 &#x3D; tf.Constant(6)</span><br><span class="line">data_2 &#x3D; tf.Variable(2)</span><br><span class="line">init &#x3D; tf.global_variable_initializer() # 存在变量</span><br><span class="line">dataAdd &#x3D; tf.add(data_1,data_2)</span><br><span class="line">dataMul &#x3D; tf.multiply(data_1,data_2)</span><br><span class="line">dataSub &#x3D; tf.substract(data_1,data_2)</span><br><span class="line">dataDiv &#x3D; tf.divide(data_1,data_2)</span><br><span class="line"></span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">    sess.run(init)                       # 函数没有返回值</span><br><span class="line">    print(sess.run(dataAdd))</span><br><span class="line">print(&#39;done&#39;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataCopy &#x3D; tf.assign(data_2,dataAdd)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>矩阵运算</p>
+<ul>
+<li>数据在计算过程中并非预定义好的，而是想图像集一样一张一张传输进去的，此时要用到<code>placeholder</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use placeholder</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">data_1 = tf.placeholder(tf.float32)</span><br><span class="line">data_2 = tf.placeholder(tf.float32)</span><br><span class="line">dataAdd = tf.add(data_1,data_2)</span><br><span class="line"><span class="keyword">with</span> tf.session() <span class="keyword">as</span> sess:</span><br><span class="line">    print(sess.run(dataAdd,feed_dict=&#123;</span><br><span class="line">                                        data_1:<span class="number">6</span>,</span><br><span class="line">                                        data_2:<span class="number">2</span>&#125;))</span><br><span class="line">print(<span class="string">&#x27;done&#x27;</span>)    </span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 8.0 </span></span><br><span class="line"><span class="comment"># done</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>feed_dict</code>是<code>sess.run()</code>中的一个参数，其与<code>placeholder</code>是匹配使用的，负责向变量当中传递参数。内容本身源自于要求的的变量<code>dataAdd</code>所需要的两个参数<code>data_1</code>、<code>data_2</code>。</li>
+<li>矩阵：数组，一般处理的时候都是用<code>np.array</code>,<code>np.asarray</code>,<code>size()</code>之类的来处理，但是<code>tensorflow</code>也有一些矩阵的运算函数，使用还是很方便。<code>[[1,2][3,4]]</code>这就是一个矩阵（二维数组）</li>
+<li>二维数组：记忆小技巧 一个[] 表示一行，里面几个数表示几列</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">data_1 &#x3D; tf.constant([6,6])         # 一行两列</span><br><span class="line">data_2 &#x3D; tf.constant([[2],</span><br><span class="line">                     [1]])          # 两行一列</span><br><span class="line">data_3 &#x3D; tf.constant([[3,2],        # 三行两列</span><br><span class="line">                      [1,2],</span><br><span class="line">                      [2,1]])</span><br><span class="line">print(data_4.shape) </span><br><span class="line">with tf.session() as sess：</span><br><span class="line">    print(sess.run(data_4))</span><br><span class="line">    print(sess.run(data_4[0]))        # 打印行</span><br><span class="line">    print(sess.run(data_4[:,0]))</span><br><span class="line">    print(sess.run(data_4[0,0]))    </span><br><span class="line">    # 打印列，列是在第二维度，:是行全打印，和索引是一样的</span><br><span class="line"># output</span><br><span class="line"># (3,2) : 三行两列</span><br><span class="line"></span><br><span class="line">tf.matmul(data_1,data_2)            # 标准矩阵运算</span><br><span class="line">tf.mulyiply(data_1,data_2)          # 内积</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 特殊举证初始化</span><br><span class="line">mat_0 &#x3D; tf.zeros([2,3])</span><br><span class="line">mat_1 &#x3D; tf.ones([2,3])</span><br><span class="line">mat_15 &#x3D; tf.fill([2,3],15)</span><br><span class="line">mat_l &#x3D; tf.zeros_like(mat_1)              # 与mat_1同型的0</span><br><span class="line">mat_liner &#x3D; tf.linspace(0.0,2.0,11)        # 等分</span><br><span class="line">mat_random &#x3D;tf.random_uniform([2,3],-1,2) # -1~2 的随机数</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/28/hexocreatconig/" rel="next" title="建站记录">
+      建站记录 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cherium</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">81k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:14</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      const script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

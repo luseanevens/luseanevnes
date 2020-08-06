@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"cherium.fun","root":"/","scheme":"Muse","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false};
+  </script>
+
+  <meta name="description" content="涉及到极限的计算方法和其他知识的联系，以及我觉得一些很棒的题目。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="calculationlimit">
+<meta property="og:url" content="cherium.fun/2020/08/05/CalculationLimit/index.html">
+<meta property="og:site_name" content="Cherium&#39;s blogs">
+<meta property="og:description" content="涉及到极限的计算方法和其他知识的联系，以及我觉得一些很棒的题目。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-05T10:11:53.000Z">
+<meta property="article:modified_time" content="2020-08-05T13:59:07.792Z">
+<meta property="article:author" content="cherium">
+<meta property="article:tag" content="DIP,Pattern Recognition,Dynamic And Contral,Pentest">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="cherium.fun/2020/08/05/CalculationLimit/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>calculationlimit | Cherium's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Cherium's blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东向而望，不见西墙</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">定义问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%88%97%E6%9E%81%E9%99%90%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">数列极限的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%9E%81%E9%99%90%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">函数极限的定义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E5%9F%BA%E7%A1%80"><span class="nav-number">2.</span> <span class="nav-text">求解基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%93%E5%BF%98%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">易忘问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E6%95%B0%E5%87%BD%E6%95%B0%E6%8F%90%E5%8F%96%E5%85%AC%E5%9B%A0%E5%BC%8F"><span class="nav-number">2.1.1.</span> <span class="nav-text">指数函数提取公因式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%96%E7%AE%80"><span class="nav-number">2.1.2.</span> <span class="nav-text">化简</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99"><span class="nav-number">2.2.</span> <span class="nav-text">洛必达法则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%B1%82%E5%AF%BC%E8%A1%A8"><span class="nav-number">2.2.1.</span> <span class="nav-text">基本求导表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">拉格朗日中值定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%AF%E5%88%86%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="nav-number">2.4.</span> <span class="nav-text">积分中值定理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AD%89%E4%BB%B7%E6%97%A0%E7%A9%B7%E5%B0%8F%E6%9B%BF%E6%8D%A2"><span class="nav-number">3.</span> <span class="nav-text">等价无穷小替换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E7%A9%B7%E5%B0%8F%E6%AF%94%E9%98%B6"><span class="nav-number">3.1.</span> <span class="nav-text">无穷小比阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E7%A9%B7%E5%A4%A7%E6%AF%94%E9%98%B6"><span class="nav-number">3.2.</span> <span class="nav-text">无穷大比阶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8D%A2%E5%85%83%E6%B3%95%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">换元法使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%B9%E9%80%BC%E5%87%86%E5%88%99"><span class="nav-number">5.</span> <span class="nav-text">夹逼准则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">5.1.</span> <span class="nav-text">重要不等式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%89%E7%95%8C%E6%80%A7%E3%80%81%E4%BF%9D%E5%8F%B7%E6%80%A7%E4%B8%8E%E5%8D%95%E8%B0%83%E6%9C%89%E7%95%8C%E5%87%86%E5%88%99"><span class="nav-number">6.</span> <span class="nav-text">有界性、保号性与单调有界准则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E5%8F%B7%E6%80%A7%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">6.1.</span> <span class="nav-text">保号性的应用</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="cherium"
+      src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+  <p class="site-author-name" itemprop="name">cherium</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/luseanevens" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luseanevens" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cherium@icloud.com" title="E-Mail → mailto:cherium@icloud.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
+        <div class="back-to-top animated">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="cherium.fun/2020/08/05/CalculationLimit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghgaf38wmzj308c08cq3w.jpg">
+      <meta itemprop="name" content="cherium">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cherium's blogs">
+    </span>
+
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          calculationlimit
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-05 18:11:53 / 修改时间：21:59:07" itemprop="dateCreated datePublished" datetime="2020-08-05T18:11:53+08:00">2020-08-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/math/" itemprop="url" rel="index"><span itemprop="name">math</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote class="blockquote-center">
+<p>涉及到极限的计算方法和其他知识的联系，以及我觉得一些很棒的题目。</p>
+
+</blockquote>
+
+<a id="more"></a>
+
+<h1 id="定义问题"><a href="#定义问题" class="headerlink" title="定义问题"></a>定义问题</h1><h2 id="数列极限的定义"><a href="#数列极限的定义" class="headerlink" title="数列极限的定义"></a>数列极限的定义</h2><ul>
+<li>$\lim\limits_{n\to\infty}x_n=a\leftrightarrow\forall \epsilon&gt;0,\exists N\in N_+,当n&gt;N时，恒有|x_n-a|&lt;\epsilon$</li>
+</ul>
+<p>这里要注意的是绝对值，对与上下波动趋进的${x_n}$也认为极限是存在的，而$\epsilon$被认为是一个足够小的值。</p>
+<h2 id="函数极限的定义"><a href="#函数极限的定义" class="headerlink" title="函数极限的定义"></a>函数极限的定义</h2><ul>
+<li>$\lim\limits_{x\to x_0}f(x)=A\leftrightarrow\forall \epsilon&gt;0,\exists \delta&gt;0,x\in\mathring{U}(x_0,\delta)时，恒有|f(x)-A|&lt;\epsilon$</li>
+</ul>
+<p>这里要注意同样是绝对值，由于趋进的是$x_0$，所以是在领域内，而对于趋进于无穷的情况，则如下表示:</p>
+<ul>
+<li>$\lim\limits_{n\to\infty}f(x)=A\leftrightarrow\forall \epsilon&gt;0,\exists X&gt;0,当|x|&gt;X时，恒有|f(x)-A|&lt;\epsilon$</li>
+</ul>
+<p>$|x|$是存在$\pm\infty$的情况。</p>
+<ul>
+<li>总结：</li>
+</ul>
+<p>由定义可知，由于是以绝对值的形式存在的，所以证明单侧数列极限可以使用单调有界准则；双侧极限则务必使用夹逼定理。</p>
+<h1 id="求解基础"><a href="#求解基础" class="headerlink" title="求解基础"></a>求解基础</h1><h2 id="易忘问题"><a href="#易忘问题" class="headerlink" title="易忘问题"></a>易忘问题</h2><ul>
+<li><p>$(\frac{f(x)}{g(x)})’=\frac{f’(x)g(x)-g’(x)f(x)}{g(x)^2},g(x)=0.$</p>
+</li>
+<li><p>$\lim\limits_{x\to\infty}(1+\frac{1}{x})^x=\lim\limits_{x\to0}(1+x)^{1/x}=e$ 常用于$1^{\infty}$型求极限。</p>
+</li>
+</ul>
+<h3 id="指数函数提取公因式"><a href="#指数函数提取公因式" class="headerlink" title="指数函数提取公因式"></a>指数函数提取公因式</h3><p>$(3+tanx)^x+3^x$这个函数的公因式能提吗？我乍一看挺抽象的，总想着把前面的部分展开，但是只需要转换成分式就很直观了：<br>$$<br>\frac{(3+tanx)^x}{3^x}=\big(\frac{3+tanx}{3}\big )^x=3^x(1+\frac{tanx}{3})^x<br>$$<br>在遇到指数函数且求$x\to0$的极限时，前面的$3^x$就可以直接变成<code>1</code>，后面的用幂指函数求洛必达，或者看看有没有个1变成$e^x-1$的形式。</p>
+<ul>
+<li>==指数函数的运算法则==：$(e^{tanx}-e^{sinx})=e^{sinx}(e^{tanx-sinx}-1)$</li>
+<li>对数运算法则：$ln(\frac{x+1}{x-1})=ln(x+1)-ln(x-1)$</li>
+</ul>
+<p>总结：指数求极限广泛的应用化简、重要极限和$$</p>
+<h3 id="化简"><a href="#化简" class="headerlink" title="化简"></a>化简</h3><ul>
+<li><p>处理$\sqrt[n]{cosx}$</p>
+<ul>
+<li>可凑1时：$\sqrt[n]{cosx}-1=(cosx-1+1)^n-1\sim n(cosx-1)\sim -\frac{1}{4}x^2$</li>
+</ul>
+</li>
+<li><p>和差化积、积化和差记得用</p>
+</li>
+</ul>
+<h2 id="洛必达法则"><a href="#洛必达法则" class="headerlink" title="洛必达法则"></a>洛必达法则</h2><p>除却洛必达法则的使用局限性和使用前的化简以外，就是求导问题：</p>
+<h3 id="基本求导表"><a href="#基本求导表" class="headerlink" title="基本求导表"></a>基本求导表</h3><p>$$<br>(x^\alpha)’=\alpha x^{\alpha-1}\qquad (a^x)’=a^xlna(a&gt;0,a\neq1)\qquad (e^x)’=e^x\\<br>log_ax’=\frac{1}{xlna}\qquad lnx’=\frac{1}{x}\qquad sinx’=cosx\qquad cosx’=-sinx\\<br>arcsinx’=\frac{1}{\sqrt{1-x^2}}\qquad arccosx’=-\frac{1}{\sqrt{1-x^2}}\\<br>tanx’=sec^2x\qquad |cotx’|=-csc^2x\qquad arctanx’=\frac{1}{1+x^2}\qquad arccotx’=-\frac{1}{1+x^2}\\<br>*ln(x+\sqrt{x^2+a^2})’=\frac{1}{\sqrt{x^2+a^2}}\qquad ln(x+\sqrt{x^2-a^2})’=\frac{1}{\sqrt{x^2-a^2}}<br>$$</p>
+<h2 id="拉格朗日中值定理"><a href="#拉格朗日中值定理" class="headerlink" title="拉格朗日中值定理"></a>拉格朗日中值定理</h2><p>设$f(x)$满足$[a,b]$内连续，$(a,b)$内可导，则存在$\xi\in(a,b)$使得$f(b)-f(a)=f’(\xi)(b-a)$,或写作$f’(\xi)=\frac{f(b)-f(a)}{b-a}$。</p>
+<p>==使用拉格朗日中值定理求极限的原理==：见到$\lim\limits_{n\to {.}}[n,n+1]，f(n+1)-f(n)$这种形式，因自然想到拉格朗日中值定理，使得$f(n+1)-f(n)=f’(\xi)(n+1-n),\xi\in[n,n+1]$,因为$\xi\in[n,n+1]$,所以当$n,n+1\to .$时，$\xi\to .$，之后用$\xi$求导求得的极限来代替$f(n+1)-f(n)$的极限。</p>
+<p><code>eg:</code>$\lim\limits_{x\to+\infty}x^2[arctan(x+1)-arctan(x)]=$</p>
+<p><code>解：</code><br>$$<br>arctan(x+1)-arctan(x)=\frac{1}{1+\xi^2}(x+1-x),\xi\in（x,x+1）\\<br>\lim\limits_{x\to+\infty}x^2[arctan(x+1)-arctan(x)]=\lim\limits_{x\to+\infty}x^2\times\frac{1}{1+\xi^2}=\lim\limits_{x\to+\infty}\frac{x^2}{1+x^2}=1<br>$$<br>在计算填空题可以直接将$\xi,x$相统一，因为$\xi\in(x,x+1)$,量级十分的接近，但是在大题中需要将$\xi$具体化为$x+1,x$之后进行夹逼标准化证明：<br>$$<br>\xi\in(x,x+1),于是：\\<br>1=\frac{x^2}{1+(x+1)^2}\le x^2[arctan(x+1)-arctanx]\le \frac{x^2}{1+x^2}=1<br>$$<br><code>eg2:</code>求极限$I=\lim\limits_{x\to\infty}n^2(\sqrt[n]a+\sqrt[n+1]a),(a&gt;0)$</p>
+<p>注：这道题的夹逼过程可以略写。</p>
+<h2 id="积分中值定理"><a href="#积分中值定理" class="headerlink" title="积分中值定理"></a>积分中值定理</h2><p>设$f(x)$在点$[a,b]$上连续，则存在$\xi\in[a,b]$使得:<br>$$<br>\int_a^bf(x)dx=f(\xi)(b-a)<br>$$</p>
+<h1 id="等价无穷小替换"><a href="#等价无穷小替换" class="headerlink" title="等价无穷小替换"></a>等价无穷小替换</h1><ul>
+<li>等价无穷小替换的理论来自于泰勒级数，==展开前一定要注意x是否为0。==</li>
+<li>泰勒级数：<br>如果函数$f(x)$在点$x=x_0$处存在任意阶导数，则函数$f(x)$在$x_0$处的泰勒级数为：</li>
+</ul>
+<p>$$<br>f(x)=f(x_0)+f’(x_0)(x-x_0)+\frac{f’’(x_0)}{2!}(x-x_0)^2+…+\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n+…<br>$$</p>
+<p>​        当$x=0$时记为麦克劳林级数：<br>$$<br>f(0)= f(0)+f’(0)x+\frac{f’’(0)}{2!}x^2+…<br>$$</p>
+<p>​        常用的泰勒级数：<br>$$<br>e^x=1+x+\frac{x^2}{2!}+…+\frac{x^n}{n!}+…=\sum_{n=0}^{\infty}\frac{x^n}{n!}\\<br>sinx= x-\frac{1}{3!}x^3+…+(-1)^n\frac{1}{(2n+1)!}x^2\\<br>arcsinx=x+\frac{1}{3!}x^3+o(x^3)\qquad (x\to0)\\<br>cosx = 1 -\frac{1}{2!}x^2+…+(-1)^n\frac{1}{(2n)!}x^{2n}\\<br>arccosx = \frac{\pi}{2}-(x+\frac{1}{2}\frac{x^3}{3}+\frac{3}{8}\frac{x^5}{5}+…)\qquad (x\to0)\\<br>tanx = x+\frac{1}{3}x^3+o(x^3)\\<br>arctanx = x-\frac{1}{3}x^3+o(x^3)\\<br>ln(1+x)= x-\frac{1}{2}x^2+…+(-1)^n\frac{1}{(2n!)}x^{2n}+…\qquad(-1&lt;x\le1)\\<br>(1+x)^\alpha=1+\alpha x+\frac{\alpha (\alpha-1)}{2}x^2+o(x^2)\qquad(x\to 0)\\<br>\frac{1}{1-x}=1+x+x^2+…+x^n\qquad (|x|&lt;1)\\<br>\frac{1}{1+x}=1-x+x^2-…+(-1)^nx^n\qquad (|x|&lt;1)\\<br>$$</p>
+<p>​        一个小口诀：<code>记住一个，拆成两个。去首项，去阶乘，正负交错。二项公式拿来用。tan不交错，反函数都相反</code></p>
+<ul>
+<li><p>解释：</p>
+<ul>
+<li>记住一个$e^x$，可以拆分为$sinx$和$cosx$,$cosx$为奇数项，正负交错(==首项开始==)。$sinx$为偶数项，也是正负交错。</li>
+<li>$lnx$就等于$e^x$去首项，去阶乘，正负交错。</li>
+<li>$(1+x)^{\alpha}$用二项公式,$\frac{1}{1-x}$负号求导全部消去全为正，$\frac{1}{1+x}$正负交替。</li>
+<li>反三角函数形式不易得出，只记住前两项即可。</li>
+</ul>
+</li>
+<li><p>等价无穷小替换</p>
+</li>
+</ul>
+<p>$$<br>x\to0\\sinx\sim x\qquad tanx\sim x\qquad arcsinx\sim x\qquad arctanx\sim x\\<br>e^x-1\sim x\qquad ln(1+x)\sim x\qquad *a^x-1=e^{xlna}-1\sim xlna\\<br>1-cosx\sim \frac{1}{2}x^2\qquad (1+x)^\alpha \sim \alpha x\\<br>若\alpha(x)\to 0,则\alpha(x)+o(\alpha(x))~\alpha(x)<br>$$</p>
+<p>​    等价无穷小替换若直接替换，则需要存在于分式中，其实是简化了拆分成高阶无穷小再拆分的过程，非累乘分式注意展开原则，但是展开成完整的泰勒展开式是一定正确的。加减法无法使用等价无穷小替换，只能展开为完整的泰勒级数。</p>
+<h2 id="无穷小比阶"><a href="#无穷小比阶" class="headerlink" title="无穷小比阶"></a>无穷小比阶</h2><p>$$<br>\frac{0}{0}时，<br>\lim\limits_{x\to {.}}\frac{f(x)}{g(x)}=<br>\begin{cases}<br>        0\c\\infty<br>\end{cases}<br>$$</p>
+<p>==注意==：无穷小比阶一定要是$\frac{0}{0}$时才能使用,得数为0时，$f(x)$是$g(x)$的高阶无穷小，$\infty$为低阶无穷小。</p>
+<ul>
+<li>在求$\frac{0}{0}$求无穷小的过程中，高阶的无穷小对应更小的幂次</li>
+<li>无穷小比阶一般直接化简后使用泰勒展开</li>
+<li>分式中：==高阶无穷小+低阶无穷 ~ 低价无穷小== </li>
+</ul>
+<p>==用法==：</p>
+<p><code>eg:</code>    $\lim\limits_{x\to0}\frac{(3+2tanx)^x-3^x}{3sin^2x+x^3cos\frac{1}{x}}$<br>$$<br>解：3sin^2x,x^3cos\frac{1}{x}\to0,\lim\limits_{x\to0}\frac{3sin^2x}{x^3cos\frac{1}{x}}=\infty,\\x^3cos\frac{1}{x}是3sin^2x的高阶无穷小，所以:\\<br>3sin^2x+x^3cos\frac{1}{x}\sim3sin^2x\sim3x^2(x\to0)<br>$$<br>这个过程最重要的是都趋向于0，较低阶的无穷小趋向0的速度远远慢于高阶的无穷小，所以高阶的无穷小可以被舍弃，如果不趋向于0，那么取舍的情况就不一样了，比如如下情况，会直接取幂次较高的项，此时是趋向于$\infty$的，高阶无穷大远远大于低阶的无穷大，所以低阶的无穷大被舍去了。</p>
+<p><code>eg2:</code>把下列$x\to0^+$时的无穷小量按==后一个是前一个的高阶无穷小==排序：<br>$$<br>\alpha=\int_0^xcos^{t^2}dt\qquad\beta=\int_0^{x^2}tan\sqrt{t}dt\qquad\gamma=\int_0^{\sqrt x}sint^3dt<br>$$<br>直接求导使用等价无穷小转化为幂函数的形式（因为比的时候都是分式），$\alpha$是2阶，$\beta$是1阶，$\gamma$是$\frac{3}{2}$阶，阶数倒着排：$\alpha,\beta,\gamma$。</p>
+<p>注意这个问法啊，:crossed_fingers:后一个是前一个的高阶无穷小，和定义里讲的是一样的，在$\frac{0}{0}$的情况下，幂次和排序是倒着排的。但是问法变成：==无穷小量的阶数从高到低排列==就换意思了，一般这种题不用去比较各式子之间比阶，而是和$x$比，得到式子与$x^n$同阶，然后就是n阶无穷小。</p>
+<p>题目参考高数十八讲P18.1.7。</p>
+<h2 id="无穷大比阶"><a href="#无穷大比阶" class="headerlink" title="无穷大比阶"></a>无穷大比阶</h2><p>$$<br>\lim\limits_{x\to\infty}\frac{1}{x^{\alpha-1}+x^{\alpha-3}}=\lim\limits_{x\to\infty}\frac{1}{x^{\alpha-1}}<br>$$</p>
+<h1 id="换元法使用"><a href="#换元法使用" class="headerlink" title="换元法使用"></a>换元法使用</h1><ul>
+<li>处理含有$x,t$的变限积分式</li>
+<li>处理含有高阶开根号</li>
+<li>改变极限趋向（ 不要盲目换趋向，$\infty$下一样可以求解）</li>
+<li>==灵巧的变形==：$x$可以变成$ln(1+x),tanx,sinx….$很多的等价无穷小用来进行比阶，$x$也可以是$\angle x,f(x)…$等等广义化的东西，依据要求，合理变形。</li>
+</ul>
+<h1 id="夹逼准则"><a href="#夹逼准则" class="headerlink" title="夹逼准则"></a>夹逼准则</h1><h2 id="重要不等式"><a href="#重要不等式" class="headerlink" title="重要不等式"></a>重要不等式</h2><ul>
+<li>取整不等式：$f(x)-1&lt;[f(x)]&lt;f(x)$</li>
+<li>$sinx&lt;x&lt;tanx,x\in(0,\frac{\pi}{2})$</li>
+<li>$\frac{x}{1+x}&lt;ln(1+x)&lt;x,x\in(0,\infty)$</li>
+</ul>
+<h1 id="有界性、保号性与单调有界准则"><a href="#有界性、保号性与单调有界准则" class="headerlink" title="有界性、保号性与单调有界准则"></a>有界性、保号性与单调有界准则</h1><ul>
+<li><p>函数及数列的有界性：有界换句话讲就是不无穷，即:</p>
+<ul>
+<li><p>$x\to  .时\exists M&gt;0,|f(x)|\le M$</p>
+</li>
+<li><p>$n\to \infty时，\exists M&gt;0,|x_n|\le M$</p>
+<p><code>eg:</code>函数$f(x)=\frac{|x|sin(x-2)}{x(x-1)(x-2)}$在下列哪个区间内有界？</p>
+<p>A. $(-1,0)$                 B. $(0,1)$                C. $(1,2)$                D. $(2,3)$</p>
+<p>理解有界性其实是一个加速求导研究函数性态的方法，==有界代表在区间内不无穷==。</p>
+<ul>
+<li>那么无穷会出现在哪？间断点和边界点。<ul>
+<li>无穷会出现在区间内且不间断吗？$f’(x)=0且f(x)=\infty$的情况不存在，所以只需言研究边界的极限是否为无穷就能判断是否有界了，如果边界0的极限是无穷，即在$U^-(0,\delta)$中有一个数取到了无穷，也就‘无界‘了。</li>
+</ul>
+</li>
+</ul>
+<p><code>解:</code>$x\neq0,1,2\qquad \lim\limits_{x\to{-1^+}}f(x)=-\frac{sin3}{18}…$其余同理，可知1，2处极限为$\infty$，在$(-1,0)$上连续。</p>
+<p><code>eg:</code>设数列${a_n}$单调减少，${b_n}$单调增加，且$\lim\limits_{x\to \infty}(a_n-b_n)=0$，则：                                            <code>p25</code></p>
+<p>A. ${a_n}$收敛，${b_n}$不收敛</p>
+<p>B. ${a_n}、{b_n}$均收敛，且极限相等</p>
+<p>$a_n-b_n$极限存在，则有界，则$A&lt;a_n-b_n&lt;B$,即$a_n&gt;A+b_n&gt;A+b_1$,单减有下界，收敛。同理$b_n$单增有上界（单调有界原则判断极限是否存在）。</p>
+<p>$\lim\limits_{x\to\infty}(a_n-b_n)=0$知极限相等。</p>
+</li>
+<li><p>推论 1：**$f’(x)$在有限区间$(a,b)$内有界，则$f(x)$也在该区间有界**</p>
+<p>证明：<br>$$<br>f(b)-f(a)=f’(\xi)(b-a)\\<br>x\in(a,b),f(x)-f(a)=f’(\xi)(x-a)\\<br>|f(x)|&lt;|f’(\xi)(x-a)+f(a)|&lt;|f’(\xi)(b-a)+f(a)|\\<br>令｜f’(\xi)(b-a)+f(a)｜=M\\且f’(x)有界，则|f(x)|&lt;M,f(x)有界<br>$$</p>
+</li>
+<li><p>推论 2:<strong>极限存在</strong>只是函数局部有界的充分条件，而不是必要条件，如$\lim\limits_{x\to \infty}sinx$。</p>
+</li>
+</ul>
+</li>
+<li><p>函数及数列的<strong>保号性</strong>：保号换句话讲就是极限周围的函数值的$\pm$和极限的$\pm$是一样的。但是要注意数列和函数极限的区别：</p>
+<ul>
+<li>数列的保号性：数列极限存在则依据定义，当数列的极限存在时，<strong>数列的点密集的分布在极限的一侧或两边且无限接近于极限</strong>，因此此时${x_n}$的$\pm$与极限值A的$\pm$相同。</li>
+<li>函数的局部保号性：同理，在$x_0$点的极限周边$\mathring{U}(x,\delta)$的函数值一样密集分布在极限A周边，但是仅限于领域内，所以叫局部保号性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="保号性的应用"><a href="#保号性的应用" class="headerlink" title="保号性的应用"></a>保号性的应用</h2><p>保号性主要用于导数和几何结合的题型。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/27/pythonos/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/05/integral/" rel="next" title="integral">
+      integral <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cherium</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">81k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:14</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      const script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
